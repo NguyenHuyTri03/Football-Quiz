@@ -5,6 +5,8 @@
   - Nâng cao kỹ năng lập trình
   - Khả năng phân tích, thiết kế, xây dựng ứng dụng
   - Nghiên cứu về Kotlin
+
+  **Đặc tả: [GG Sheet](https://docs.google.com/spreadsheets/d/139B-whnt_3KI01oaU-XaHniBHLzSsA9tgCndOezUHXI/edit?gid=1519169062#gid=1519169062)**
  
 ## Chức năng
   - Login
