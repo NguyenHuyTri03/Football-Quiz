@@ -43,3 +43,9 @@
   + Thời gian tổng: 3,75 phút
   + 15 câu hỏi
   + 15s/câu hỏi
+
+## MISC
+
+**Phân công: [GG Sheet](https://docs.google.com/spreadsheets/d/1xZyTCU7tTKTpaZq4cN3dFJPgSbY7rBiC0JSmneoM5Ec/edit?gid=0#gid=0)**
+
+**Designs: [Figma](https://www.figma.com/design/48tWtdnXEUrCpnkCPOnIWP/%C4%90%E1%BB%93-%C3%A1n?node-id=0-1&node-type=canvas&t=BjWngMnSS6cuuTPW-0)**
