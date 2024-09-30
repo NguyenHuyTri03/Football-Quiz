@@ -9,14 +9,19 @@
   **Đặc tả: [GG Sheet](https://docs.google.com/spreadsheets/d/139B-whnt_3KI01oaU-XaHniBHLzSsA9tgCndOezUHXI/edit?gid=1519169062#gid=1519169062)**
  
 ## Chức năng
-  - Login
-  - Logout
-  - Register
-  - cài đặt
-  - chọn mode
-  - chơi game
-  - highscore
-  - tutorial
+  **- Actor: Player**
+  + Login
+  + Logout
+  + Register
+  + chơi game
+  + highscore
+  + tutorial
+
+  **- Actor: Admin**
+  + Login
+  + Logout
+  + Quản lý câu hỏi
+  + Quản lý người chơi
 
 ## Phi chức năng
   - response time
@@ -24,17 +29,23 @@
   - end game khi thoát app
 
 ## Game
-  2 chế độ:
-  
-  **- Level**
+  **- Level: Easy**
   + Thời gian tổng: 3,75 phút
-  + dễ, tr.bình, khó
-  + 15 câu hỏi mỗi mức
+  + 15 câu hỏi
   + 15s/câu hỏi
 
-  **- Endless (đổi tên sau)**
+  **- Level: Normal**
+  + Thời gian tổng: 3,75 phút
+  + 15 câu hỏi
+  + 15s/câu hỏi
 
-  + 30 câu hỏi
-  + tính điểm
-  + thời gian chơi: 10'
-  + điểm cộng thêm: thời gian còn lại + số câu hỏi trl liên tục
+  **- Level: Hard**
+  + Thời gian tổng: 3,75 phút
+  + 15 câu hỏi
+  + 15s/câu hỏi
+
+## MISC
+
+**Phân công: [GG Sheet](https://docs.google.com/spreadsheets/d/1xZyTCU7tTKTpaZq4cN3dFJPgSbY7rBiC0JSmneoM5Ec/edit?gid=0#gid=0)**
+
+**Designs: [Figma](https://www.figma.com/design/48tWtdnXEUrCpnkCPOnIWP/%C4%90%E1%BB%93-%C3%A1n?node-id=0-1&node-type=canvas&t=BjWngMnSS6cuuTPW-0)**
