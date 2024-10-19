@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Quizapp"
         tools:targetApi="31">
         <activity
-            android:name=".ModeSelect"
+            android:name=".PreGame"
             android:exported="false" />
         <activity
             android:name=".Home"
@@ -25,10 +25,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Difficulty"
+            android:exported="false" />
+        <activity
+            android:name=".Startup"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>
