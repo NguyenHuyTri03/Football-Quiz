@@ -7,6 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.app.quizapp.Facades.UserFacade
+
+import com.app.quizapp.Models.User as User
+
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,5 +28,12 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, Difficulty::class.java)
             startActivity(intent)
         }
+        var userF = UserFacade()
+
+        var user: User ?= null
+        user = userF.FindAccountById("ply_0001")
+
+        println("User: ${user?.name}")
+
     }
 }
