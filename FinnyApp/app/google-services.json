@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1847727462",
+    "project_id": "finnyapp-7d2da",
+    "storage_bucket": "finnyapp-7d2da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1847727462:android:e5188034fd3e322bd924a7",
+        "android_client_info": {
+          "package_name": "io.example.finnyapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJPOZXEovgTkzpW9JhcjMLrFmIP5JdwWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
