@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getDataFromFirebase(){
         binding.progressBar.visibility = View.VISIBLE
-        FirebaseDatabase.getInstance().reference
+        FirebaseDatabase.getInstance("https://finnyapp-7d2da-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
             .get()
             .addOnSuccessListener { dataSnapshot ->
                 if (dataSnapshot.exists()) {

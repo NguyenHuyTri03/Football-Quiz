@@ -18,7 +18,7 @@ import androidx.appcompat.app.AlertDialog
 class QuizActivity : AppCompatActivity() ,View.OnClickListener{
     companion object{
         var questionModelList : List<QuestionModel> = listOf()
-        var time: String = ""
+        var time: String = "10"
 
     }
 

@@ -18,10 +18,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:src="@drawable/main_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +31,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Finny App"
+            android:text="Finny"
             android:gravity="center"
             android:textSize="34sp"
             android:letterSpacing="0.1"
@@ -45,7 +41,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="If you lose, you're an idiot"
+            android:text="slogan"
             android:gravity="center"
             android:textSize="18sp"
             android:layout_margin="16dp"
