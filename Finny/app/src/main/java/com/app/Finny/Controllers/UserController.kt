@@ -1,55 +1,88 @@
 package com.app.Finny.Controllers
 
 
+import android.content.ContentValues.TAG
+import android.util.Log
+import com.app.Finny.Models.UserModel
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.tasks.await
 
 
 class UserController {
-
     // Create a firestore instance
-    val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     // Get a reference to the "account" collection
-    val accountCol = db.collection("account")
+    private val accountCol = db.collection("account")
 
-    fun GetAccounts()  {
+    fun getAll() {
 
-        accountCol.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val data = document.data
-
-//                users.add(data)
-//                println("\nID: ${document.id}")
-//                for (key in data.keys) {
-//                    println("$key: ${data[key]}")
-//                }
-            }
-        }
     }
 
-    fun FindAccountById(id: String) {
+    fun getOneById(id: String) {
 
-        try {
-            val docRef = accountCol.document(id)
-            val document = runBlocking {
-                docRef.get().await()
-            }
-        } catch(e: Exception) {
-            println(e)
-        }
     }
 
-//    private fun MapData(document: Any): User {
-//        var user = User()
+    fun getOneByEmail(email: String): UserModel {
+        val userQuery = accountCol.whereEqualTo("email", email)
+        var user = UserModel()
+
+        userQuery.get()
+            .addOnSuccessListener { snapshot ->
+                if(!snapshot.isEmpty) {
+                    val data = snapshot.documents[0].toObject(UserModel::class.java)!!
+
+                    user = data
+                } else {
+                    user = UserModel("blank", "", "", 0, 0, 0)
+                }
+            }
+
+        return user
+    }
+
+    // Add the current user to DB if they don't exist
+    fun createOne(uid: String, email: String, name: String) {
+        val accountRef = db.collection("account").document(uid)
+
+        accountRef.set(mapOf(
+            "uid" to uid,
+            "email" to email,
+            "name" to name,
+            "score_easy" to 0,
+            "score_medium" to 0,
+            "score_hard" to 0,
+        ))
+            .addOnSuccessListener {
+                Log.d(TAG,"Added user")
+            }
+            .addOnFailureListener {
+                Log.w(TAG, "User wasn't added")
+            }
+    }
+
+    fun update(user: UserModel) {
+//        // change user name
+//        val email = user.email
+//        val newName = "Cheo"
 //
-//        user.id = document.id
-//        user.name = document.getString("name")
-//        user.email = document.getString("email")
-//        user.password = document.getString("password")
-//        user.easy_score = document.getLong("easy_score")
-//        user.normal_score = document.getLong("easy_score")
-//        user.hard_score = document.getLong("easy_score")
-//    }
+//        val oldname = user.displayName
+//        println("new name: ${oldname}")
+//
+//        val profileUpdate = UserProfileChangeRequest.Builder()
+//            .setDisplayName(newName)
+//            .build()
+//
+//        user.updateProfile(profileUpdate)
+//            .addOnCompleteListener { task ->
+//                if(task.isSuccessful) {
+//                    print("name changed")
+//                } else {
+//                    print("Name doesn't change")
+//                }
+//            }
+    }
+
+    fun delete(id: String) {
+
+    }
 }

@@ -1,6 +1,6 @@
 package com.app.Finny.Models
 
-data class QuestinModel (
+data class QuestionModel (
     val id: String,
     val image_url: String,
     val question: String,

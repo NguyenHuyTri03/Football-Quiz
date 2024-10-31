@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        android:text="Finny"
+        android:text="Login"
         android:textColor="@color/text_main"
         android:fontFamily="@font/fredoka_medium"
         android:textStyle="bold"

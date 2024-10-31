@@ -1,7 +1,7 @@
 package com.app.Finny.Models
 
 data class UserModel (
-    val id: String,
+    val uid: String,
     val name: String,
     val email: String,
     val score_easy: Int,

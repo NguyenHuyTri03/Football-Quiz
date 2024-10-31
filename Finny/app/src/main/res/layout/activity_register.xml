@@ -5,6 +5,188 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register">
+    tools:context=".Register"
+    android:background="@color/bg_main">
+
+    <TextView
+        android:id="@+id/app_title0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="Register"
+        android:textColor="@color/text_main"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+        android:textSize="60dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeMaxTextSize="200dp"
+        android:textAlignment="center"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"
+        />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="emailAddress"
+        android:hint="Email"
+        android:fontFamily="@font/fredoka_medium"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/text_main"
+        android:textColorHint="@color/fade"
+        android:textSize="18dp"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        tools:ignore="TouchTargetSizeCheck"
+
+        app:layout_constraintDimensionRatio="5.6:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="emailAddress"
+        android:hint="User name"
+        android:fontFamily="@font/fredoka_medium"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/text_main"
+        android:textColorHint="@color/fade"
+        android:textSize="18dp"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        tools:ignore="TouchTargetSizeCheck"
+
+        app:layout_constraintDimensionRatio="5.6:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38"
+        />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="password"
+        android:hint="Password"
+        android:fontFamily="@font/fredoka_medium"
+        android:inputType="textPassword"
+        android:textColor="@color/text_main"
+        android:textColorHint="@color/fade"
+        android:textSize="18dp"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        tools:ignore="TouchTargetSizeCheck"
+
+        app:layout_constraintDimensionRatio="5.6:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.46"
+        />
+
+    <EditText
+        android:id="@+id/passwordConfirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="password"
+        android:hint="Confirm Password"
+        android:fontFamily="@font/fredoka_medium"
+        android:inputType="textPassword"
+        android:textColor="@color/text_main"
+        android:textColorHint="@color/fade"
+        android:textSize="18dp"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        tools:ignore="TouchTargetSizeCheck"
+
+        app:layout_constraintDimensionRatio="5.6:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.54"
+        />
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="3dp"
+        android:text="Register"
+        android:textSize="20dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeMaxTextSize="200dp"
+        android:background="@drawable/btn_rounded"
+        app:backgroundTint="@color/btn_main"
+        android:textColor="@color/text_main"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+
+        app:layout_constraintDimensionRatio="5:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        />
+
+    <TextView
+        android:id="@+id/yes_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Already have an accoount?"
+        android:textColor="@color/fade"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeMaxTextSize="200dp"
+        android:textAlignment="center"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        />
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Login now"
+        android:textColor="@color/text_main"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeMaxTextSize="200dp"
+        android:textAlignment="center"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.94"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
