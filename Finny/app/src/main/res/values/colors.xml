@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bg_main">#1A1428</color>
+    <color name="text_main">#F2F2F2</color>
+    <color name="btn_main">#7A5ECE</color>
+    <color name="btn_scnd">#B2AEBC</color>
+    <color name="btn_easy">#94E161</color>
+    <color name="btn_med">#F8BC5C</color>
+    <color name="btn_hard">#F34D37</color>
+    <color name="transparent">#00000000</color>
+    <color name="fade">#949494</color>
+</resources>
