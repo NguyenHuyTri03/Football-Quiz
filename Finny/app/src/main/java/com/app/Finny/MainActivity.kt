@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.app.Finny.Controllers.UserController
 import com.app.Finny.databinding.ActivityMainBinding
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.ktx.auth
 
 import com.google.firebase.auth.FirebaseAuth
 
@@ -15,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        auth = Firebase.auth
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -28,5 +33,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
         }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+
+        val intent = Intent(this, Home::class.java)
+        startActivity(intent)
     }
 }

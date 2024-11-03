@@ -78,6 +78,9 @@ class Login : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
 
+        val intent = Intent(this, Home::class.java)
+        startActivity(intent)
+
         val curr_user = auth.currentUser
         val user = UserController()
         if(curr_user != null) {
@@ -99,10 +102,7 @@ class Login : AppCompatActivity() {
                     println("Error: ${exception}")
                 }
 
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
+
         }
     }
-
-
 }

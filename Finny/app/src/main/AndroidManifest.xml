@@ -13,22 +13,20 @@
         android:theme="@style/Theme.Quizapp"
         tools:targetApi="31">
         <activity
+            android:name=".SplashScreen"
+            android:exported="false" />
+        <activity
             android:name=".Register"
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".PlayGame"
-            android:exported="false" />
-        <activity
-            android:name=".PreGame"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/SplashTheme"/>
         <activity
             android:name=".Home"
-            android:exported="false" />
-        <activity
-            android:name=".Difficulty"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -40,4 +38,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

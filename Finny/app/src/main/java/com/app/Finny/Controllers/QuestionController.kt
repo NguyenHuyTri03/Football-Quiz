@@ -2,17 +2,32 @@ package com.app.Finny.Controllers
 
 import com.app.Finny.Models.QuestionModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.local.QueryEngine
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 
 class QuestionController {
     // Create a firestore instance
     private val db = FirebaseFirestore.getInstance()
 
-    // Reference to the "account" collection
-    private val questionCol = db.collection("question")
+    fun getAllByDifficulty(difficulty: String, callback: (res: List<QuestionModel>) -> Unit) {
+        var questions = mutableListOf<QuestionModel>()
 
-    fun getAll() {
+        db.collection("${difficulty}_questions").get()
+            .addOnSuccessListener { documents ->
+                var i = 0
+                for(document in documents) {
+                    val data = document.data
+                    val option_list: List<String> = data.get("options") as List<String>
 
+                    val question = QuestionModel(document.id, data.get("image_url").toString(), data.get("question").toString(), option_list, data.get("correct").toString())
+                    questions.add(question)
+                }
+
+                callback.invoke(questions)
+            }
     }
 
     fun getOne(id: String) {

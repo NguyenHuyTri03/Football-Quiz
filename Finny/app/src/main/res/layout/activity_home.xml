@@ -8,36 +8,93 @@
     tools:context=".Home"
     android:background="@color/bg_main">
 
-<!--    <TextView-->
-<!--        android:id="@+id/app_title0"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="80dp"-->
-<!--        android:autoSizeTextType="uniform"-->
-<!--        android:autoSizeMinTextSize="65dp"-->
-<!--        android:autoSizeMaxTextSize="150dp"-->
+    <TextView
+        android:id="@+id/app_title0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="80dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="65dp"
+        android:autoSizeMaxTextSize="150dp"
 
-<!--        android:text=""-->
-<!--        android:textColor="@color/text_main"-->
-<!--        android:fontFamily="@font/fredoka_medium"-->
-<!--        android:textStyle="bold"-->
+        android:text="Finny"
+        android:textColor="@color/text_main"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
 
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.100"-->
-<!--        />-->
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"
+        />
 
-    <!-- Button: Start game -->
+
+
     <Button
-        android:id="@+id/startBtn"
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/transparent"
+        android:drawableLeft="@drawable/settings_icon"
+        android:text=""
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.03"
+        app:layout_constraintHorizontal_bias="1"
+        />
+
+    <Button
+        android:id="@+id/leaderboardBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/transparent"
+        android:drawableLeft="@drawable/trophy_solid"
+        android:text=""
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.03"
+        app:layout_constraintHorizontal_bias="0"
+        />
+
+    <Button
+        android:id="@+id/easyBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="3dp"
-        android:text="Start Game"
-        android:textSize="35dp"
+        android:text="EASY"
+        android:textSize="30dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeMaxTextSize="200dp"
+        android:background="@drawable/btn_rounded"
+        app:backgroundTint="@color/btn_easy"
+        android:textColor="@color/text_main"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+
+        app:layout_constraintDimensionRatio="6:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45"
+        />
+
+    <Button
+        android:id="@+id/mediumBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="3dp"
+        android:text="MEDIUM"
+        android:textSize="30dp"
         android:autoSizeTextType="uniform"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeMaxTextSize="200dp"
@@ -47,7 +104,7 @@
         android:fontFamily="@font/fredoka_medium"
         android:textStyle="bold"
 
-        app:layout_constraintDimensionRatio="5:1"
+        app:layout_constraintDimensionRatio="6:1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -55,54 +112,41 @@
         app:layout_constraintVertical_bias="0.55"
         />
 
-    <!-- Button: Leaderboard -->
     <Button
-        android:id="@+id/leaderboardBtn"
+        android:id="@+id/expertBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="3dp"
-        android:text="Leaderboard"
-        android:textSize="35dp"
+        android:text="EXPERT"
+        android:textSize="30dp"
         android:autoSizeTextType="uniform"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeMaxTextSize="200dp"
         android:background="@drawable/btn_rounded"
-        app:backgroundTint="@color/btn_scnd"
+        app:backgroundTint="@color/btn_hard"
         android:textColor="@color/text_main"
         android:fontFamily="@font/fredoka_medium"
         android:textStyle="bold"
 
-        app:layout_constraintDimensionRatio="5:1"
+        app:layout_constraintDimensionRatio="6:1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68"
+        app:layout_constraintVertical_bias="0.65"
         />
 
-    <!-- Button: Settings -->
-        <Button
-            android:id="@+id/logoutBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingVertical="3dp"
-            android:text="Logout"
-            android:textSize="35dp"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="1dp"
-            android:autoSizeMaxTextSize="200dp"
-            android:background="@drawable/btn_rounded"
-            app:backgroundTint="@color/btn_hard"
-            android:textColor="@color/text_main"
-            android:fontFamily="@font/fredoka_medium"
-            android:textStyle="bold"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="290dp"
+        android:layout_height="349dp"
+        app:layout_constraintBottom_toBottomOf="parent"
 
-            app:layout_constraintDimensionRatio="5:1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81"
-            />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.12"
+        app:srcCompat="@drawable/corgi_crawl" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

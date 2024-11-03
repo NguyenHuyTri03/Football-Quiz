@@ -21,13 +21,37 @@
         android:autoSizeTextType="uniform"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeMaxTextSize="200dp"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
+        android:paddingLeft="20dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.15"
+        />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="Create an account"
+        android:textColor="@color/fade"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeMaxTextSize="200dp"
+        android:textAlignment="textStart"
+        android:paddingLeft="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23"
         />
 
     <EditText
@@ -50,7 +74,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.4"
         />
 
     <EditText
@@ -73,7 +97,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38"
+        app:layout_constraintVertical_bias="0.48"
         />
 
     <EditText
@@ -96,7 +120,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.46"
+        app:layout_constraintVertical_bias="0.56"
         />
 
     <EditText
@@ -119,7 +143,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54"
+        app:layout_constraintVertical_bias="0.64"
         />
 
     <Button
@@ -143,7 +167,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintVertical_bias="0.76"
         />
 
     <TextView
