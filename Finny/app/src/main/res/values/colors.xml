@@ -11,4 +11,5 @@
     <color name="btn_hard">#F34D37</color>
     <color name="transparent">#00000000</color>
     <color name="fade">#949494</color>
+    <color name="bg_score">#30254A</color>
 </resources>

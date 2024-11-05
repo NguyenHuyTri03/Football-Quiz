@@ -12,9 +12,9 @@ import com.app.Finny.databinding.ActivityLoginBinding
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 
 
 class Login : AppCompatActivity() {
@@ -45,9 +45,29 @@ class Login : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if(task.isSuccessful) {
                             Log.d(TAG, "Account {${email}} logs in successful")
+                            val curr_user = auth.currentUser
+                            println("UID: ${curr_user?.uid}")
+                            val user = UserController()
+                            if(curr_user != null) {
+                                // Reference to account collection and to the document of the current user
+                                accountRef = db.collection("account").document(curr_user.uid)
 
-                            val intent = Intent(this, Home::class.java)
-                            startActivity(intent)
+                                // Find if the logged in user exists and add them to db if not found
+                                accountRef.get()
+                                    .addOnSuccessListener { document ->
+                                        val data = document.data
+
+                                        if(data == null) {
+                                            user.createOne(curr_user.uid, curr_user.email.toString(), curr_user.displayName.toString())
+                                        }
+                                    }
+                                    .addOnFailureListener { exception ->
+                                        println("Error: ${exception}")
+                                    }
+
+                                val intent = Intent(this, Home::class.java)
+                                startActivity(intent)
+                            }
                             finish()
                         } else {
                             Log.w(TAG, "Account {${email}} failed to login")
@@ -78,10 +98,8 @@ class Login : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
 
-        val intent = Intent(this, Home::class.java)
-        startActivity(intent)
-
         val curr_user = auth.currentUser
+        println("UID: ${curr_user?.uid}")
         val user = UserController()
         if(curr_user != null) {
             // Reference to account collection and to the document of the current user
@@ -92,9 +110,7 @@ class Login : AppCompatActivity() {
                 .addOnSuccessListener { document ->
                     val data = document.data
 
-                    if(data != null) {
-//                        println("user existed")
-                    } else {
+                    if(data == null) {
                         user.createOne(curr_user.uid, curr_user.email.toString(), curr_user.displayName.toString())
                     }
                 }
@@ -102,7 +118,8 @@ class Login : AppCompatActivity() {
                     println("Error: ${exception}")
                 }
 
-
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
         }
     }
 }

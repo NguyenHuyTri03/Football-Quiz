@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.app.Finny.Models.UserModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 
 class UserController {
@@ -50,13 +51,26 @@ class UserController {
             "name" to name,
             "score_easy" to 0,
             "score_medium" to 0,
-            "score_hard" to 0,
+            "score_expert" to 0,
         ))
             .addOnSuccessListener {
                 Log.d(TAG,"Added user")
             }
             .addOnFailureListener {
                 Log.w(TAG, "User wasn't added")
+            }
+    }
+
+    fun updateScore(uid: String, score:Int, difficulty: String) {
+        val updatedData = hashMapOf("score_${difficulty}" to score)
+
+        db.collection("account").document(uid)
+            .update("score_${difficulty}",updatedData, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.d(TAG, "User {${uid}} score uploaded successfully")
+            }
+            .addOnFailureListener { error ->
+                Log.w(TAG, "User {${uid}} score failed to upload with error: ", error)
             }
     }
 

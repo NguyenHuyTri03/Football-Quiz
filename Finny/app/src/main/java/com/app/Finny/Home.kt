@@ -41,5 +41,13 @@ class Home : AppCompatActivity() {
             intent.putExtra("difficulty", "expert")
             startActivity(intent)
         }
+
+        binding.logoutBtn.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(this, Login::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
     }
 }

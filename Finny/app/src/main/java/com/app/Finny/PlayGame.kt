@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Models.QuestionModel
 import com.app.Finny.databinding.ActivityPlayGameBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Timer
 import kotlin.random.Random
 
 
@@ -20,11 +21,12 @@ class PlayGame : AppCompatActivity() {
     private lateinit var binding: ActivityPlayGameBinding
     private val db = FirebaseFirestore.getInstance()
     private var questionList = mutableListOf<QuestionModel>()
-//    private var Drawable drawable =
+    private lateinit var gameDifficulty: String
 
+    private val questionTime = 60
+    private val scorePerQuestion = 10
     private var questionIndex = 0
-    private var questionTime = 0
-    private var scorePerQuestion = 0
+    private var timeTaken = 0
     private var totalScore = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,18 +37,7 @@ class PlayGame : AppCompatActivity() {
         setContentView(binding.root)
 
         // get difficulty from Home Activity
-        var gameDifficulty: String = intent.getStringExtra("difficulty").toString()
-        // set the score and time according to the difficulty
-        if(gameDifficulty == "easy") {
-            questionTime = 50
-            scorePerQuestion = 10
-        } else if(gameDifficulty == "medium") {
-            questionTime = 40
-            scorePerQuestion = 20
-        } else {
-            questionTime = 30
-            scorePerQuestion = 30
-        }
+        gameDifficulty = intent.getStringExtra("difficulty").toString()
 
         // start a thread to put on a loading screen while fetching data
         Thread {
@@ -98,6 +89,7 @@ class PlayGame : AppCompatActivity() {
     }
 
     private fun checkAnswer(answer: String, op: Int) {
+        println("Answer: ${answer}")
         if(answer == questionList[questionIndex].correct) {
             changeButtonColor(true, op)
             totalScore += scorePerQuestion
@@ -105,13 +97,17 @@ class PlayGame : AppCompatActivity() {
             changeButtonColor(false, op)
         }
 
+        // Delay 1s for the player to see if they got the question right
+        // then proceed to put another question or end the quiz
         Handler(Looper.getMainLooper()).postDelayed({
             questionIndex++
 
             if(questionIndex < 5) {
+                // put another question in
                 putQuestion()
             } else {
-                //
+                // end the quiz
+                endQuiz()
             }
         }, 1000)
     }
@@ -124,7 +120,7 @@ class PlayGame : AppCompatActivity() {
             } else if(op == 2) {
                 binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
             } else if(op == 3) {
-                binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+                binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
             } else if(op == 4) {
                 binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
             }
@@ -134,7 +130,7 @@ class PlayGame : AppCompatActivity() {
             } else if(op == 2) {
                 binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
             } else if(op == 3) {
-                binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
+                binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
             } else if(op == 4) {
                 binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
             }
@@ -146,13 +142,38 @@ class PlayGame : AppCompatActivity() {
         object : CountDownTimer(totalTime,1000L){
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = (millisUntilFinished / 1000).toDouble()
+                timeTaken++
                 binding.progressBar.progress = (100 - ((seconds/totalTime) * 100000)).toInt()
             }
 
             override fun onFinish() {
                 //Finish the quiz
+                endQuiz()
             }
         }.start()
+    }
+
+    private fun endQuiz() {
+        Timer().cancel()
+
+        // number of correct answers
+        val correctAnswers: Int = totalScore / scorePerQuestion
+        // time bonus: for each second remaining, adds 1 point to the bonus
+        var timeBonus = 0
+        var finalScore = 0
+
+        if(correctAnswers != 0) {
+            timeBonus = questionTime - timeTaken
+            finalScore = totalScore + timeBonus
+        }
+
+        val endGameVals = intArrayOf(correctAnswers, timeTaken, timeBonus, finalScore)
+
+        val intent = Intent(this, EndGame::class.java)
+        intent.putExtra("scores", endGameVals)
+        intent.putExtra("difficulty", gameDifficulty)
+        startActivity(intent)
+        finish()
     }
 
     fun getAllByDifficulty(difficulty: String, callback: (res: List<QuestionModel>) -> Unit) {

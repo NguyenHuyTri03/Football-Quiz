@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EndGame"
+    android:background="@color/bg_main">
+
+  <TextView
+      android:id="@+id/score"
+      android:layout_width="150dp"
+      android:layout_height="150dp"
+      android:textAlignment="center"
+      android:padding="25dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="20dp"
+      android:autoSizeMaxTextSize="150dp"
+
+      android:text="100"
+      android:textColor="@color/btn_main"
+      android:gravity="center"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+      android:background="@drawable/circle"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.08"
+      />
+
+  <TextView
+      android:id="@+id/congrats"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:textAlignment="center"
+      android:textSize="50dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="30dp"
+      android:autoSizeMaxTextSize="150dp"
+
+      android:text="Congrats!"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.28"
+      />
+
+  <TextView
+      android:id="@+id/textTime"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:textAlignment="center"
+      android:textSize="35dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="20dp"
+      android:autoSizeMaxTextSize="150dp"
+      android:layout_marginLeft="70dp"
+      android:padding="12dp"
+      android:background="@drawable/score_rectangle"
+
+      android:text="Time"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.4"
+      app:layout_constraintHorizontal_bias="0"
+      />
+
+  <TextView
+      android:id="@+id/textCorrect"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:textAlignment="center"
+      android:textSize="35dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="20dp"
+      android:autoSizeMaxTextSize="150dp"
+      android:layout_marginLeft="70dp"
+      android:padding="12dp"
+      android:background="@drawable/score_rectangle"
+
+      android:text="Right"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.5"
+      app:layout_constraintHorizontal_bias="0"
+      />
+
+  <TextView
+      android:id="@+id/textBonus"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:textAlignment="center"
+      android:textSize="35dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="20dp"
+      android:autoSizeMaxTextSize="150dp"
+      android:layout_marginLeft="70dp"
+      android:padding="12dp"
+      android:background="@drawable/score_rectangle"
+
+      android:text="Bonus"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.6"
+      app:layout_constraintHorizontal_bias="0"
+      />
+
+  <TextView
+      android:id="@+id/valueTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAlignment="textStart"
+      android:textSize="35dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="20dp"
+      android:autoSizeMaxTextSize="150dp"
+      android:layout_marginLeft="80dp"
+
+      android:text="15s"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.4"
+      app:layout_constraintHorizontal_bias="0.6"
+      />
+
+  <TextView
+      android:id="@+id/valueCorrect"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAlignment="textStart"
+      android:textSize="35dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="20dp"
+      android:autoSizeMaxTextSize="150dp"
+      android:layout_marginLeft="80dp"
+
+      android:text="1/5"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.5"
+      app:layout_constraintHorizontal_bias="0.6"
+      />
+
+  <TextView
+      android:id="@+id/valueBonus"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAlignment="textStart"
+      android:textSize="35dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="20dp"
+      android:autoSizeMaxTextSize="150dp"
+      android:layout_marginLeft="80dp"
+
+      android:text="20"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.6"
+      app:layout_constraintHorizontal_bias="0.6"
+      />
+
+  <Button
+      android:id="@+id/retryBtn"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:paddingVertical="3dp"
+      android:text="Try Again"
+      android:textSize="30dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="1dp"
+      android:autoSizeMaxTextSize="200dp"
+      android:background="@drawable/btn_rounded"
+      app:backgroundTint="@color/btn_easy"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintDimensionRatio="6:1"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.75"
+      />
+
+  <Button
+      android:id="@+id/homeBtn"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:paddingVertical="3dp"
+      android:text="Finish"
+      android:textSize="30dp"
+      android:autoSizeTextType="uniform"
+      android:autoSizeMinTextSize="1dp"
+      android:autoSizeMaxTextSize="200dp"
+      android:background="@drawable/btn_rounded"
+      app:backgroundTint="@color/btn_main"
+      android:textColor="@color/text_main"
+      android:fontFamily="@font/fredoka_medium"
+      android:textStyle="bold"
+
+      app:layout_constraintDimensionRatio="6:1"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.85"
+      />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
