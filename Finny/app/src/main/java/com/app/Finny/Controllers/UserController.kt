@@ -6,6 +6,7 @@ import android.util.Log
 import com.app.Finny.Models.UserModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.auth.User
 
 
 class UserController {
@@ -19,11 +20,27 @@ class UserController {
 
     }
 
-    fun getOneById(id: String) {
+    fun getOneById(uid: String, callback: (res: UserModel) -> Unit) {
+        var user = UserModel()
 
+        db.collection("account").document(uid).get()
+            .addOnSuccessListener { document ->
+                val data = document.data!!
+
+                user = UserModel(
+                    uid,
+                    data.get("name").toString(),
+                    data.get("email").toString(),
+                    data.get("score_easy").toString().toInt(),
+                    data.get("score_medium").toString().toInt(),
+                    data.get("score_expert").toString().toInt()
+                )
+            }
+
+        callback.invoke(user)
     }
 
-    fun getOneByEmail(email: String): UserModel {
+    fun getOneByEmail(email: String, callback: (res: UserModel) -> Unit){
         val userQuery = accountCol.whereEqualTo("email", email)
         var user = UserModel()
 
@@ -38,7 +55,7 @@ class UserController {
                 }
             }
 
-        return user
+        callback.invoke(user)
     }
 
     // Add the current user to DB if they don't exist
@@ -62,16 +79,34 @@ class UserController {
     }
 
     fun updateScore(uid: String, score:Int, difficulty: String) {
-        val updatedData = hashMapOf("score_${difficulty}" to score)
+        var db_score = 0
+        val user = UserModel()
 
-        db.collection("account").document(uid)
-            .update("score_${difficulty}",updatedData, SetOptions.merge())
-            .addOnSuccessListener {
-                Log.d(TAG, "User {${uid}} score uploaded successfully")
+        // get score from db
+        getOneById(uid) { user ->
+            if(difficulty == "easy") {
+                db_score = user.score_easy
+            } else if(difficulty == "medium") {
+                db_score = user.score_medium
+            } else {
+                db_score = user.score_expert
             }
-            .addOnFailureListener { error ->
-                Log.w(TAG, "User {${uid}} score failed to upload with error: ", error)
-            }
+        }
+
+        // if score from db < current score, update current score, else, do nothing
+        if(db_score < score) {
+            db.collection("account").document(uid)
+                .update("score_${difficulty}",score)
+                .addOnSuccessListener {
+                    Log.d(TAG, "User {${uid}} score uploaded successfully")
+                }
+                .addOnFailureListener { error ->
+                    Log.w(TAG, "User {${uid}} score failed to upload with error: ", error)
+                }
+
+            // check and upload score to leaderboard
+
+        }
     }
 
     fun update(user: UserModel) {

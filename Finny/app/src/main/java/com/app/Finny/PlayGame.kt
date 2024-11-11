@@ -1,15 +1,16 @@
 package com.app.Finny
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.Models.QuestionModel
 import com.app.Finny.databinding.ActivityPlayGameBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,6 +23,8 @@ class PlayGame : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private var questionList = mutableListOf<QuestionModel>()
     private lateinit var gameDifficulty: String
+    private lateinit var questController: QuestionController
+    private lateinit var exit_dialog: AlertDialog
 
     private val questionTime = 60
     private val scorePerQuestion = 10
@@ -39,11 +42,13 @@ class PlayGame : AppCompatActivity() {
         // get difficulty from Home Activity
         gameDifficulty = intent.getStringExtra("difficulty").toString()
 
+        questController = QuestionController()
+
         // start a thread to put on a loading screen while fetching data
         Thread {
             startActivity(Intent(this, SplashScreen::class.java))
 
-            getAllByDifficulty(gameDifficulty) { qList ->
+            questController.getAllByDifficulty(gameDifficulty) { qList ->
                 val randomNumbers = List(5) { Random.nextInt(0, 20) }
 
                 for(num in randomNumbers) {
@@ -70,8 +75,26 @@ class PlayGame : AppCompatActivity() {
                 checkAnswer(option4.text.toString(), 4)
             }
         }
-    }
 
+        // Create a an exit confirmation popup
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder
+            .setTitle("Exit game?")
+            // Return the user to the home screen
+            .setPositiveButton("Yes") { dialog, which ->
+                val intent = Intent(this, Home::class.java)
+                startActivity(intent)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                exit_dialog.cancel()
+            }
+        exit_dialog = builder.create()
+
+        binding.exitBtn.setOnClickListener {
+            exit_dialog.show()
+        }
+    }
+    
     private fun putQuestion() {
         binding.apply {
             option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#949494")))
@@ -176,21 +199,21 @@ class PlayGame : AppCompatActivity() {
         finish()
     }
 
-    fun getAllByDifficulty(difficulty: String, callback: (res: List<QuestionModel>) -> Unit) {
-        var questions = mutableListOf<QuestionModel>()
-
-        db.collection("${difficulty}_questions").get()
-            .addOnSuccessListener { documents ->
-                var i = 0
-                for(document in documents) {
-                    val data = document.data
-                    val option_list: List<String> = data.get("options") as List<String>
-
-                    val question = QuestionModel(document.id, data.get("image_url").toString(), data.get("question").toString(), option_list, data.get("correct").toString())
-                    questions.add(question)
-                }
-
-                callback.invoke(questions)
-            }
-    }
+//    fun getAllByDifficulty(difficulty: String, callback: (res: List<QuestionModel>) -> Unit) {
+//        var questions = mutableListOf<QuestionModel>()
+//
+//        db.collection("${difficulty}_questions").get()
+//            .addOnSuccessListener { documents ->
+//                var i = 0
+//                for(document in documents) {
+//                    val data = document.data
+//                    val option_list: List<String> = data.get("options") as List<String>
+//
+//                    val question = QuestionModel(document.id, data.get("image_url").toString(), data.get("question").toString(), option_list, data.get("correct").toString())
+//                    questions.add(question)
+//                }
+//
+//                callback.invoke(questions)
+//            }
+//    }
 }

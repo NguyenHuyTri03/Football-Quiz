@@ -64,22 +64,6 @@ class EndGame : AppCompatActivity() {
     private fun updateUserScore(score: Int, difficulty: String) {
         val userC = UserController()
         val uid = auth.currentUser?.uid!!
-        val db = FirebaseFirestore.getInstance()
-
-        db.collection("account").document(uid).get()
-            .addOnSuccessListener { docSnapshot: DocumentSnapshot ->
-                if (!docSnapshot.exists()) {
-                    val old_score = docSnapshot.get("score_${difficulty}")
-//                    if(old_score < score) {
-//
-//                    }
-                } else {
-                    // User not found
-                }
-            }
-            .addOnFailureListener { exception ->
-                // Handle errors
-            }
 
         userC.updateScore(uid, score, difficulty)
     }
