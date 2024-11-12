@@ -14,13 +14,11 @@ import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.Models.QuestionModel
 import com.app.Finny.databinding.ActivityPlayGameBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.Timer
 import kotlin.random.Random
 
 
 class PlayGame : AppCompatActivity() {
     private lateinit var binding: ActivityPlayGameBinding
-    private val db = FirebaseFirestore.getInstance()
     private var questionList = mutableListOf<QuestionModel>()
     private lateinit var gameDifficulty: String
     private lateinit var questController: QuestionController
@@ -31,6 +29,21 @@ class PlayGame : AppCompatActivity() {
     private var questionIndex = 0
     private var timeTaken = 0
     private var totalScore = 0
+
+    // timer
+    private val totalTime = questionTime * 1000L
+    private var timer = object : CountDownTimer(totalTime,1000L){
+        override fun onTick(millisUntilFinished: Long) {
+            val seconds = (millisUntilFinished / 1000).toDouble()
+            timeTaken++
+            binding.progressBar.progress = (100 - ((seconds/totalTime) * 100000)).toInt()
+        }
+
+        override fun onFinish() {
+            //Finish the quiz
+            endQuiz()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +64,7 @@ class PlayGame : AppCompatActivity() {
             questController.getAllByDifficulty(gameDifficulty) { qList ->
                 val randomNumbers = List(5) { Random.nextInt(0, 20) }
 
-                for(num in randomNumbers) {
+                for (num in randomNumbers) {
                     questionList.add(qList[num])
                 }
 
@@ -59,7 +72,7 @@ class PlayGame : AppCompatActivity() {
             }
         }.start()
 
-        startTimer()
+        timer.start()
 
         binding.apply {
             option1.setOnClickListener {
@@ -94,7 +107,7 @@ class PlayGame : AppCompatActivity() {
             exit_dialog.show()
         }
     }
-    
+
     private fun putQuestion() {
         binding.apply {
             option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#949494")))
@@ -112,7 +125,6 @@ class PlayGame : AppCompatActivity() {
     }
 
     private fun checkAnswer(answer: String, op: Int) {
-        println("Answer: ${answer}")
         if(answer == questionList[questionIndex].correct) {
             changeButtonColor(true, op)
             totalScore += scorePerQuestion
@@ -160,24 +172,8 @@ class PlayGame : AppCompatActivity() {
         }
     }
 
-    private fun startTimer() {
-        val totalTime = questionTime * 1000L
-        object : CountDownTimer(totalTime,1000L){
-            override fun onTick(millisUntilFinished: Long) {
-                val seconds = (millisUntilFinished / 1000).toDouble()
-                timeTaken++
-                binding.progressBar.progress = (100 - ((seconds/totalTime) * 100000)).toInt()
-            }
-
-            override fun onFinish() {
-                //Finish the quiz
-                endQuiz()
-            }
-        }.start()
-    }
-
     private fun endQuiz() {
-        Timer().cancel()
+        timer.cancel()
 
         // number of correct answers
         val correctAnswers: Int = totalScore / scorePerQuestion

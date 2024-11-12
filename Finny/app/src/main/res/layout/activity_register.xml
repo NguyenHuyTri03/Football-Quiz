@@ -189,28 +189,29 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_bias="0.86"
         />
+
     <TextView
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Login now"
-        android:textColor="@color/text_main"
-        android:fontFamily="@font/fredoka_medium"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="1dp"
         android:autoSizeMaxTextSize="200dp"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/fredoka_medium"
+        android:text="Login now"
         android:textAlignment="center"
+        android:textColor="@color/text_main"
+        android:textSize="18dp"
+        android:textStyle="bold"
 
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94"
-        />
+        app:layout_constraintVertical_bias="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

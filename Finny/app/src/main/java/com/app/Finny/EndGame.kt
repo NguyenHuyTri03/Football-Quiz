@@ -7,17 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.UserController
 import com.app.Finny.databinding.ActivityEndGameBinding
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.app.Finny.Models.UserModel
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
-
 class EndGame : AppCompatActivity() {
     private lateinit var binding: ActivityEndGameBinding
-    private lateinit var auth: FirebaseAuth
     private lateinit var scores: IntArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,20 +18,18 @@ class EndGame : AppCompatActivity() {
         binding = ActivityEndGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = Firebase.auth
-
         scores = intent.getIntArrayExtra("scores")!!
         var difficulty = intent.getStringExtra("difficulty")!!
 
 //      endGameVals = intArrayOf(correctAnswers, timeTaken, timeBonus, finalScore)
         var correct = "${scores[0]}/5"
-        var time: Int = scores[1]
+        var timeTaken: Int = scores[1]
         var bonus: Int = scores[2]
         var finalScore: Int = scores[3]
 
         binding.apply {
             score.text = finalScore.toString()
-            valueTime.text = time.toString()
+            valueTime.text = timeTaken.toString()
             valueCorrect.text = correct
             valueBonus.text = bonus.toString()
         }
@@ -53,7 +42,7 @@ class EndGame : AppCompatActivity() {
         }
 
         binding.homeBtn.setOnClickListener {
-            updateUserScore(finalScore, difficulty)
+            updateUserScore(finalScore, difficulty, timeTaken)
 
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
@@ -61,10 +50,22 @@ class EndGame : AppCompatActivity() {
         }
     }
 
-    private fun updateUserScore(score: Int, difficulty: String) {
+    private fun updateUserScore(score: Int, difficulty: String, timeTaken: Int) {
         val userC = UserController()
-        val uid = auth.currentUser?.uid!!
+        var db_score = 0
 
-        userC.updateScore(uid, score, difficulty)
+        userC.getOneById() { user ->
+            if(difficulty == "easy") {
+                db_score = user.score_easy
+            } else if(difficulty == "medium") {
+                db_score = user.score_medium
+            } else {
+                db_score = user.score_expert
+            }
+
+            if(db_score < score) {
+                userC.updateScore(score, difficulty, timeTaken)
+            }
+        }
     }
 }

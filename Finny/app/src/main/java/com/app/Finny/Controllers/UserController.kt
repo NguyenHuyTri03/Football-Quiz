@@ -3,27 +3,38 @@ package com.app.Finny.Controllers
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.app.Finny.Models.History
 import com.app.Finny.Models.UserModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.auth.User
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.ktx.Firebase
 
 
 class UserController {
     // Create a firestore instance
     private val db = FirebaseFirestore.getInstance()
 
+    private var auth: FirebaseAuth = Firebase.auth
+
     // Get a reference to the "account" collection
     private val accountCol = db.collection("account")
+
+    private val uid = auth.currentUser?.uid.toString()
 
     fun getAll() {
 
     }
 
-    fun getOneById(uid: String, callback: (res: UserModel) -> Unit) {
+    fun getOneById(callback: (res: UserModel) -> Unit) {
         var user = UserModel()
 
-        db.collection("account").document(uid).get()
+        accountCol.document(uid).get()
             .addOnSuccessListener { document ->
                 val data = document.data!!
 
@@ -33,7 +44,8 @@ class UserController {
                     data.get("email").toString(),
                     data.get("score_easy").toString().toInt(),
                     data.get("score_medium").toString().toInt(),
-                    data.get("score_expert").toString().toInt()
+                    data.get("score_expert").toString().toInt(),
+                    data.get("history") as List<History>
                 )
             }
 
@@ -51,7 +63,7 @@ class UserController {
 
                     user = data
                 } else {
-                    user = UserModel("blank", "", "", 0, 0, 0)
+                    user = UserModel("blank", "", "", 0, 0, 0, emptyList())
                 }
             }
 
@@ -59,11 +71,11 @@ class UserController {
     }
 
     // Add the current user to DB if they don't exist
-    fun createOne(uid: String, email: String, name: String) {
-        val accountRef = db.collection("account").document(uid)
+    fun createOne(id: String, email: String, name: String) {
+        val accountRef = accountCol.document(id)
 
         accountRef.set(mapOf(
-            "uid" to uid,
+            "uid" to id,
             "email" to email,
             "name" to name,
             "score_easy" to 0,
@@ -78,57 +90,52 @@ class UserController {
             }
     }
 
-    fun updateScore(uid: String, score:Int, difficulty: String) {
-        var db_score = 0
-        val user = UserModel()
-
-        // get score from db
-        getOneById(uid) { user ->
-            if(difficulty == "easy") {
-                db_score = user.score_easy
-            } else if(difficulty == "medium") {
-                db_score = user.score_medium
-            } else {
-                db_score = user.score_expert
+    fun updateScore(score:Int, difficulty: String, timeTaken: Int) {
+        accountCol.document(uid)
+            .update("score_${difficulty}",score)
+            .addOnSuccessListener {
+                Log.d(TAG, "User {${uid}} score uploaded successfully")
             }
+            .addOnFailureListener { error ->
+                Log.w(TAG, "User {${uid}} score failed to upload with error: ", error)
+            }
+
+        // add score to user history
+        addGameToHistory(score, timeTaken, difficulty)
+
+        // check and upload score to leaderboard
+
+    }
+
+    private fun addGameToHistory(score: Int, timeTaken: Int, difficulty: String) {
+        val dateFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+        val datetime = LocalDateTime.now().format(dateFormater)
+        val idDate = datetime   // format the date as ddmmyyHHmm to go with uid
+            .replace(" ", "").replace("/", "").replace(":", "")
+        val id = difficulty + idDate
+
+        val history = History(id, datetime, difficulty, score, timeTaken)
+        accountCol.document(uid)
+            .update("history", FieldValue.arrayUnion(history))
+            .addOnSuccessListener {
+                Log.d(TAG, "Updated game history successfully")
+            }
+            .addOnFailureListener {
+                Log.w(TAG, "Error updating game history")
+            }
+    }
+
+    fun getGameHistory(callback: (res: History) -> Unit) {
+        var history: List<History> = emptyList()
+
+        getOneById() { user ->
+            history = user.history
         }
 
-        // if score from db < current score, update current score, else, do nothing
-        if(db_score < score) {
-            db.collection("account").document(uid)
-                .update("score_${difficulty}",score)
-                .addOnSuccessListener {
-                    Log.d(TAG, "User {${uid}} score uploaded successfully")
-                }
-                .addOnFailureListener { error ->
-                    Log.w(TAG, "User {${uid}} score failed to upload with error: ", error)
-                }
-
-            // check and upload score to leaderboard
-
-        }
+        println(history)
     }
 
     fun update(user: UserModel) {
-//        // change user name
-//        val email = user.email
-//        val newName = "Cheo"
-//
-//        val oldname = user.displayName
-//        println("new name: ${oldname}")
-//
-//        val profileUpdate = UserProfileChangeRequest.Builder()
-//            .setDisplayName(newName)
-//            .build()
-//
-//        user.updateProfile(profileUpdate)
-//            .addOnCompleteListener { task ->
-//                if(task.isSuccessful) {
-//                    print("name changed")
-//                } else {
-//                    print("Name doesn't change")
-//                }
-//            }
     }
 
     fun delete(id: String) {

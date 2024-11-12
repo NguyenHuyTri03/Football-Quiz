@@ -7,6 +7,7 @@ data class UserModel (
     val score_easy: Int,
     val score_medium: Int,
     val score_expert: Int,
+    val history: List<History>
 ) {
-    constructor(): this("", "", "", 0, 0, 0)
+    constructor(): this("", "", "", 0, 0, 0, emptyList())
 }

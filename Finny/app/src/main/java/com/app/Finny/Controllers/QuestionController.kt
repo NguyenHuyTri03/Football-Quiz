@@ -46,9 +46,9 @@ class QuestionController {
 
 
 
-    /***
-    // DEPRECATED , DO NOT RUN
-    // Find all questions at each difficulty and put them in their respective difficulty collective
+    /*** DEPRECATED , DO NOT RUN
+
+    // Find all questions of each difficulty and put them in their respective difficulty collection
     fun filterQuestions() {
         questionCol.get().addOnSuccessListener { documents ->
             for (document in documents) {

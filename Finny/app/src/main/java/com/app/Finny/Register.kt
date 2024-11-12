@@ -11,6 +11,7 @@ import com.app.Finny.Controllers.UserController
 import com.app.Finny.databinding.ActivityRegisterBinding
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -44,18 +45,51 @@ class Register : AppCompatActivity() {
             val base_pass = binding.password.text.toString().trim()
             val check_pass = binding.passwordConfirm.text.toString().trim()
 
-            val userC = UserController()
+            val usrController = UserController()
             auth.createUserWithEmailAndPassword(email, base_pass)
                 .addOnCompleteListener(this) { task ->
                     if(task.isSuccessful) {
                         println("User with email ${email} created successfully")
                         val user = auth.currentUser!!
-                        userC.createOne(user.uid, user.email.toString(), name)
+
+                        val profileUpdate = UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build()
+
+                        user.updateProfile(profileUpdate)
+                            .addOnSuccessListener {
+                                Log.d(TAG, "Username added")
+                            }
+                            .addOnFailureListener {
+                                Log.w(TAG, "Username wasn't changed")
+                            }
+
+                        // Reference to account collection and to the document of the current user
+                        accountRef = db.collection("account").document(user.uid)
+
+                        // Find if the logged in user exists and add them to db if not found
+                        accountRef.get()
+                            .addOnSuccessListener { document ->
+                                val data = document.data
+
+                                if(data == null) {
+                                    usrController.createOne(user.uid, user.email.toString(), name)
+                                }
+                            }
+                            .addOnFailureListener { exception ->
+                                println("Error: ${exception}")
+                            }
+
                         val intent = Intent(this, Home::class.java)
                         startActivity(intent)
+                        finish()
                     } else {
-                        println(task.exception)
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            this,
+                            "User with the email is already exist",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 

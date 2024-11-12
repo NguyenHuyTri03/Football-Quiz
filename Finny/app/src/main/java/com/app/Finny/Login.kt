@@ -47,7 +47,7 @@ class Login : AppCompatActivity() {
                             Log.d(TAG, "Account {${email}} logs in successful")
                             val curr_user = auth.currentUser
                             println("UID: ${curr_user?.uid}")
-                            val user = UserController()
+                            val usrController = UserController()
                             if(curr_user != null) {
                                 // Reference to account collection and to the document of the current user
                                 accountRef = db.collection("account").document(curr_user.uid)
@@ -58,7 +58,7 @@ class Login : AppCompatActivity() {
                                         val data = document.data
 
                                         if(data == null) {
-                                            user.createOne(curr_user.uid, curr_user.email.toString(), curr_user.displayName.toString())
+                                            usrController.createOne(curr_user.uid, curr_user.email.toString(), curr_user.displayName.toString())
                                         }
                                     }
                                     .addOnFailureListener { exception ->

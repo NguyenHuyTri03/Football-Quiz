@@ -37,8 +37,10 @@ class MainActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-
         val intent = Intent(this, Home::class.java)
-        startActivity(intent)
+
+        if(auth.currentUser?.uid != null) {
+            startActivity(intent)
+        }
     }
 }
