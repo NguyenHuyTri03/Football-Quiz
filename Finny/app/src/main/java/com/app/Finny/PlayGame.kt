@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.Models.QuestionModel
 import com.app.Finny.databinding.ActivityPlayGameBinding
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
 
@@ -97,6 +96,7 @@ class PlayGame : AppCompatActivity() {
             .setPositiveButton("Yes") { dialog, which ->
                 val intent = Intent(this, Home::class.java)
                 startActivity(intent)
+                timer.cancel()
             }
             .setNegativeButton("No") { dialog, which ->
                 exit_dialog.cancel()

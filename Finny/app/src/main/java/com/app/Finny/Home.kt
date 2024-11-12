@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.app.Finny.Controllers.UserController
 import com.app.Finny.databinding.ActivityHomeBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -38,11 +37,6 @@ class Home : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
-        }
-
-        val usrController = UserController()
-        usrController.getGameHistory { history ->
-            println(history)
         }
     }
 }

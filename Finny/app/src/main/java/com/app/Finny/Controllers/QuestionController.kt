@@ -2,10 +2,6 @@ package com.app.Finny.Controllers
 
 import com.app.Finny.Models.QuestionModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.local.QueryEngine
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.tasks.await
 
 
 class QuestionController {

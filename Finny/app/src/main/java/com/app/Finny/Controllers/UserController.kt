@@ -9,11 +9,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
 
 class UserController {
@@ -31,25 +31,21 @@ class UserController {
 
     }
 
-    fun getOneById(callback: (res: UserModel) -> Unit) {
-        var user = UserModel()
+    suspend fun getOneById(uid: String): UserModel {
+        var user: UserModel
 
-        accountCol.document(uid).get()
-            .addOnSuccessListener { document ->
-                val data = document.data!!
+        val data = accountCol.document(uid).get().await()
+        user = UserModel(
+            uid,
+            data.get("name").toString(),
+            data.get("email").toString(),
+            data.get("score_easy").toString().toInt(),
+            data.get("score_medium").toString().toInt(),
+            data.get("score_expert").toString().toInt(),
+            data.get("history") as List<History>
+        )
 
-                user = UserModel(
-                    uid,
-                    data.get("name").toString(),
-                    data.get("email").toString(),
-                    data.get("score_easy").toString().toInt(),
-                    data.get("score_medium").toString().toInt(),
-                    data.get("score_expert").toString().toInt(),
-                    data.get("history") as List<History>
-                )
-            }
-
-        callback.invoke(user)
+        return user
     }
 
     fun getOneByEmail(email: String, callback: (res: UserModel) -> Unit){
@@ -125,15 +121,14 @@ class UserController {
             }
     }
 
-    fun getGameHistory(callback: (res: History) -> Unit) {
-        var history: List<History> = emptyList()
-
-        getOneById() { user ->
-            history = user.history
-        }
-
-        println(history)
-    }
+//    fun getGameHistory(uid: String, callback: (res: List<History>) -> Unit) {
+//        var history: List<History>
+//
+//        val user =
+//        history = user.history
+//
+//        callback.invoke(history)
+//    }
 
     fun update(user: UserModel) {
     }
