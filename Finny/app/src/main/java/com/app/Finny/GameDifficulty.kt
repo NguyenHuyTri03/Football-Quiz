@@ -41,5 +41,10 @@ class GameDifficulty : AppCompatActivity() {
             intent.putExtra("difficulty", "expert")
             startActivity(intent)
         }
+
+        binding.backBtn.setOnClickListener{
+            val intel = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
     }
 }
