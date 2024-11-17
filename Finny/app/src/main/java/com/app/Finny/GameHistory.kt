@@ -34,21 +34,24 @@ class GameHistory : AppCompatActivity() {
 
         val currentUser = auth.currentUser!!
         val uid = currentUser.uid
-        val usrController = UserController()
+        val userController = UserController()
         val channel = Channel<UserModel>()
+        val user: UserModel
 
         GlobalScope.launch {
-
+            val user = userController.getOneById(uid)
+            channel.send(user)
         }
 
-        runBlocking {
+        runBlocking { user = channel.receive() }
 
+        val historyList: List<History> = user.history.toList()  // contain game history of the logged in user
+
+        historyList.forEach { history ->
+            val date = history.date.split(" ")[0]
+            val score = history.score
+            val difficulty = history.difficulty
+            val time = history.timeTaken
         }
-
-//        val historyList: List<History> = user.history.toList()  // contain game history of the logged in user
-
-//        val history: History = historyList[0]
-
-//        println(historyList::class.java.typeName)
     }
 }

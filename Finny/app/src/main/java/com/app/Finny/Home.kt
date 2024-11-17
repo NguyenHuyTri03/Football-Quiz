@@ -4,9 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.app.Finny.Controllers.QuestionController
+import com.app.Finny.Controllers.UserController
 import com.app.Finny.databinding.ActivityHomeBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class Home : AppCompatActivity() {

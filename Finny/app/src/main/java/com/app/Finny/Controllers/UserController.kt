@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
@@ -27,43 +28,32 @@ class UserController {
 
     private val uid = auth.currentUser?.uid.toString()
 
-    fun getAll() {
-
-    }
-
     suspend fun getOneById(uid: String): UserModel {
         var user: UserModel
+        val document = accountCol.document(uid).get().await()
 
-        val data = accountCol.document(uid).get().await()
-        user = UserModel(
-            uid,
-            data.get("name").toString(),
-            data.get("email").toString(),
-            data.get("score_easy").toString().toInt(),
-            data.get("score_medium").toString().toInt(),
-            data.get("score_expert").toString().toInt()
-        )
+        user = document.toObject(UserModel::class.java)!!
 
         return user
     }
 
-    fun getOneByEmail(email: String, callback: (res: UserModel) -> Unit){
-        val userQuery = accountCol.whereEqualTo("email", email)
-        var user = UserModel()
-
-        userQuery.get()
-            .addOnSuccessListener { snapshot ->
-                if(!snapshot.isEmpty) {
-                    val data = snapshot.documents[0].toObject(UserModel::class.java)!!
-
-                    user = data
-                } else {
-                    user = UserModel("blank", "", "", 0, 0, 0)
-                }
-            }
-
-        callback.invoke(user)
-    }
+//    fun getOneByEmail(email: String, callback: (res: UserModel) -> Unit){
+//        val userQuery = accountCol.whereEqualTo("email", email)
+//        var user = UserModel()
+//
+//        userQuery.get()
+//            .addOnSuccessListener { snapshot ->
+//                if(!snapshot.isEmpty) {
+//                    val data = snapshot.documents[0].toObject(UserModel::class.java)!!
+//
+//                    user = data
+//                } else {
+//                    user = UserModel("blank", "", "", 0, 0, 0)
+//                }
+//            }
+//
+//        callback.invoke(user)
+//    }
 
     // Add the current user to DB if they don't exist
     fun createOne(id: String, email: String, name: String) {

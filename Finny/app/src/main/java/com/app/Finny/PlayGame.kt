@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.Models.QuestionModel
 import com.app.Finny.databinding.ActivityPlayGameBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
 
@@ -20,7 +24,6 @@ class PlayGame : AppCompatActivity() {
     private lateinit var binding: ActivityPlayGameBinding
     private var questionList = mutableListOf<QuestionModel>()
     private lateinit var gameDifficulty: String
-    private lateinit var questController: QuestionController
     private lateinit var exit_dialog: AlertDialog
 
     private val questionTime = 60
@@ -28,6 +31,8 @@ class PlayGame : AppCompatActivity() {
     private var questionIndex = 0
     private var timeTaken = 0
     private var totalScore = 0
+    private var answers = mutableListOf<Int>()
+    private var valid_answers = mutableListOf<Int>()
 
     // timer
     private val totalTime = questionTime * 1000L
@@ -54,25 +59,15 @@ class PlayGame : AppCompatActivity() {
         // get difficulty from Home Activity
         gameDifficulty = intent.getStringExtra("difficulty").toString()
 
-        questController = QuestionController()
-
         // start a thread to put on a loading screen while fetching data
-        Thread {
-            startActivity(Intent(this, SplashScreen::class.java))
+        val intent = Intent(this, SplashScreen::class.java)
+        startActivity(intent)
 
-            questController.getAllByDifficulty(gameDifficulty) { qList ->
-                val randomNumbers = List(5) { Random.nextInt(0, 20) }
+        getQuestions()
+        doBindings()
+    }
 
-                for (num in randomNumbers) {
-                    questionList.add(qList[num])
-                }
-
-                putQuestion()
-            }
-        }.start()
-
-        timer.start()
-
+    private fun doBindings() {
         binding.apply {
             option1.setOnClickListener {
                 checkAnswer(option1.text.toString(), 1)
@@ -108,19 +103,50 @@ class PlayGame : AppCompatActivity() {
         }
     }
 
+    private fun getQuestions() {
+        val questController = QuestionController()
+        var qList: List<QuestionModel>
+        val channel = Channel<List<QuestionModel>>()
+
+        GlobalScope.launch {
+            val data = questController.getAllByDifficulty(gameDifficulty)
+
+            channel.send(data)
+        }
+        runBlocking { qList = channel.receive() }
+
+        val randomNumbers = mutableSetOf<Int>()
+        while (randomNumbers.size < 5) {
+            randomNumbers.add(Random.nextInt(20))
+        }
+
+        var i = 0
+        for (num in randomNumbers) {
+            valid_answers.add(i, qList[num].options.indexOf(qList[num].correct))
+            i++
+            questionList.add(qList[num])
+        }
+
+        putQuestion()
+        timer.start()
+    }
+
     private fun putQuestion() {
+        val randomNumbers = (0..3).shuffled()
+        val currentQuestion = "Question ${questionIndex + 1}/5"
+
         binding.apply {
             option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#949494")))
             option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#949494")))
             option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#949494")))
             option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#949494")))
 
-            questionQuant.text = "Question ${questionIndex + 1}/5"
+            questionQuant.text = currentQuestion
             questionTitle.text = questionList[questionIndex].question
-            option1.text = questionList[questionIndex].options[0]
-            option2.text = questionList[questionIndex].options[1]
-            option3.text = questionList[questionIndex].options[2]
-            option4.text = questionList[questionIndex].options[3]
+            option1.text = questionList[questionIndex].options[randomNumbers[0]]
+            option2.text = questionList[questionIndex].options[randomNumbers[1]]
+            option3.text = questionList[questionIndex].options[randomNumbers[2]]
+            option4.text = questionList[questionIndex].options[randomNumbers[3]]
         }
     }
 
@@ -131,11 +157,18 @@ class PlayGame : AppCompatActivity() {
         } else {
             changeButtonColor(false, op)
         }
+        answers.add(op)
 
-        // Delay 1s for the player to see if they got the question right
+        // Delay 600ms for the player to see if they got the question right
         // then proceed to put another question or end the quiz
         Handler(Looper.getMainLooper()).postDelayed({
             questionIndex++
+            binding.apply {
+                option1.isActivated = false
+                option2.isActivated = false
+                option3.isActivated = false
+                option4.isActivated = false
+            }
 
             if(questionIndex < 5) {
                 // put another question in
@@ -144,7 +177,7 @@ class PlayGame : AppCompatActivity() {
                 // end the quiz
                 endQuiz()
             }
-        }, 1000)
+        }, 600)
     }
 
     // change button color according to the answer
@@ -194,22 +227,4 @@ class PlayGame : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-//    fun getAllByDifficulty(difficulty: String, callback: (res: List<QuestionModel>) -> Unit) {
-//        var questions = mutableListOf<QuestionModel>()
-//
-//        db.collection("${difficulty}_questions").get()
-//            .addOnSuccessListener { documents ->
-//                var i = 0
-//                for(document in documents) {
-//                    val data = document.data
-//                    val option_list: List<String> = data.get("options") as List<String>
-//
-//                    val question = QuestionModel(document.id, data.get("image_url").toString(), data.get("question").toString(), option_list, data.get("correct").toString())
-//                    questions.add(question)
-//                }
-//
-//                callback.invoke(questions)
-//            }
-//    }
 }
