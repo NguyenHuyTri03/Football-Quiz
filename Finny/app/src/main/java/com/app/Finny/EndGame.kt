@@ -31,6 +31,9 @@ class EndGame : AppCompatActivity() {
 
         scores = intent.getIntArrayExtra("scores")!!
         var difficulty = intent.getStringExtra("difficulty")!!
+//        val answerSheet = intent.getStringExtra("answersheet")!! as AnswerSheet
+
+//        println(answerSheet)
 
 //      endGameVals = intArrayOf(correctAnswers, timeTaken, timeBonus, finalScore)
         var correct = "${scores[0]}/5"

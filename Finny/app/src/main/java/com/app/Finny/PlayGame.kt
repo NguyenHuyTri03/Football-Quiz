@@ -17,6 +17,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.io.Serializable
 import kotlin.random.Random
 
 
@@ -24,15 +25,17 @@ class PlayGame : AppCompatActivity() {
     private lateinit var binding: ActivityPlayGameBinding
     private var questionList = mutableListOf<QuestionModel>()
     private lateinit var gameDifficulty: String
-    private lateinit var exit_dialog: AlertDialog
+    private lateinit var exitDialog: AlertDialog
 
     private val questionTime = 60
     private val scorePerQuestion = 10
+    private var bonusPerSecond = 1
     private var questionIndex = 0
     private var timeTaken = 0
     private var totalScore = 0
-    private var answers = mutableListOf<Int>()
-    private var valid_answers = mutableListOf<Int>()
+    private var answers = mutableListOf<String>()
+    private var validAnswers = mutableListOf<String>()
+    private lateinit var answerSheet: AnswerSheet
 
     // timer
     private val totalTime = questionTime * 1000L
@@ -58,6 +61,13 @@ class PlayGame : AppCompatActivity() {
 
         // get difficulty from Home Activity
         gameDifficulty = intent.getStringExtra("difficulty").toString()
+
+        // change scoring according to difficulty
+        if(gameDifficulty == "medium") {
+            bonusPerSecond = 2
+        } else if(gameDifficulty == "expert") {
+            bonusPerSecond = 3
+        }
 
         // start a thread to put on a loading screen while fetching data
         val intent = Intent(this, SplashScreen::class.java)
@@ -94,12 +104,12 @@ class PlayGame : AppCompatActivity() {
                 timer.cancel()
             }
             .setNegativeButton("No") { dialog, which ->
-                exit_dialog.cancel()
+                exitDialog.cancel()
             }
-        exit_dialog = builder.create()
+        exitDialog = builder.create()
 
         binding.exitBtn.setOnClickListener {
-            exit_dialog.show()
+            exitDialog.show()
         }
     }
 
@@ -120,10 +130,9 @@ class PlayGame : AppCompatActivity() {
             randomNumbers.add(Random.nextInt(20))
         }
 
-        var i = 0
         for (num in randomNumbers) {
-            valid_answers.add(i, qList[num].options.indexOf(qList[num].correct))
-            i++
+            qList[num].options = qList[num].options.shuffled()
+            validAnswers.add(qList[num].correct)
             questionList.add(qList[num])
         }
 
@@ -132,7 +141,6 @@ class PlayGame : AppCompatActivity() {
     }
 
     private fun putQuestion() {
-        val randomNumbers = (0..3).shuffled()
         val currentQuestion = "Question ${questionIndex + 1}/5"
 
         binding.apply {
@@ -143,10 +151,10 @@ class PlayGame : AppCompatActivity() {
 
             questionQuant.text = currentQuestion
             questionTitle.text = questionList[questionIndex].question
-            option1.text = questionList[questionIndex].options[randomNumbers[0]]
-            option2.text = questionList[questionIndex].options[randomNumbers[1]]
-            option3.text = questionList[questionIndex].options[randomNumbers[2]]
-            option4.text = questionList[questionIndex].options[randomNumbers[3]]
+            option1.text = questionList[questionIndex].options[0]
+            option2.text = questionList[questionIndex].options[1]
+            option3.text = questionList[questionIndex].options[2]
+            option4.text = questionList[questionIndex].options[3]
         }
     }
 
@@ -157,7 +165,7 @@ class PlayGame : AppCompatActivity() {
         } else {
             changeButtonColor(false, op)
         }
-        answers.add(op)
+        answers.add(answer)
 
         // Delay 600ms for the player to see if they got the question right
         // then proceed to put another question or end the quiz
@@ -215,16 +223,39 @@ class PlayGame : AppCompatActivity() {
         var finalScore = 0
 
         if(correctAnswers != 0) {
-            timeBonus = questionTime - timeTaken
+            timeBonus = (questionTime - timeTaken) * bonusPerSecond
             finalScore = totalScore + timeBonus
         }
 
         val endGameVals = intArrayOf(correctAnswers, timeTaken, timeBonus, finalScore)
+        var optionList = mutableListOf<List<String>>()
+
+        questionList.forEach { question ->
+            optionList.add(question.options)
+        }
+
+
+        answerSheet = AnswerSheet(
+            answers,
+            validAnswers,
+            optionList
+        )
+
+        println(answerSheet)
 
         val intent = Intent(this, EndGame::class.java)
         intent.putExtra("scores", endGameVals)
         intent.putExtra("difficulty", gameDifficulty)
+//        intent.putExtra("answerSheet", answerSheet)
         startActivity(intent)
         finish()
     }
+}
+
+data class AnswerSheet (
+    val answer: List<String>,
+    val valid: List<String>,
+    val options: List<List<String>>
+) : Serializable {
+    constructor(): this(emptyList(), emptyList(), emptyList())
 }

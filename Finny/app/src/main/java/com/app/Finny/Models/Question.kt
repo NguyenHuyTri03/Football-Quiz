@@ -6,7 +6,7 @@ data class QuestionModel (
     val id: String,
     val image_url: String,
     val question: String,
-    val options: List<String>,
+    var options: List<String>,
     val correct: String
 ) : Serializable {
     constructor(): this("", "", "", emptyList(), "")
