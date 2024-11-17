@@ -64,13 +64,13 @@ class EndGame : AppCompatActivity() {
     }
 
     private suspend fun updateUserScore(uid: String, score: Int, difficulty: String, timeTaken: Int) {
-        val userC = UserController()
+        val usrController = UserController()
         val user: UserModel
         var db_score = 0
 
         val channel = Channel<UserModel>()
         GlobalScope.launch {
-            val data = userC.getOneById(uid)
+            val data = usrController.getOneById(uid)
             channel.send(data)
         }
 
@@ -84,8 +84,11 @@ class EndGame : AppCompatActivity() {
             db_score = user.score_expert
         }
 
+        // add score to user history
+        usrController.addGameToHistory(score, timeTaken, difficulty)
+
         if(db_score < score) {
-            userC.updateScore(score, difficulty, timeTaken)
+            usrController.updateScore(score, difficulty, timeTaken)
         }
     }
 }

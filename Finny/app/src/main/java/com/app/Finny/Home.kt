@@ -27,7 +27,7 @@ class Home : AppCompatActivity() {
         }
 
         binding.historyBtn.setOnClickListener {
-            val intent = Intent(this, com.app.Finny.GameHistory::class.java)
+            val intent = Intent(this, GameHistory::class.java)
             startActivity(intent)
         }
 

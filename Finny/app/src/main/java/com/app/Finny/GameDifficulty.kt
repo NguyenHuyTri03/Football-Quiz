@@ -43,7 +43,7 @@ class GameDifficulty : AppCompatActivity() {
         }
 
         binding.backBtn.setOnClickListener{
-            val intel = Intent(this, Home::class.java)
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
     }

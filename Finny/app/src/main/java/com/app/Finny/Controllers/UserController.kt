@@ -41,8 +41,7 @@ class UserController {
             data.get("email").toString(),
             data.get("score_easy").toString().toInt(),
             data.get("score_medium").toString().toInt(),
-            data.get("score_expert").toString().toInt(),
-            data.get("history") as List<History>
+            data.get("score_expert").toString().toInt()
         )
 
         return user
@@ -59,7 +58,7 @@ class UserController {
 
                     user = data
                 } else {
-                    user = UserModel("blank", "", "", 0, 0, 0, emptyList())
+                    user = UserModel("blank", "", "", 0, 0, 0)
                 }
             }
 
@@ -95,15 +94,9 @@ class UserController {
             .addOnFailureListener { error ->
                 Log.w(TAG, "User {${uid}} score failed to upload with error: ", error)
             }
-
-        // add score to user history
-        addGameToHistory(score, timeTaken, difficulty)
-
-        // check and upload score to leaderboard
-
     }
 
-    private fun addGameToHistory(score: Int, timeTaken: Int, difficulty: String) {
+    fun addGameToHistory(score: Int, timeTaken: Int, difficulty: String) {
         val dateFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
         val datetime = LocalDateTime.now().format(dateFormater)
         val idDate = datetime   // format the date as ddmmyyHHmm to go with uid

@@ -6,8 +6,7 @@ data class UserModel (
     val email: String,
     val score_easy: Int,
     val score_medium: Int,
-    val score_expert: Int,
-    val history: List<History>
+    val score_expert: Int
 ) {
-    constructor(): this("", "", "", 0, 0, 0, emptyList())
+    constructor(): this("", "", "", 0, 0, 0)
 }
