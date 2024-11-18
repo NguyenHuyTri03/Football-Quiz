@@ -12,13 +12,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.Models.QuestionModel
+import com.app.Finny.Models.Sheet
 import com.app.Finny.databinding.ActivityPlayGameBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.io.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotlin.random.Random
+import kotlinx.serialization.Serializable
 
 
 class PlayGame : AppCompatActivity() {
@@ -35,7 +38,6 @@ class PlayGame : AppCompatActivity() {
     private var totalScore = 0
     private var answers = mutableListOf<String>()
     private var validAnswers = mutableListOf<String>()
-    private lateinit var answerSheet: AnswerSheet
 
     // timer
     private val totalTime = questionTime * 1000L
@@ -228,34 +230,17 @@ class PlayGame : AppCompatActivity() {
         }
 
         val endGameVals = intArrayOf(correctAnswers, timeTaken, timeBonus, finalScore)
-        var optionList = mutableListOf<List<String>>()
-
-        questionList.forEach { question ->
-            optionList.add(question.options)
-        }
-
-
-        answerSheet = AnswerSheet(
+        val sheet = Sheet(
             answers,
             validAnswers,
-            optionList
+            questionList
         )
-
-        println(answerSheet)
 
         val intent = Intent(this, EndGame::class.java)
         intent.putExtra("scores", endGameVals)
         intent.putExtra("difficulty", gameDifficulty)
-//        intent.putExtra("answerSheet", answerSheet)
+        intent.putExtra("sheet", Json.encodeToString(sheet))
         startActivity(intent)
         finish()
     }
-}
-
-data class AnswerSheet (
-    val answer: List<String>,
-    val valid: List<String>,
-    val options: List<List<String>>
-) : Serializable {
-    constructor(): this(emptyList(), emptyList(), emptyList())
 }

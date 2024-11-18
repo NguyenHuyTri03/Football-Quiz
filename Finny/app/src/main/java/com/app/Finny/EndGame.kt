@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.UserController
+import com.app.Finny.Models.Sheet
 import com.app.Finny.Models.UserModel
 import com.app.Finny.databinding.ActivityEndGameBinding
 import com.google.firebase.auth.ktx.auth
@@ -13,6 +14,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class EndGame : AppCompatActivity() {
     private lateinit var binding: ActivityEndGameBinding
@@ -30,16 +33,15 @@ class EndGame : AppCompatActivity() {
         val uid = user.uid
 
         scores = intent.getIntArrayExtra("scores")!!
-        var difficulty = intent.getStringExtra("difficulty")!!
-//        val answerSheet = intent.getStringExtra("answersheet")!! as AnswerSheet
-
-//        println(answerSheet)
+        val difficulty = intent.getStringExtra("difficulty")!!
+        val data = intent.getStringExtra("sheet")!!
+        val sheet = Json.decodeFromString<Sheet>(data)
 
 //      endGameVals = intArrayOf(correctAnswers, timeTaken, timeBonus, finalScore)
-        var correct = "${scores[0]}/5"
-        var timeTaken: Int = scores[1]
-        var bonus: Int = scores[2]
-        var finalScore: Int = scores[3]
+        val correct = "${scores[0]}/5"
+        val timeTaken: Int = scores[1]
+        val bonus: Int = scores[2]
+        val finalScore: Int = scores[3]
 
         binding.apply {
             score.text = finalScore.toString()
@@ -48,9 +50,16 @@ class EndGame : AppCompatActivity() {
             valueBonus.text = bonus.toString()
         }
 
+        binding.answerSheetBtn.setOnClickListener {
+            val intent = Intent(this, AnswerSheet::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         binding.retryBtn.setOnClickListener {
             val intent = Intent(this, PlayGame::class.java)
             intent.putExtra("difficulty", difficulty)
+            intent.putExtra("sheet", Json.encodeToString(sheet))
             startActivity(intent)
             finish()
         }
@@ -69,7 +78,7 @@ class EndGame : AppCompatActivity() {
     private suspend fun updateUserScore(uid: String, score: Int, difficulty: String, timeTaken: Int) {
         val usrController = UserController()
         val user: UserModel
-        var db_score = 0
+        val dbScore: Int
 
         val channel = Channel<UserModel>()
         GlobalScope.launch {
@@ -80,17 +89,17 @@ class EndGame : AppCompatActivity() {
         user = channel.receive()
 
         if(difficulty == "easy") {
-            db_score = user.score_easy
+            dbScore = user.score_easy
         } else if(difficulty == "medium") {
-            db_score = user.score_medium
+            dbScore = user.score_medium
         } else {
-            db_score = user.score_expert
+            dbScore = user.score_expert
         }
 
         // add score to user history
         usrController.addGameToHistory(score, timeTaken, difficulty)
 
-        if(db_score < score) {
+        if(dbScore < score) {
             usrController.updateScore(score, difficulty, timeTaken)
         }
     }

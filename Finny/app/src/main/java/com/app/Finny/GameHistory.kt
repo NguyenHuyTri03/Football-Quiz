@@ -52,6 +52,8 @@ class GameHistory : AppCompatActivity() {
             val score = history.score
             val difficulty = history.difficulty
             val time = history.timeTaken
+
+            // bind to UI
         }
     }
 }
