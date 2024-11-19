@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:fitsSystemWindows="true"-->
+<!--    tools:context=".LeaderboardDifficulties">-->
+
+<!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="start"
+        android:src="@drawable/ic_close"
+        android:contentDescription="Close Leaderboard"/>
+
+    <Button
+        android:id="@+id/easyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Easy"
+        android:layout_marginTop="16dp"  />
+
+    <Button
+        android:id="@+id/mediumBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Medium"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/expertBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Expert"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

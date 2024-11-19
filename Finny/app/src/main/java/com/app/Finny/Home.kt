@@ -43,5 +43,10 @@ class Home : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        binding.leaderboardBtn.setOnClickListener {
+            val intent = Intent(this, LeaderboardDifficulties::class.java)
+            startActivity(intent)
+        }
     }
 }
