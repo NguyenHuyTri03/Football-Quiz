@@ -5,26 +5,35 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.app.Finny.Controllers.UserController
+import com.app.Finny.Models.UserModel
+import com.app.Finny.databinding.ActivityLeaderboardBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.auth.User
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.runBlocking
 
 class Leaderboard : AppCompatActivity() {
+    private lateinit var binding: ActivityLeaderboardBinding
+    private val auth = Firebase.auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_leaderboard)
 
-        val closeButton = findViewById<ImageButton>(R.id.closeButton)
-        val leaderboardList = findViewById<ListView>(R.id.leaderboardList)
+        binding = ActivityLeaderboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Close Leaderboard and return to difficulties page
-        closeButton.setOnClickListener {
+        binding.closeButton.setOnClickListener {
             finish()
         }
+
+        val leaderboardList = binding.leaderboardList
 
         // Get the selected difficulty
         val difficulty = intent.getStringExtra("difficulty") ?: "easy"

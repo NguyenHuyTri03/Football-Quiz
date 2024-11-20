@@ -13,11 +13,11 @@
 
     <Button
         android:id="@+id/exitBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:drawableLeft="@drawable/ic_close"
         android:text=""
-        app:backgroundTint="@color/transparent"
+        app:backgroundTint="@color/bg_main"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
