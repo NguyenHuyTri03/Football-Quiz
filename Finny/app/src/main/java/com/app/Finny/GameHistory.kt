@@ -54,6 +54,7 @@ class GameHistory : AppCompatActivity() {
             val time = history.timeTaken
 
             // bind to UI
+
         }
     }
 }

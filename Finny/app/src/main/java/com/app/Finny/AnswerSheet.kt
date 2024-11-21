@@ -3,8 +3,6 @@ package com.app.Finny
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.app.Finny.Models.Sheet
 import com.app.Finny.databinding.ActivityAnswerSheetBinding
 import kotlinx.serialization.json.Json
@@ -36,13 +34,11 @@ class AnswerSheet : AppCompatActivity() {
 
 
         // check and change colors of the buttons
-        var i = 0
-        for(question in qList) {
+        for((i, question) in qList.withIndex()) {
             if(answers[i] != valid[i]) {    // the options chose is wrong
                 // change the option bg to "btn_hard"
 
             }
-            i++
         }
 
 
