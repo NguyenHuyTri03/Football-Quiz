@@ -95,6 +95,8 @@ class PlayGame : AppCompatActivity() {
             }
         }
 
+
+
         // Create a an exit confirmation popup
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder
@@ -161,7 +163,7 @@ class PlayGame : AppCompatActivity() {
     }
 
     private fun checkAnswer(answer: String, op: Int) {
-        if(answer == questionList[questionIndex].correct) {
+                if(answer == questionList[questionIndex].correct) {
             changeButtonColor(true, op)
             totalScore += scorePerQuestion
         } else {
@@ -174,10 +176,10 @@ class PlayGame : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             questionIndex++
             binding.apply {
-                option1.isActivated = false
-                option2.isActivated = false
-                option3.isActivated = false
-                option4.isActivated = false
+                option1.isEnabled = false
+                option2.isEnabled = false
+                option3.isEnabled = false
+                option4.isEnabled = false
             }
 
             if(questionIndex < 5) {
