@@ -28,6 +28,15 @@ class UserController {
 
     private val uid = auth.currentUser?.uid.toString()
 
+    suspend fun getAll(): List<UserModel> {
+        var list: List<UserModel>
+        val document = accountCol.get().await()
+
+        list = document.toObjects(UserModel::class.java)
+
+        return list
+    }
+
     suspend fun getOneById(uid: String): UserModel {
         var user: UserModel
         val document = accountCol.document(uid).get().await()
@@ -36,24 +45,6 @@ class UserController {
 
         return user
     }
-
-//    fun getOneByEmail(email: String, callback: (res: UserModel) -> Unit){
-//        val userQuery = accountCol.whereEqualTo("email", email)
-//        var user = UserModel()
-//
-//        userQuery.get()
-//            .addOnSuccessListener { snapshot ->
-//                if(!snapshot.isEmpty) {
-//                    val data = snapshot.documents[0].toObject(UserModel::class.java)!!
-//
-//                    user = data
-//                } else {
-//                    user = UserModel("blank", "", "", 0, 0, 0)
-//                }
-//            }
-//
-//        callback.invoke(user)
-//    }
 
     // Add the current user to DB if they don't exist
     fun createOne(id: String, email: String, name: String) {
@@ -103,15 +94,6 @@ class UserController {
                 Log.w(TAG, "Error updating game history")
             }
     }
-
-//    fun getGameHistory(uid: String, callback: (res: List<History>) -> Unit) {
-//        var history: List<History>
-//
-//        val user =
-//        history = user.history
-//
-//        callback.invoke(history)
-//    }
 
     fun update(user: UserModel) {
     }

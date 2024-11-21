@@ -61,6 +61,7 @@ class EndGame : AppCompatActivity() {
             intent.putExtra("difficulty", difficulty)
             intent.putExtra("sheet", Json.encodeToString(sheet))
             startActivity(intent)
+//            updateUserScore(uid, )
             finish()
         }
 
