@@ -12,7 +12,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.Models.QuestionModel
-import com.app.Finny.Models.Sheet
 import com.app.Finny.databinding.ActivityPlayGameBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
@@ -95,8 +94,6 @@ class PlayGame : AppCompatActivity() {
             }
         }
 
-
-
         // Create a an exit confirmation popup
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder
@@ -163,11 +160,12 @@ class PlayGame : AppCompatActivity() {
     }
 
     private fun checkAnswer(answer: String, op: Int) {
-                if(answer == questionList[questionIndex].correct) {
-            changeButtonColor(true, op)
+        val index = questionList[questionIndex].options.indexOf(questionList[questionIndex].correct)
+        if(answer == questionList[questionIndex].correct) {
+            changeButtonColor(true, op, index)
             totalScore += scorePerQuestion
         } else {
-            changeButtonColor(false, op)
+            changeButtonColor(false, op, index)
         }
         answers.add(answer)
 
@@ -175,12 +173,7 @@ class PlayGame : AppCompatActivity() {
         // then proceed to put another question or end the quiz
         Handler(Looper.getMainLooper()).postDelayed({
             questionIndex++
-            binding.apply {
-                option1.isEnabled = false
-                option2.isEnabled = false
-                option3.isEnabled = false
-                option4.isEnabled = false
-            }
+            buttonEnable(true)
 
             if(questionIndex < 5) {
                 // put another question in
@@ -189,31 +182,55 @@ class PlayGame : AppCompatActivity() {
                 // end the quiz
                 endQuiz()
             }
-        }, 600)
+        }, 1500)
+        buttonEnable(false)
+    }
+
+    private fun buttonEnable(state: Boolean) {
+        if(state) {
+            binding.apply {
+                option1.isEnabled = true
+                option2.isEnabled = true
+                option3.isEnabled = true
+                option4.isEnabled = true
+            }
+        } else {
+            binding.apply {
+                option1.isEnabled = false
+                option2.isEnabled = false
+                option3.isEnabled = false
+                option4.isEnabled = false
+            }
+        }
     }
 
     // change button color according to the answer
-    private fun changeButtonColor(state: Boolean, op: Int) {
+    private fun changeButtonColor(state: Boolean, clicked: Int, index: Int) {
         if(state == true) {
-            if(op == 1) {
-                binding.option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
-            } else if(op == 2) {
-                binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
-            } else if(op == 3) {
-                binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
-            } else if(op == 4) {
-                binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
-            }
+            changeCorrectBg(index)
         } else {
-            if(op == 1) {
+            changeCorrectBg(index)
+            if(clicked == 1) {
                 binding.option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
-            } else if(op == 2) {
+            } else if(clicked == 2) {
                 binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
-            } else if(op == 3) {
+            } else if(clicked == 3) {
                 binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
-            } else if(op == 4) {
+            } else if(clicked == 4) {
                 binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
             }
+        }
+    }
+
+    private fun changeCorrectBg(index: Int) {
+        if(index == 0) {
+            binding.option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+        } else if(index == 1) {
+            binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+        } else if(index == 2) {
+            binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+        } else if(index == 3) {
+            binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
         }
     }
 
@@ -232,16 +249,10 @@ class PlayGame : AppCompatActivity() {
         }
 
         val endGameVals = intArrayOf(correctAnswers, timeTaken, timeBonus, finalScore)
-        val sheet = Sheet(
-            answers,
-            validAnswers,
-            questionList
-        )
 
         val intent = Intent(this, EndGame::class.java)
         intent.putExtra("scores", endGameVals)
         intent.putExtra("difficulty", gameDifficulty)
-        intent.putExtra("sheet", Json.encodeToString(sheet))
         startActivity(intent)
         finish()
     }

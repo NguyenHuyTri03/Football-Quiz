@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.UserController
-import com.app.Finny.Models.Sheet
 import com.app.Finny.Models.UserModel
 import com.app.Finny.databinding.ActivityEndGameBinding
 import com.google.firebase.auth.ktx.auth
@@ -34,8 +33,12 @@ class EndGame : AppCompatActivity() {
 
         scores = intent.getIntArrayExtra("scores")!!
         val difficulty = intent.getStringExtra("difficulty")!!
-        val data = intent.getStringExtra("sheet")!!
-        val sheet = Json.decodeFromString<Sheet>(data)
+//        val data = intent.getStringExtra("sheet")!!
+//        val sheet = Json.decodeFromString<Sheet>(data)
+//        // get data from Endgame Activity
+//        val data = intent.getStringExtra("sheet")!!
+//        val sheet = Json.decodeFromString<Sheet>(data)
+//        intent.putExtra("sheet", Json.encodeToString(sheet))
 
 //      endGameVals = intArrayOf(correctAnswers, timeTaken, timeBonus, finalScore)
         val correct = "${scores[0]}/5"
@@ -50,16 +53,9 @@ class EndGame : AppCompatActivity() {
             valueBonus.text = bonus.toString()
         }
 
-        binding.answerSheetBtn.setOnClickListener {
-            val intent = Intent(this, AnswerSheet::class.java)
-            startActivity(intent)
-            finish()
-        }
-
         binding.retryBtn.setOnClickListener {
             val intent = Intent(this, PlayGame::class.java)
             intent.putExtra("difficulty", difficulty)
-            intent.putExtra("sheet", Json.encodeToString(sheet))
             startActivity(intent)
 //            updateUserScore(uid, )
             finish()

@@ -20,9 +20,6 @@
             android:exported="false"
             android:theme="@style/Theme.Quizapp" />
         <activity
-            android:name=".AnswerSheet"
-            android:exported="false" />
-        <activity
             android:name=".GameHistory"
             android:exported="false" />
         <activity
