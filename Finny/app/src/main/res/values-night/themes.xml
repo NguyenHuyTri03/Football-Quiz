@@ -3,5 +3,7 @@
     <style name="Base.Theme.Quizapp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">@color/bg_main</item>
     </style>
+    <style name="Theme.Quizapp" parent="Base.Theme.Quizapp" />
 </resources>

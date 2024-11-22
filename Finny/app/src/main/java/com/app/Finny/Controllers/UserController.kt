@@ -29,7 +29,7 @@ class UserController {
     private val uid = auth.currentUser?.uid.toString()
 
     suspend fun getAll(): List<UserModel> {
-        var list: List<UserModel>
+        val list: List<UserModel>
         val document = accountCol.get().await()
 
         list = document.toObjects(UserModel::class.java)
@@ -38,7 +38,7 @@ class UserController {
     }
 
     suspend fun getOneById(uid: String): UserModel {
-        var user: UserModel
+        val user: UserModel
         val document = accountCol.document(uid).get().await()
 
         user = document.toObject(UserModel::class.java)!!

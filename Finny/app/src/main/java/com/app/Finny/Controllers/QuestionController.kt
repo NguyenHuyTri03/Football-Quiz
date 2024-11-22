@@ -2,7 +2,6 @@ package com.app.Finny.Controllers
 
 import com.app.Finny.Models.QuestionModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
 import com.google.firebase.firestore.toObjects
 import kotlinx.coroutines.tasks.await
 
@@ -12,7 +11,7 @@ class QuestionController {
     private val db = FirebaseFirestore.getInstance()
 
     suspend fun getAllByDifficulty(difficulty: String): List<QuestionModel> {
-        var questions = listOf<QuestionModel>()
+        val questions: List<QuestionModel>
 
         val documents = db.collection("${difficulty}_questions").get().await()
 
@@ -21,17 +20,17 @@ class QuestionController {
         return questions
     }
 
-    fun getOne(id: String) {
-
-    }
-
-    fun update(question: QuestionModel) {
-
-    }
-
-    fun delete(id: String) {
-
-    }
+//    fun getOne(id: String) {
+//
+//    }
+//
+//    fun update(question: QuestionModel) {
+//
+//    }
+//
+//    fun delete(id: String) {
+//
+//    }
 
 
 

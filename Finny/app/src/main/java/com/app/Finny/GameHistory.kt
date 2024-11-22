@@ -1,15 +1,19 @@
+@file:OptIn(DelicateCoroutinesApi::class)
+
 package com.app.Finny
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.app.Finny.Adapters.HistoryAdapter
 import com.app.Finny.Controllers.UserController
 import com.app.Finny.Models.History
 import com.app.Finny.Models.UserModel
 import com.app.Finny.databinding.ActivityGameHistoryBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
@@ -25,6 +29,11 @@ class GameHistory : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding = ActivityGameHistoryBinding.inflate(layoutInflater)
+
+        // start a thread to put on a loading screen while fetching data
+        val splashIntent = Intent(this, SplashScreen::class.java)
+        startActivity(splashIntent)
+
         setContentView(binding.root)
 
         binding.exitBtn.setOnClickListener {
@@ -37,24 +46,24 @@ class GameHistory : AppCompatActivity() {
         val userController = UserController()
         val channel = Channel<UserModel>()
         val user: UserModel
-
         GlobalScope.launch {
-            val user = userController.getOneById(uid)
-            channel.send(user)
+            val data = userController.getOneById(uid)
+            channel.send(data)
         }
-
         runBlocking { user = channel.receive() }
 
         val historyList: List<History> = user.history.toList()  // contain game history of the logged in user
+        val dateList = mutableListOf<String>()
+        val difficultyList = mutableListOf<String>()
+        val scoreList = mutableListOf<Int>()
 
         historyList.forEach { history ->
-            val date = history.date.split(" ")[0]
-            val score = history.score
-            val difficulty = history.difficulty
-            val time = history.timeTaken
-
-            // bind to UI
-
+            dateList.add(history.date.split(" ")[0])
+            difficultyList.add(history.difficulty)
+            scoreList.add(history.score)
         }
+
+        val historyAdapter = HistoryAdapter(this, dateList, difficultyList, scoreList)
+        binding.list.adapter = historyAdapter
     }
 }

@@ -1,3 +1,5 @@
+@file:OptIn(DelicateCoroutinesApi::class)
+
 package com.app.Finny
 
 import android.app.AlertDialog
@@ -13,14 +15,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.Models.QuestionModel
 import com.app.Finny.databinding.ActivityPlayGameBinding
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import kotlin.random.Random
-import kotlinx.serialization.Serializable
 
 
 class PlayGame : AppCompatActivity() {
@@ -70,7 +70,7 @@ class PlayGame : AppCompatActivity() {
             bonusPerSecond = 3
         }
 
-        // start a thread to put on a loading screen while fetching data
+        // start loading screen
         val intent = Intent(this, SplashScreen::class.java)
         startActivity(intent)
 
@@ -99,12 +99,12 @@ class PlayGame : AppCompatActivity() {
         builder
             .setTitle("Exit game?")
             // Return the user to the home screen
-            .setPositiveButton("Yes") { dialog, which ->
+            .setPositiveButton("Yes") { _, _ ->
                 val intent = Intent(this, Home::class.java)
                 startActivity(intent)
                 timer.cancel()
             }
-            .setNegativeButton("No") { dialog, which ->
+            .setNegativeButton("No") { _, _ ->
                 exitDialog.cancel()
             }
         exitDialog = builder.create()
@@ -182,7 +182,7 @@ class PlayGame : AppCompatActivity() {
                 // end the quiz
                 endQuiz()
             }
-        }, 1500)
+        }, 2000)
         buttonEnable(false)
     }
 
@@ -206,31 +206,41 @@ class PlayGame : AppCompatActivity() {
 
     // change button color according to the answer
     private fun changeButtonColor(state: Boolean, clicked: Int, index: Int) {
-        if(state == true) {
+        if(state) {
             changeCorrectBg(index)
         } else {
             changeCorrectBg(index)
-            if(clicked == 1) {
-                binding.option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
-            } else if(clicked == 2) {
-                binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
-            } else if(clicked == 3) {
-                binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
-            } else if(clicked == 4) {
-                binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
+            when (clicked) {
+                1 -> {
+                    binding.option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
+                }
+                2 -> {
+                    binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
+                }
+                3 -> {
+                    binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
+                }
+                4 -> {
+                    binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F34D37")))
+                }
             }
         }
     }
 
     private fun changeCorrectBg(index: Int) {
-        if(index == 0) {
-            binding.option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
-        } else if(index == 1) {
-            binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
-        } else if(index == 2) {
-            binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
-        } else if(index == 3) {
-            binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+        when (index) {
+            0 -> {
+                binding.option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+            }
+            1 -> {
+                binding.option2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+            }
+            2 -> {
+                binding.option3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+            }
+            3 -> {
+                binding.option4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#94E161")))
+            }
         }
     }
 

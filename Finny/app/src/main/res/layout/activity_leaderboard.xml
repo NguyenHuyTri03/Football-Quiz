@@ -1,47 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/main"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".Leaderboard">-->
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/bg_main">
 
-    <!-- Close button -->
-    <ImageButton
-        android:id="@+id/closeButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_close"
-        android:contentDescription="Close Leaderboard" />
-
-    <!-- Title -->
-    <TextView
-        android:id="@+id/leaderboardTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Leaderboard"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <!-- List of players -->
-    <ListView
-        android:id="@+id/leaderboardList"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/leaderboardTitle"
-        android:layout_marginTop="16dp" />
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@color/bg_main">
 
-</RelativeLayout>
+        <!-- Close button -->
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_close"
+            android:contentDescription="Close Leaderboard"
+            android:backgroundTint="@color/bg_main"/>
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/leaderboardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Leaderboard"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_main"/>
+
+        <LinearLayout
+            android:id="@+id/scoreLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/leaderboardTitle"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:text="date"
+                    android:textColor="@color/text_main"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="1dp"
+                    android:autoSizeMaxTextSize="200dp"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:text="score"
+                    android:textColor="@color/text_main"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="1dp"
+                    android:autoSizeMaxTextSize="200dp"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- List of players -->
+        <ListView
+            android:id="@+id/leaderboardList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scoreLayout" />
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+

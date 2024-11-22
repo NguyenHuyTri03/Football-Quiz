@@ -1,5 +1,8 @@
+@file:OptIn(DelicateCoroutinesApi::class)
+
 package com.app.Finny
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -9,18 +12,18 @@ import com.app.Finny.Models.UserModel
 import com.app.Finny.databinding.ActivityEndGameBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 class EndGame : AppCompatActivity() {
     private lateinit var binding: ActivityEndGameBinding
     private lateinit var scores: IntArray
     private var auth = Firebase.auth
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -75,7 +78,6 @@ class EndGame : AppCompatActivity() {
     private suspend fun updateUserScore(uid: String, score: Int, difficulty: String, timeTaken: Int) {
         val usrController = UserController()
         val user: UserModel
-        val dbScore: Int
 
         val channel = Channel<UserModel>()
         GlobalScope.launch {
@@ -85,12 +87,18 @@ class EndGame : AppCompatActivity() {
 
         user = channel.receive()
 
-        if(difficulty == "easy") {
-            dbScore = user.score_easy
-        } else if(difficulty == "medium") {
-            dbScore = user.score_medium
-        } else {
-            dbScore = user.score_expert
+        val dbScore: Int = when (difficulty) {
+            "easy" -> {
+                user.score_easy
+            }
+
+            "medium" -> {
+                user.score_medium
+            }
+
+            else -> {
+                user.score_expert
+            }
         }
 
         // add score to user history
