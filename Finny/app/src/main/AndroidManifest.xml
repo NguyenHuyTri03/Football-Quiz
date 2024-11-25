@@ -13,37 +13,49 @@
         android:theme="@style/Theme.Quizapp"
         tools:targetApi="31">
         <activity
-            android:name=".Leaderboard"
+            android:name=".Activities.AdminUsers"
             android:exported="false" />
         <activity
-            android:name=".LeaderboardDifficulties"
-            android:exported="false"/>
-        <activity
-            android:name=".GameHistory"
+            android:name=".Activities.AdminQuestions"
             android:exported="false" />
         <activity
-            android:name=".GameDifficulty"
+            android:name=".Activities.AdminOptions"
             android:exported="false" />
         <activity
-            android:name=".EndGame"
+            android:name=".Activities.Settings"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".Activities.Leaderboard"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".Activities.LeaderboardDifficulties"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".Activities.GameHistory"
             android:exported="false" />
         <activity
-            android:name=".PlayGame"
+            android:name=".Activities.GameDifficulty"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".Activities.EndGame"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.SplashScreen"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Register"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Login"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PlayGame"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Home"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

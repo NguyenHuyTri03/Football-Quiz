@@ -1,6 +1,6 @@
 @file:OptIn(DelicateCoroutinesApi::class)
 
-package com.app.Finny
+package com.app.Finny.Activities
 
 import android.annotation.SuppressLint
 import android.content.Intent

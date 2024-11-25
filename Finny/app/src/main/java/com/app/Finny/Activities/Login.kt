@@ -1,4 +1,4 @@
-package com.app.Finny
+package com.app.Finny.Activities
 
 import android.content.ContentValues.TAG
 import android.content.Intent

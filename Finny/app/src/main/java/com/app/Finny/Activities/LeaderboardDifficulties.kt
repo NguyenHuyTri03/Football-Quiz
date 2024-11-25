@@ -1,4 +1,4 @@
-package com.app.Finny
+package com.app.Finny.Activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

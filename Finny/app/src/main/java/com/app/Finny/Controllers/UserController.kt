@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.app.Finny.Models.History
 import com.app.Finny.Models.UserModel
+import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -12,7 +13,6 @@ import java.time.format.DateTimeFormatter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
@@ -95,10 +95,25 @@ class UserController {
             }
     }
 
-    fun update(user: UserModel) {
+    fun update(user: UserModel): Boolean {
+        var status = false
+        // Update on DB
+
+
+
+        // Update on Auth
+
+
+        return status
     }
 
-    fun delete(id: String) {
+    fun delete(id: String): Boolean {
+        var status = false
+        // Delete on DB
 
+
+        // Delete on Auth
+
+        return false
     }
 }
