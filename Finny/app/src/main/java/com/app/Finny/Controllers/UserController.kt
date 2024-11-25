@@ -66,7 +66,7 @@ class UserController {
             }
     }
 
-    fun updateScore(score:Int, difficulty: String, timeTaken: Int) {
+    fun updateScore(score:Int, difficulty: String) {
         accountCol.document(uid)
             .update("score_${difficulty}",score)
             .addOnSuccessListener {

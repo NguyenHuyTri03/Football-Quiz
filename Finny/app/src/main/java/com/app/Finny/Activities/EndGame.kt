@@ -105,7 +105,7 @@ class EndGame : AppCompatActivity() {
         usrController.addGameToHistory(score, timeTaken, difficulty)
 
         if(dbScore < score) {
-            usrController.updateScore(score, difficulty, timeTaken)
+            usrController.updateScore(score, difficulty)
         }
     }
 }

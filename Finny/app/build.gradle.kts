@@ -59,6 +59,6 @@ dependencies {
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.firebase:firebase-admin:9.4.1")
+//    implementation("com.google.firebase:firebase-admin:9.4.1")
 
 }
