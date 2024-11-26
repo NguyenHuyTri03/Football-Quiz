@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.app.Finny.SoundManager
 import com.app.Finny.databinding.ActivityMainBinding
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.ktx.auth
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
         }
+        SoundManager.stopSong()
     }
 
     public override fun onStart() {

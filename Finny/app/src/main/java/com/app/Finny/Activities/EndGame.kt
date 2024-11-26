@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.UserController
 import com.app.Finny.Models.UserModel
+import com.app.Finny.SoundManager
 import com.app.Finny.databinding.ActivityEndGameBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -57,6 +58,7 @@ class EndGame : AppCompatActivity() {
         }
 
         binding.retryBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
             val intent = Intent(this, PlayGame::class.java)
             intent.putExtra("difficulty", difficulty)
             startActivity(intent)
@@ -65,6 +67,7 @@ class EndGame : AppCompatActivity() {
         }
 
         binding.homeBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
             runBlocking {
                 updateUserScore(uid, finalScore, difficulty, timeTaken)
             }
@@ -73,6 +76,10 @@ class EndGame : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        // Stop the in-game song and play the "complete" SFX
+        SoundManager.stopSong()
+        SoundManager.playSFX(this, "complete")
     }
 
     private suspend fun updateUserScore(uid: String, score: Int, difficulty: String, timeTaken: Int) {

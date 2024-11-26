@@ -2,6 +2,7 @@
 
 package com.app.Finny.Activities
 
+import com.app.Finny.R
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -14,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.Models.QuestionModel
+import com.app.Finny.SoundManager
 import com.app.Finny.databinding.ActivityPlayGameBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -73,6 +75,10 @@ class PlayGame : AppCompatActivity() {
         // start loading screen
         val intent = Intent(this, SplashScreen::class.java)
         startActivity(intent)
+
+        // Stop the main song and play the in-game song
+        SoundManager.stopSong()
+        SoundManager.playSong(this, R.raw.hail, loop = true)
 
         getQuestions()
         doBindings()
@@ -160,6 +166,7 @@ class PlayGame : AppCompatActivity() {
     }
 
     private fun checkAnswer(answer: String, op: Int) {
+        SoundManager.playSFX(this, "answer_click")
         val index = questionList[questionIndex].options.indexOf(questionList[questionIndex].correct)
         if(answer == questionList[questionIndex].correct) {
             changeButtonColor(true, op, index)
@@ -265,5 +272,20 @@ class PlayGame : AppCompatActivity() {
         intent.putExtra("difficulty", gameDifficulty)
         startActivity(intent)
         finish()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        SoundManager.mediaPlayer?.pause() // Pause music when app is in the background
+    }
+
+    override fun onResume() {
+        super.onResume()
+        SoundManager.mediaPlayer?.start() // Resume music when app comes back to the foreground
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SoundManager.release()
     }
 }
