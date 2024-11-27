@@ -26,6 +26,9 @@ class AdminUsers : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Run splash screen
+        startActivity(Intent(this, SplashScreen::class.java))
+
         binding = ActivityAdminUsersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

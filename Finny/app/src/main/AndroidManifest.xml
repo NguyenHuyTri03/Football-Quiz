@@ -13,13 +13,16 @@
         android:theme="@style/Theme.Quizapp"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.UpdateTemplate"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.AdminHome"
+            android:exported="false" />
+        <activity
             android:name=".Activities.AdminUsers"
             android:exported="false" />
         <activity
             android:name=".Activities.AdminQuestions"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.AdminOptions"
             android:exported="false" />
         <activity
             android:name=".Activities.Settings"

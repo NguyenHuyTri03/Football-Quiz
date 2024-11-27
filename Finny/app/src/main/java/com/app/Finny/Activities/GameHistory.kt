@@ -36,7 +36,7 @@ class GameHistory : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.exitBtn.setOnClickListener {
+        binding.closeBtn.setOnClickListener {
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }

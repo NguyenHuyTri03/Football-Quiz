@@ -46,26 +46,12 @@ class Login : AppCompatActivity() {
                         if(task.isSuccessful) {
                             Log.d(TAG, "Account {${email}} logs in successful")
                             val currUser = auth.currentUser
-                            println("UID: ${currUser?.uid}")
-                            val usrController = UserController()
-                            if(currUser != null) {
-                                // Reference to account collection and to the document of the current user
-                                accountRef = db.collection("account").document(currUser.uid)
-
-                                // Find if the logged in user exists and add them to db if not found
-                                accountRef.get()
-                                    .addOnSuccessListener { document ->
-                                        val data = document.data
-
-                                        if(data == null) {
-                                            usrController.createOne(currUser.uid, currUser.email.toString(), currUser.displayName.toString())
-                                        }
-                                    }
-                                    .addOnFailureListener { exception ->
-                                        println("Error: $exception")
-                                    }
-
+                            if(currUser != null && email != "admin@mail.com") {
                                 val intent = Intent(this, Home::class.java)
+                                startActivity(intent)
+                            } else if(email == "admin@mail.com") {
+                                // Login as admin
+                                val intent = Intent(this, AdminHome::class.java)
                                 startActivity(intent)
                             }
                             finish()
