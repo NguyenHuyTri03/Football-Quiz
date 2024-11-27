@@ -17,6 +17,8 @@ class Home : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.userName.text = intent.getStringExtra("userName").toString()
+
         // button bindings
         binding.playBtn.setOnClickListener {
             val intent = Intent(this, GameDifficulty::class.java)

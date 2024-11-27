@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.app.Finny.Adapters.UserAdapter
 import com.app.Finny.Controllers.UserController
 import com.app.Finny.Models.UserModel
 import com.app.Finny.databinding.ActivityAdminUsersBinding
@@ -32,8 +33,14 @@ class AdminUsers : AppCompatActivity() {
         binding = ActivityAdminUsersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.closeBtn.setOnClickListener {
+            finish()
+        }
+
         userController = UserController()
         val channel = Channel<List<UserModel>>()
+        val emailList = mutableListOf<String>()
+        val nameList = mutableListOf<String>()
 
         // Get all users
         GlobalScope.launch {
@@ -44,9 +51,14 @@ class AdminUsers : AppCompatActivity() {
         runBlocking {
             userList = channel.receive()
         }
+        userList.forEach { user ->
+            emailList.add(user.email)
+            nameList.add(user.name)
+        }
 
         // Binding to list
-
+        val userAdapter = UserAdapter(this, emailList, nameList)
+        binding.list.adapter = userAdapter
 
         // Update
         // Open edit form

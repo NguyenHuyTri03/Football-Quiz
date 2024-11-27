@@ -9,28 +9,22 @@
     android:visibility="visible"
     tools:context=".Activities.LeaderboardDifficulties">
 
-    <Button
-        android:id="@+id/closeButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:autoSizeMaxTextSize="200dp"
-        android:autoSizeMinTextSize="1dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/btn_rounded"
-        android:fontFamily="@font/fredoka_medium"
-        android:paddingVertical="3dp"
-        android:text="BACK"
-        android:textColor="@color/text_main"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/btn_main"
+    <ImageButton
+        android:id="@+id/closeBtn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_close"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/bg_main"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="6:1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.841" />
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.05"/>
 
     <TextView
         android:id="@+id/app_title0"

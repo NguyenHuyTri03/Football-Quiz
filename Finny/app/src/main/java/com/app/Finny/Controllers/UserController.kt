@@ -37,6 +37,12 @@ class UserController {
         return list
     }
 
+    suspend fun checkName(name: String): Boolean {
+        val nameQuery = accountCol.whereEqualTo("name", name).get().await()
+
+        return nameQuery == null
+    }
+
     suspend fun getOneById(uid: String): UserModel {
         val user: UserModel
         val document = accountCol.document(uid).get().await()

@@ -9,7 +9,51 @@
     android:background="@color/bg_main">
 
     <TextView
-        android:id="@+id/app_title0"
+        android:id="@+id/helloTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="30dp"
+        android:autoSizeMaxTextSize="150dp"
+
+        android:text="Hello"
+        android:textColor="@color/text_main"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="30dp"
+        android:autoSizeMaxTextSize="150dp"
+
+        android:text="name"
+        android:textColor="@color/text_main"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        />
+
+    <TextView
+        android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -27,7 +71,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_bias="0.25"
         />
 
     <Button

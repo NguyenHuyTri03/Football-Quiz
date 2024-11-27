@@ -34,9 +34,8 @@ class GameDifficulty : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.backBtn.setOnClickListener{
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
+        binding.closeBtn.setOnClickListener{
+            finish()
         }
     }
 }

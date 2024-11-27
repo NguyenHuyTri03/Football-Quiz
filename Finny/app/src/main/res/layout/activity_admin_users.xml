@@ -67,6 +67,7 @@ android:background="@color/bg_main">
             android:id="@+id/emailField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
 
             android:text="Email"
             android:textColor="@color/text_main"
@@ -76,7 +77,7 @@ android:background="@color/bg_main">
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="1dp"
             android:autoSizeMaxTextSize="200dp"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             />
     </LinearLayout>
 
@@ -87,11 +88,12 @@ android:background="@color/bg_main">
         android:layout_weight="0.4">
 
         <TextView
-            android:id="@+id/uidField"
+            android:id="@+id/nameField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
 
-            android:text="UID"
+            android:text="Name"
             android:textColor="@color/text_main"
             android:fontFamily="@font/fredoka_medium"
             android:textStyle="bold"
@@ -99,7 +101,7 @@ android:background="@color/bg_main">
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="1dp"
             android:autoSizeMaxTextSize="200dp"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             />
     </LinearLayout>
 </LinearLayout>

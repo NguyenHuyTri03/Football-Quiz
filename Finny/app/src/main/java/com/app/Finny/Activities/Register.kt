@@ -9,21 +9,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.UserController
 import com.app.Finny.databinding.ActivityRegisterBinding
-
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.runBlocking
 
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
-    // Create a firestore instance
-    private val db = FirebaseFirestore.getInstance()
-    // Get a reference to the "account" collection
-    private lateinit var accountRef: DocumentReference
+    private val userController = UserController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,104 +37,72 @@ class Register : AppCompatActivity() {
         binding.registerBtn.setOnClickListener {
             val email = binding.email.text.toString().trim()
             val name = binding.name.text.toString().trim()
-            val base_pass = binding.password.text.toString().trim()
-            val check_pass = binding.passwordConfirm.text.toString().trim()
+            val basePass = binding.password.text.toString().trim()
+            val confirmPass = binding.passwordConfirm.text.toString().trim()
 
-            val usrController = UserController()
-            auth.createUserWithEmailAndPassword(email, base_pass)
-                .addOnCompleteListener(this) { task ->
-                    if(task.isSuccessful) {
-                        println("User with email ${email} created successfully")
+            if(conditionCheck(name, basePass, confirmPass)) {
+                auth.createUserWithEmailAndPassword(email, basePass)
+                    .addOnSuccessListener {
+                        // Create new user
                         val user = auth.currentUser!!
+                        userController.createOne(user.uid, email, name)
 
-                        val profileUpdate = UserProfileChangeRequest.Builder()
-                            .setDisplayName(name)
-                            .build()
-
-                        user.updateProfile(profileUpdate)
-                            .addOnSuccessListener {
-                                Log.d(TAG, "Username added")
-                            }
-                            .addOnFailureListener {
-                                Log.w(TAG, "Username wasn't changed")
-                            }
-
-                        // Reference to account collection and to the document of the current user
-                        accountRef = db.collection("account").document(user.uid)
-
-                        // Find if the logged in user exists and add them to db if not found
-                        accountRef.get()
-                            .addOnSuccessListener { document ->
-                                val data = document.data
-
-                                if(data == null) {
-                                    usrController.createOne(user.uid, user.email.toString(), name)
+                        val profileUpdates = userProfileChangeRequest {
+                            displayName = name
+                        }
+                        user.updateProfile(profileUpdates)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d(TAG, "User profile updated.")
                                 }
-                            }
-                            .addOnFailureListener { exception ->
-                                println("Error: ${exception}")
                             }
 
                         val intent = Intent(this, Home::class.java)
+                        intent.putExtra("userName", name)
                         startActivity(intent)
                         finish()
-                    } else {
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    }
+                    .addOnFailureListener {
+                        Log.w(TAG, "createUserWithEmail:failure")
                         Toast.makeText(
                             this,
                             "User with the email is already exist",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }
-
-//            // Check if the user exists
-//            val userC = UserController()
-//            val userCheck = userC.getOneByEmail(email)
-//
-//            if(userCheck.uid == "blank") {
-//                if(base_pass.length < 6) {
-//                    Toast.makeText(
-//                        baseContext,
-//                        "Passwords need to be at least 6 characters",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                } else {
-//                    // Check if the passwords match
-//                    if(base_pass == check_pass) {
-//                        auth.createUserWithEmailAndPassword(email, base_pass)
-//                            .addOnCompleteListener(this) { task ->
-//                                if(task.isSuccessful) {
-//                                    println("User with email ${email} created successfully")
-//                                    val user = auth.currentUser!!
-//                                    userC.createOne(user.uid, user.email.toString(), name)
-//                                    val intent = Intent(this, Home::class.java)
-//                                    startActivity(intent)
-//                                } else {
-//                                    println(task.exception)
-//                                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-//                                }
-//                            }
-//
-//                    } else {
-//                        println("mismatch")
-//                        Toast.makeText(
-//                            baseContext,
-//                            "Passwords don't match",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//
-//            } else {
-//                println("exist")
-//                Toast.makeText(
-//                    baseContext,
-//                    "User already exist",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
+            }
         }
+    }
+
+    private fun conditionCheck(name: String, pass: String, confirmPass: String): Boolean {
+        var nameStatus = false
+        var passStatus = false
+
+        runBlocking {
+            val isAvailable = userController.checkName(name)
+
+            if(!isAvailable && name.length <= 15) {
+                nameStatus = true
+            } else {
+                makeErrorToast("User name already exist or longer than 15 characters")
+            }
+        }
+
+        if(pass == confirmPass) {
+            passStatus = true
+        } else {
+            makeErrorToast("Password mismatch")
+        }
+
+        return passStatus && nameStatus
+    }
+
+    private fun makeErrorToast(text: String) {
+        Toast.makeText(
+            baseContext,
+            text,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onStart() {

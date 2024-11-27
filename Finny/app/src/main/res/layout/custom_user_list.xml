@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="20dp">
+    android:paddingBottom="20dp">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -14,13 +14,14 @@
             android:id="@+id/emailField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
 
             android:text="sample@mail.com"
             android:textColor="@color/fade"
             android:fontFamily="@font/fredoka_medium"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             />
     </LinearLayout>
 
@@ -31,16 +32,17 @@
         android:layout_weight="0.4">
 
         <TextView
-            android:id="@+id/uidField"
+            android:id="@+id/nameField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
 
             android:text="user name"
             android:textColor="@color/fade"
             android:fontFamily="@font/fredoka_medium"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             />
     </LinearLayout>
 </LinearLayout>

@@ -85,25 +85,7 @@ class Login : AppCompatActivity() {
         super.onStart()
 
         val currUser = auth.currentUser
-        println("UID: ${currUser?.uid}")
-        val user = UserController()
         if(currUser != null) {
-            // Reference to account collection and to the document of the current user
-            accountRef = db.collection("account").document(currUser.uid)
-
-            // Find if the logged in user exists and add them to db if not found
-            accountRef.get()
-                .addOnSuccessListener { document ->
-                    val data = document.data
-
-                    if(data == null) {
-                        user.createOne(currUser.uid, currUser.email.toString(), currUser.displayName.toString())
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    println("Error: $exception")
-                }
-
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }

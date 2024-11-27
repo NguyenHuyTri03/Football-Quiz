@@ -36,10 +36,13 @@ class MainActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        val intent = Intent(this, Home::class.java)
+        val mainIntent = Intent(this, Home::class.java)
+        val adminIntent = Intent(this, AdminHome::class.java)
 
         if(auth.currentUser?.uid != null) {
-            startActivity(intent)
+            startActivity(mainIntent)
+        } else if(auth.currentUser?.email == "admin@mail.com") {
+            startActivity(adminIntent)
         }
     }
 }

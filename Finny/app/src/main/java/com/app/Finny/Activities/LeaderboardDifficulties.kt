@@ -16,7 +16,7 @@ class LeaderboardDifficulties : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.apply {
-            closeButton.setOnClickListener {
+            closeBtn.setOnClickListener {
                 finish()
             }
 
