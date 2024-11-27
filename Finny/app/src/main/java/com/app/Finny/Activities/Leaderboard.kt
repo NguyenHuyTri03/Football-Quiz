@@ -21,12 +21,12 @@ class Leaderboard : AppCompatActivity() {
         binding = ActivityLeaderboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Get the selected difficulty
+        val difficulty = intent.getStringExtra("difficulty").toString()
+
         // start loading screen
         val intent = Intent(this, SplashScreen::class.java)
         startActivity(intent)
-
-        // Get the selected difficulty
-        val difficulty = intent.getStringExtra("difficulty") ?: "easy"
 
         // Fetch top players for the selected difficulty
         fetchTopPlayers(difficulty) { players ->

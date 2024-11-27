@@ -81,9 +81,13 @@ class Register : AppCompatActivity() {
                                 println("Error: ${exception}")
                             }
 
-                        val intent = Intent(this, Home::class.java)
-                        startActivity(intent)
-                        finish()
+                        auth.signInWithEmailAndPassword(email, base_pass).addOnSuccessListener {
+                            val intent = Intent(this, Home::class.java)
+                            intent.putExtra("userName", name)
+                            startActivity(intent)
+                            finish()
+                        }
+
                     } else {
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
                         Toast.makeText(
@@ -92,6 +96,7 @@ class Register : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+
                 }
 
 //            // Check if the user exists
@@ -140,6 +145,7 @@ class Register : AppCompatActivity() {
 //                    Toast.LENGTH_SHORT
 //                ).show()
 //            }
+
         }
     }
 

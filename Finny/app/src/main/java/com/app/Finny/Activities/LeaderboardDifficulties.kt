@@ -16,20 +16,24 @@ class LeaderboardDifficulties : AppCompatActivity() {
         binding = ActivityLeaderboardDifficultiesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.apply {
-            closeButton.setOnClickListener {
-                finish()
-            }
+        binding.closeButton.setOnClickListener {
+            finish()
+        }
 
-            easyBtn.setOnClickListener {
-                openLeaderboard("easy")
-            }
-            mediumBtn.setOnClickListener {
-                openLeaderboard("medium")
-            }
-            expertBtn.setOnClickListener {
-                openLeaderboard("expert")
-            }
+        binding.easyBtn.setOnClickListener {
+            val intent = Intent(this, Leaderboard::class.java)
+            intent.putExtra("difficulty", "easy")
+            startActivity(intent)
+        }
+        binding.mediumBtn.setOnClickListener {
+            val intent = Intent(this, Leaderboard::class.java)
+            intent.putExtra("difficulty", "medium")
+            startActivity(intent)
+        }
+        binding.expertBtn.setOnClickListener {
+            val intent = Intent(this, Leaderboard::class.java)
+            intent.putExtra("difficulty", "expert")
+            startActivity(intent)
         }
     }
 

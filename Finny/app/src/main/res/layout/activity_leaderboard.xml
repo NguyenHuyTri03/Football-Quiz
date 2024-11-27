@@ -45,22 +45,20 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="0.7">
 
                 <TextView
-                    android:id="@+id/date"
+                    android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
-                    android:text="date"
+                    android:text="Name"
                     android:textColor="@color/text_main"
                     android:fontFamily="@font/fredoka_medium"
                     android:textStyle="bold"
                     android:textSize="30dp"
                     android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="1dp"
-                    android:autoSizeMaxTextSize="200dp"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     />
             </LinearLayout>
 
@@ -68,22 +66,20 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="0.3">
 
                 <TextView
                     android:id="@+id/score"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
-                    android:text="score"
+                    android:text="Score"
                     android:textColor="@color/text_main"
                     android:fontFamily="@font/fredoka_medium"
                     android:textStyle="bold"
                     android:textSize="30dp"
                     android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="1dp"
-                    android:autoSizeMaxTextSize="200dp"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -93,7 +89,9 @@
             android:id="@+id/leaderboardList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/scoreLayout" />
+            android:layout_below="@id/scoreLayout"
+            android:layout_marginTop="15dp"
+            />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

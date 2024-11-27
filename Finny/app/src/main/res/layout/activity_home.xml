@@ -9,16 +9,16 @@
     android:background="@color/bg_main">
 
     <TextView
-        android:id="@+id/app_title0"
-        android:layout_width="0dp"
+        android:id="@+id/helloTitle"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="80dp"
+        android:textSize="40dp"
         android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="65dp"
+        android:autoSizeMinTextSize="30dp"
         android:autoSizeMaxTextSize="150dp"
 
-        android:text="Finny"
+        android:text="Hello"
         android:textColor="@color/text_main"
         android:fontFamily="@font/fredoka_medium"
         android:textStyle="bold"
@@ -27,7 +27,29 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_bias="0.06"
+        />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="30dp"
+        android:autoSizeMaxTextSize="150dp"
+
+        android:text="name"
+        android:textColor="@color/text_main"
+        android:fontFamily="@font/fredoka_medium"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"
         />
 
     <Button
