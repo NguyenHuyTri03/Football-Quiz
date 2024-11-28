@@ -86,15 +86,4 @@ class Login : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-    // Checks if user is already signed in and redirect them to the main menu
-    public override fun onStart() {
-        super.onStart()
-
-        val currUser = auth.currentUser
-        if(currUser != null) {
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
-        }
-    }
 }

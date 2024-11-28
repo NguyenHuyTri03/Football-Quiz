@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Adapters.LeaderboardAdapter
+import com.app.Finny.SoundManager
 import com.app.Finny.databinding.ActivityLeaderboardBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -72,6 +73,16 @@ class Leaderboard : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.e("Leaderboard", "Error fetching top players: ", exception)
             }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        SoundManager.mediaPlayer?.pause() // Pause music when app is in the background
+    }
+
+    override fun onResume() {
+        super.onResume()
+        SoundManager.mediaPlayer?.start() // Resume music when app comes back to the foreground
     }
 }
 

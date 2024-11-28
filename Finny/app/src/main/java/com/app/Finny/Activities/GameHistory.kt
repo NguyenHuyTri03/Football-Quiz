@@ -10,6 +10,7 @@ import com.app.Finny.Adapters.HistoryAdapter
 import com.app.Finny.Controllers.UserController
 import com.app.Finny.Models.History
 import com.app.Finny.Models.UserModel
+import com.app.Finny.SoundManager
 import com.app.Finny.databinding.ActivityGameHistoryBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -65,5 +66,15 @@ class GameHistory : AppCompatActivity() {
 
         val historyAdapter = HistoryAdapter(this, dateList, difficultyList, scoreList)
         binding.list.adapter = historyAdapter
+    }
+
+    override fun onPause() {
+        super.onPause()
+        SoundManager.mediaPlayer?.pause() // Pause music when app is in the background
+    }
+
+    override fun onResume() {
+        super.onResume()
+        SoundManager.mediaPlayer?.start() // Resume music when app comes back to the foreground
     }
 }

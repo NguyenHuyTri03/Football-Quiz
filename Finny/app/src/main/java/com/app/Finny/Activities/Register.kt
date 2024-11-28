@@ -3,11 +3,14 @@ package com.app.Finny.Activities
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.Controllers.UserController
+import com.app.Finny.R
 import com.app.Finny.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -26,13 +29,41 @@ class Register : AppCompatActivity() {
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = Firebase.auth
+
+        // Set reveal for password field and confirm password field
+        var passIsVisible = false
+        var confirmIsVisible = false
+        binding.viewPasswordBtn.setOnClickListener {
+            if(!passIsVisible) {
+                binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.viewPasswordBtn.setImageResource(R.drawable.ic_invisible)
+                passIsVisible = true
+            } else {
+                binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                binding.viewPasswordBtn.setImageResource(R.drawable.ic_visible)
+                passIsVisible = false
+            }
+            binding.password.setSelection(binding.password.text.length)
+        }
+        binding.viewPasswordBtn1.setOnClickListener {
+            if(!confirmIsVisible) {
+                binding.passwordConfirm.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.viewPasswordBtn1.setImageResource(R.drawable.ic_invisible)
+                confirmIsVisible = true
+            } else {
+                binding.passwordConfirm.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                binding.viewPasswordBtn1.setImageResource(R.drawable.ic_visible)
+                confirmIsVisible = false
+            }
+            binding.password.setSelection(binding.password.text.length)
+        }
+
 
         binding.login.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
-
-        auth = Firebase.auth
 
         binding.registerBtn.setOnClickListener {
             val email = binding.email.text.toString().trim()

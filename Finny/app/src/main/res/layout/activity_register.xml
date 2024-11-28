@@ -28,7 +28,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintVertical_bias="0.05"
         />
 
     <TextView
@@ -51,8 +51,21 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23"
+        app:layout_constraintVertical_bias="0.15"
         />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:srcCompat="@drawable/corgi_bone" />
 
     <EditText
         android:id="@+id/email"
@@ -100,51 +113,95 @@
         app:layout_constraintVertical_bias="0.48"
         />
 
-    <EditText
-        android:id="@+id/password"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:autofillHints="password"
-        android:hint="Password"
-        android:fontFamily="@font/fredoka_medium"
-        android:inputType="textPassword"
-        android:textColor="@color/text_main"
-        android:textColorHint="@color/fade"
-        android:textSize="18dp"
-        android:padding="15dp"
-        android:layout_margin="10dp"
-        tools:ignore="TouchTargetSizeCheck"
+        android:orientation="horizontal"
+        android:layout_weight="1"
 
-        app:layout_constraintDimensionRatio="5.6:1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.56"
-        />
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="25dp"
+        >
 
-    <EditText
-        android:id="@+id/passwordConfirm"
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:hint="Password"
+            android:fontFamily="@font/fredoka_medium"
+            android:inputType="textPassword"
+            android:textColor="@color/text_main"
+            android:textColorHint="@color/fade"
+            android:textSize="18dp"
+            android:padding="15dp"
+            tools:ignore="TouchTargetSizeCheck"
+
+            app:layout_constraintDimensionRatio="5.6:1"
+            android:layout_weight="0.8"
+            />
+
+        <ImageButton
+            android:id="@+id/viewPasswordBtn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_invisible"
+            android:backgroundTint="@color/bg_main"
+            android:layout_weight="0.2"
+            />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:autofillHints="password"
-        android:hint="Confirm Password"
-        android:fontFamily="@font/fredoka_medium"
-        android:inputType="textPassword"
-        android:textColor="@color/text_main"
-        android:textColorHint="@color/fade"
-        android:textSize="18dp"
-        android:padding="15dp"
-        android:layout_margin="10dp"
-        tools:ignore="TouchTargetSizeCheck"
+        android:orientation="horizontal"
+        android:layout_weight="1"
 
-        app:layout_constraintDimensionRatio="5.6:1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.64"
-        />
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="25dp"
+        >
+
+        <EditText
+            android:id="@+id/passwordConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:hint="Confirm password"
+            android:fontFamily="@font/fredoka_medium"
+            android:inputType="textPassword"
+            android:textColor="@color/text_main"
+            android:textColorHint="@color/fade"
+            android:textSize="18dp"
+            android:padding="15dp"
+            tools:ignore="TouchTargetSizeCheck"
+
+            app:layout_constraintDimensionRatio="5.6:1"
+            android:layout_weight="0.8"
+            />
+
+        <ImageButton
+            android:id="@+id/viewPasswordBtn1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_invisible"
+            android:backgroundTint="@color/bg_main"
+            android:layout_weight="0.2"
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/registerBtn"
