@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:padding="15dp"
         android:background="@color/bg_main">
 
         <!-- Close button -->
@@ -18,6 +18,8 @@
             android:layout_height="48dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+
             android:src="@drawable/ic_close"
             android:contentDescription="Close Leaderboard"
             android:backgroundTint="@color/bg_main"/>
@@ -28,6 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+
             android:text="Leaderboard"
             android:textSize="35sp"
             android:textStyle="bold"
@@ -41,59 +45,44 @@
             android:layout_below="@id/leaderboardTitle"
             android:layout_marginTop="10dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
 
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                android:text="Username"
+                android:textColor="@color/text_main"
+                android:fontFamily="@font/fredoka_medium"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:autoSizeTextType="uniform"
+                android:textAlignment="textStart"
+                />
 
-                    android:text="date"
-                    android:textColor="@color/text_main"
-                    android:fontFamily="@font/fredoka_medium"
-                    android:textStyle="bold"
-                    android:textSize="30dp"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="1dp"
-                    android:autoSizeMaxTextSize="200dp"
-                    android:textAlignment="center"
-                    />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".8"
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/score"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:text="score"
-                    android:textColor="@color/text_main"
-                    android:fontFamily="@font/fredoka_medium"
-                    android:textStyle="bold"
-                    android:textSize="30dp"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="1dp"
-                    android:autoSizeMaxTextSize="200dp"
-                    android:textAlignment="center"
-                    />
-            </LinearLayout>
+                android:text="Score"
+                android:textColor="@color/text_main"
+                android:fontFamily="@font/fredoka_medium"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:autoSizeTextType="uniform"
+                android:textAlignment="center"
+                />
         </LinearLayout>
 
         <!-- List of players -->
         <ListView
             android:id="@+id/leaderboardList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/scoreLayout" />
+            android:layout_height="600dp"
+            android:layout_below="@id/scoreLayout"
+            android:layout_marginTop="10dp"/>
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

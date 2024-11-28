@@ -3,27 +3,22 @@ package com.app.Finny.Activities
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.app.Finny.Controllers.UserController
+import com.app.Finny.R
 import com.app.Finny.databinding.ActivityLoginBinding
-
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var auth: FirebaseAuth
-    // Create a firestore instance
-    private val db = FirebaseFirestore.getInstance()
-    // Get a reference to the "account" collection
-    private lateinit var accountRef: DocumentReference
+    private val auth = Firebase.auth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +27,6 @@ class Login : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        auth = Firebase.auth
 
         // Checks for input and login with Auth
         binding.loginBtn.setOnClickListener {
@@ -71,6 +64,20 @@ class Login : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        var isVisible = false
+        binding.viewPasswordBtn.setOnClickListener {
+            if(!isVisible) {
+                binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.viewPasswordBtn.setImageResource(R.drawable.ic_invisible)
+                isVisible = true
+            } else {
+                binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                binding.viewPasswordBtn.setImageResource(R.drawable.ic_visible)
+                isVisible = false
+            }
+            binding.password.setSelection(binding.password.text.length)
         }
 
         // Go to Register Activity

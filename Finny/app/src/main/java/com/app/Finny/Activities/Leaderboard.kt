@@ -21,11 +21,12 @@ class Leaderboard : AppCompatActivity() {
         setContentView(binding.root)
 
         // start loading screen
-        val intent = Intent(this, SplashScreen::class.java)
-        startActivity(intent)
+        val splashScreenIntent = Intent(this, SplashScreen::class.java)
+        startActivity(splashScreenIntent)
 
         // Get the selected difficulty
-        val difficulty = intent.getStringExtra("difficulty") ?: "easy"
+        val difficulty = intent.getStringExtra("difficulty").toString()
+        println(difficulty)
 
         // Fetch top players for the selected difficulty
         fetchTopPlayers(difficulty) { players ->
@@ -48,7 +49,7 @@ class Leaderboard : AppCompatActivity() {
 
     private fun fetchTopPlayers(difficulty: String, callback: (List<Player>) -> Unit) {
         val db = FirebaseFirestore.getInstance()
-        val difficultyField = when (difficulty) {
+        val difficultyField = when(difficulty) {
             "easy" -> "score_easy"
             "medium" -> "score_medium"
             "expert" -> "score_expert"

@@ -5,10 +5,12 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.app.Finny.databinding.ActivityHomeBinding
-
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class Home : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private val auth = Firebase.auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +19,11 @@ class Home : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.userName.text = intent.getStringExtra("userName").toString()
+        if(intent.getStringExtra("userName") != null) {
+            binding.userName.text = intent.getStringExtra("userName").toString()
+        } else {
+            binding.userName.text = auth.currentUser!!.displayName
+        }
 
         // button bindings
         binding.playBtn.setOnClickListener {

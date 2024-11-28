@@ -60,22 +60,21 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight=".6">
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingLeft="20dp"
 
-                android:text="date"
+                android:text="Date"
                 android:textColor="@color/text_main"
                 android:fontFamily="@font/fredoka_medium"
                 android:textStyle="bold"
                 android:textSize="30dp"
                 android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="1dp"
-                android:autoSizeMaxTextSize="200dp"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 />
         </LinearLayout>
 
@@ -83,21 +82,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight=".6">
 
             <TextView
                 android:id="@+id/difficulty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:text="difficulty"
+                android:text="Difficulty"
                 android:textColor="@color/text_main"
                 android:fontFamily="@font/fredoka_medium"
                 android:textStyle="bold"
                 android:textSize="30dp"
                 android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="1dp"
-                android:autoSizeMaxTextSize="200dp"
                 android:textAlignment="center"
                 />
         </LinearLayout>
@@ -106,21 +103,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight=".4">
 
             <TextView
                 android:id="@+id/score"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:text="score"
+                android:text="Score"
                 android:textColor="@color/text_main"
                 android:fontFamily="@font/fredoka_medium"
                 android:textStyle="bold"
                 android:textSize="30dp"
                 android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="1dp"
-                android:autoSizeMaxTextSize="200dp"
                 android:textAlignment="center"
                 />
         </LinearLayout>

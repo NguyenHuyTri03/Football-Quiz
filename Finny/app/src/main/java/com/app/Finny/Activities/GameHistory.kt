@@ -52,7 +52,7 @@ class GameHistory : AppCompatActivity() {
         }
         runBlocking { user = channel.receive() }
 
-        val historyList: List<History> = user.history.toList()  // contain game history of the logged in user
+        val historyList: List<History> = user.history.toList().reversed()  // contain game history of the logged in user
         val dateList = mutableListOf<String>()
         val difficultyList = mutableListOf<String>()
         val scoreList = mutableListOf<Int>()

@@ -11,8 +11,8 @@ import com.app.Finny.Controllers.UserController
 import com.app.Finny.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.userProfileChangeRequest
 import kotlinx.coroutines.runBlocking
 
 class Register : AppCompatActivity() {
@@ -81,7 +81,7 @@ class Register : AppCompatActivity() {
         runBlocking {
             val isAvailable = userController.checkName(name)
 
-            if(!isAvailable && name.length <= 15) {
+            if(!isAvailable && name.length <= 10) {
                 nameStatus = true
             } else {
                 makeErrorToast("User name already exist or longer than 15 characters")
