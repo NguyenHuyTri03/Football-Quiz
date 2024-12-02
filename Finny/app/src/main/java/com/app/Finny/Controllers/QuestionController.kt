@@ -1,9 +1,16 @@
 package com.app.Finny.Controllers
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import com.app.Finny.Models.QuestionModel
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base64
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObjects
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayOutputStream
+import java.net.URL
+import java.util.concurrent.Executors
 
 
 class QuestionController {
@@ -36,6 +43,7 @@ class QuestionController {
 
 
 
+
     /*** DEPRECATED , DO NOT RUN
      *
 
@@ -57,5 +65,51 @@ class QuestionController {
             callback.invoke(questions)
         }
     }
-    ***/
+
+    // Get link from GG Drive and format them to bitmap strings
+    suspend fun updatePicturesURL() {
+        val rawLinks = "https://drive.google.com/file/d/1MJ1_8ZkNGOGoYwWb454PaW4Nw4SgmdE6/view?usp=sharing, https://drive.google.com/file/d/1dXtjBp-oOrt9nacvEj0OO4LWGGKRp41R/view?usp=sharing, https://drive.google.com/file/d/1yVqAthnDnXgVAOv59hjaF-iuzkjDhYxq/view?usp=sharing, https://drive.google.com/file/d/1b1uIdRbgpvWeD3em4CFcEFOBLEuSRxbX/view?usp=sharing, https://drive.google.com/file/d/1uhpDg1QAxCtuuGIMotAVeWUvC99uJ1b-/view?usp=sharing, https://drive.google.com/file/d/1loeZYDye2SzOIsC1j9G36TEWgvclN55P/view?usp=sharing, https://drive.google.com/file/d/100wQ4KHghac8j51LHnwI1Cha7amAV71F/view?usp=sharing, https://drive.google.com/file/d/1x6LpUuu-SDC-exAj0d2eNRAMhlF6Wtzu/view?usp=sharing, https://drive.google.com/file/d/1TElZ5y1Fg3-MZxpikUEDWxz6W5LqftGX/view?usp=sharing, https://drive.google.com/file/d/1cKRM5tL8WITYvieM1BcIUObqmM9qAh8c/view?usp=sharing, https://drive.google.com/file/d/1zz7bsxxWQgtCxuPwhu35moAluZGjO_WJ/view?usp=sharing, https://drive.google.com/file/d/169cduCDB8gBSLYJQN3KOzcSdcVDj_yzQ/view?usp=sharing, https://drive.google.com/file/d/1ZgclGDWLoZUcrIWRR_cZt-dvkE2mhP4G/view?usp=sharing, https://drive.google.com/file/d/1YJJNYZM4iLgezgr7NFek57-VS4yGYdPM/view?usp=sharing, https://drive.google.com/file/d/1b9MSSgetsApeuGaTf-_TOk4zS8aCrhFN/view?usp=sharing"
+        val links: List<String> = rawLinks.split(", ")
+        val processedLinks: MutableList<String> = mutableListOf()
+
+        links.forEach { img ->
+            processedLinks.add("https://drive.google.com/uc?export=view&id=${img.split("/")[5]}")
+        }
+
+        val questionRef = db.collection("medium_questions")
+        val documents = questionRef.get().await()
+        val list: List<QuestionModel>
+
+        list = documents.toObjects(QuestionModel::class.java)
+
+        var i = 0
+        list.forEach { question ->
+            val imgURL = processedLinks[i]
+            var image:Bitmap?
+            val executor = Executors.newSingleThreadExecutor()
+
+            executor.execute {
+                val `in` = URL(imgURL).openStream()
+                image = BitmapFactory.decodeStream(`in`)
+
+                questionRef.document(question.id)
+                    .update("image_url", encodeImage(image))
+                    .addOnSuccessListener {
+                        println("${question.id} -> success")
+                    }
+                    .addOnFailureListener { err ->
+                        println(err)
+                    }
+            }
+        }
+    }
+
+    private fun encodeImage(bm: Bitmap?): String? {
+        val baos = ByteArrayOutputStream()
+        bm?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val b = baos.toByteArray()
+        return Base64.encodeBase64String(b)
+    }
+
+     ***/
 }

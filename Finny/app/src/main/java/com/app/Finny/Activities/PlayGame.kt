@@ -5,6 +5,8 @@ package com.app.Finny.Activities
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -17,6 +19,7 @@ import com.app.Finny.Models.QuestionModel
 import com.app.Finny.R
 import com.app.Finny.SoundManager
 import com.app.Finny.databinding.ActivityPlayGameBinding
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base64
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
@@ -31,6 +34,7 @@ class PlayGame : AppCompatActivity() {
     private lateinit var gameDifficulty: String
     private lateinit var exitDialog: AlertDialog
 
+    private var imageBitmapList: MutableList<Bitmap?> = mutableListOf()
     private val questionTime = 60
     private val scorePerQuestion = 10
     private var bonusPerSecond = 1
@@ -39,8 +43,6 @@ class PlayGame : AppCompatActivity() {
     private var totalScore = 0
     private var answers = mutableListOf<String>()
     private var validAnswers = mutableListOf<String>()
-
-    // timer
     private val totalTime = questionTime * 1000L
     private var timer = object : CountDownTimer(totalTime,1000L){
         override fun onTick(millisUntilFinished: Long) {
@@ -80,6 +82,7 @@ class PlayGame : AppCompatActivity() {
         SoundManager.stopSong()
         SoundManager.playSong(this, R.raw.hail, loop = true)
 
+        // Get questions from DB
         getQuestions()
         doBindings()
     }
@@ -130,7 +133,11 @@ class PlayGame : AppCompatActivity() {
 
             channel.send(data)
         }
-        runBlocking { qList = channel.receive() }
+        runBlocking {
+            qList = channel.receive()
+
+
+        }
 
         val randomNumbers = mutableSetOf<Int>()
         while (randomNumbers.size < 5) {
@@ -141,7 +148,13 @@ class PlayGame : AppCompatActivity() {
             qList[num].options = qList[num].options.shuffled()
             validAnswers.add(qList[num].correct)
             questionList.add(qList[num])
+            val imageBytes = Base64.decodeBase64(qList[num].image_url)
+            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+
+            imageBitmapList.add(decodedImage)
         }
+
+
 
         putQuestion()
         timer.start()
@@ -149,6 +162,9 @@ class PlayGame : AppCompatActivity() {
 
     private fun putQuestion() {
         val currentQuestion = "Question ${questionIndex + 1}/5"
+
+        // Display image
+        binding.questionImg.setImageBitmap(imageBitmapList[questionIndex])
 
         binding.apply {
             option1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#949494")))
@@ -177,11 +193,13 @@ class PlayGame : AppCompatActivity() {
         }
         answers.add(answer)
 
-        // Delay 600ms for the player to see if they got the question right
-        // then proceed to put another question or end the quiz
+        val remainTime = (questionTime - timeTaken).toLong()
+//        timerManager("pause", remainTime)
+        // Delay 2000ms for the player to let the user review the question
         Handler(Looper.getMainLooper()).postDelayed({
             questionIndex++
             buttonEnable(true)
+//            timerManager("start", remainTime)
 
             if(questionIndex < 5) {
                 // put another question in
@@ -253,6 +271,7 @@ class PlayGame : AppCompatActivity() {
     }
 
     private fun endQuiz() {
+//        timerManager("stop", 0)
         timer.cancel()
 
         // number of correct answers
@@ -262,7 +281,7 @@ class PlayGame : AppCompatActivity() {
         var finalScore = 0
 
         if(correctAnswers != 0) {
-            timeBonus = (questionTime - timeTaken) * bonusPerSecond
+            timeBonus = (questionTime - timeTaken + 10) * bonusPerSecond
             finalScore = totalScore + timeBonus
         }
 

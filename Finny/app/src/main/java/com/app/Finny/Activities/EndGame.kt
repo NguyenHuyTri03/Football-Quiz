@@ -60,6 +60,10 @@ class EndGame : AppCompatActivity() {
         binding.retryBtn.setOnClickListener {
             SoundManager.playSFX(this, "answer_click")
 
+            runBlocking {
+                updateUserScore(uid, finalScore, difficulty, timeTaken)
+            }
+
             val intent = Intent(this, PlayGame::class.java)
             intent.putExtra("difficulty", difficulty)
             startActivity(intent)

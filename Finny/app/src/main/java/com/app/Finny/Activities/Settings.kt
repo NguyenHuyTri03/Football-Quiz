@@ -25,12 +25,21 @@ class Settings : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.closeBtn.setOnClickListener {
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
+            SoundManager.playSFX(this, "answer_click")
+
             finish()
         }
 
+        binding.tutorialBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+
+            val intent = Intent(this, Tutorial::class.java)
+            startActivity(intent)
+        }
+
         binding.logoutBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+
             auth.signOut()
             val intent = Intent(this, Login::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

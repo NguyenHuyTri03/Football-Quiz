@@ -4,11 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.app.Finny.Controllers.QuestionController
 import com.app.Finny.databinding.ActivityMainBinding
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.ktx.auth
 
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         val mainIntent = Intent(this, Home::class.java)
         val adminIntent = Intent(this, AdminHome::class.java)
 
-        if(auth.currentUser?.uid != null) {
+        if(auth.currentUser?.uid != null && auth.currentUser?.email != "admin@mail.com") {
             startActivity(mainIntent)
         } else if(auth.currentUser?.email == "admin@mail.com") {
             startActivity(adminIntent)

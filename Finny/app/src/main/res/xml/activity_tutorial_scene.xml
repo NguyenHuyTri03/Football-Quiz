@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetStart="@id/start"
+        motion:constraintSetEnd="@+id/previous"
+        motion:duration="1000"
+        android:id="@+id/forward">
+        <OnSwipe
+            motion:dragDirection="dragLeft"
+            motion:touchAnchorSide="left" />
+    </Transition>
+
+    <Transition
+        motion:constraintSetStart="@+id/start"
+        motion:constraintSetEnd="@+id/next"
+        motion:duration="1000"
+        android:id="@+id/backward">
+    <OnSwipe
+        motion:dragDirection="dragRight"
+        motion:touchAnchorSide="right" />
+    </Transition>
+
+
+
+<!--    <ConstraintSet android:id="@+id/start">-->
+<!--        <Constraint-->
+<!--            android:id="@id/chooseDiff"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:elevation="-2dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintEnd_toStartOf="@id/chooseAnswer"-->
+<!--            motion:layout_constraintHorizontal_chainStyle="packed"-->
+<!--            motion:layout_constraintStart_toStartOf="parent"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@id/chooseAnswer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:elevation="5dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintEnd_toStartOf="@id/endGame"-->
+<!--            motion:layout_constraintStart_toEndOf="@id/chooseAnswer"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--    </ConstraintSet>-->
+
+<!--    <ConstraintSet android:id="@+id/next">-->
+<!--        <Constraint-->
+<!--            android:id="@id/endGame"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:elevation="-2dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintEnd_toStartOf="@id/chooseDiff"-->
+<!--            motion:layout_constraintHorizontal_chainStyle="packed"-->
+<!--            motion:layout_constraintStart_toStartOf="parent"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@id/chooseDiff"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:elevation="5dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintEnd_toStartOf="@id/chooseAnswer"-->
+<!--            motion:layout_constraintStart_toEndOf="@id/endGame"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@id/chooseAnswer"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:elevation="-2dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintEnd_toEndOf="parent"-->
+<!--            motion:layout_constraintStart_toEndOf="@id/chooseDiff"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--    </ConstraintSet>-->
+
+<!--    <ConstraintSet android:id="@+id/previous">-->
+<!--        <Constraint-->
+<!--            android:id="@id/chooseAnswer"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:elevation="-2dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintEnd_toStartOf="@id/endGame"-->
+<!--            motion:layout_constraintHorizontal_chainStyle="packed"-->
+<!--            motion:layout_constraintStart_toStartOf="parent"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@id/endGame"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:elevation="5dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintEnd_toStartOf="@id/chooseDiff"-->
+<!--            motion:layout_constraintStart_toEndOf="@id/chooseAnswer"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--        <Constraint-->
+<!--            android:id="@id/chooseDiff"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:elevation="-2dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintEnd_toEndOf="parent"-->
+<!--            motion:layout_constraintStart_toEndOf="@id/endGame"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+<!--    </ConstraintSet>-->
+
+</MotionScene>
+
+
+
+
+
+

@@ -7,8 +7,6 @@
   - Nghiên cứu về Kotlin
 
   **Đặc tả: [GG Sheet](https://docs.google.com/spreadsheets/d/139B-whnt_3KI01oaU-XaHniBHLzSsA9tgCndOezUHXI/edit?gid=1519169062#gid=1519169062)**
-  
-  **ERD: [Draw.io](https://drive.google.com/file/d/1PClhQ_PpxBNXY27uIZt_nCgmpkyDU5TQ/view?usp=sharing)**
  
 ## Chức năng
   **- Actor: Player**

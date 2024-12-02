@@ -20,11 +20,10 @@ import kotlinx.coroutines.tasks.await
 class UserController {
     // Create a firestore instance
     private val db = FirebaseFirestore.getInstance()
-
-    private var auth: FirebaseAuth = Firebase.auth
-
     // Get a reference to the "account" collection
     private val accountCol = db.collection("account")
+
+    private var auth: FirebaseAuth = Firebase.auth
 
     private val uid = auth.currentUser?.uid.toString()
 
@@ -53,11 +52,11 @@ class UserController {
     }
 
     // Add the current user to DB if they don't exist
-    fun createOne(id: String, email: String, name: String) {
-        val accountRef = accountCol.document(id)
+    fun createOne(uid: String, email: String, name: String) {
+        val accountRef = accountCol.document(uid)
 
         accountRef.set(mapOf(
-            "uid" to id,
+            "uid" to uid,
             "email" to email,
             "name" to name,
             "score_easy" to 0,

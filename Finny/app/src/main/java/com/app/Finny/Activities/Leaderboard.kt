@@ -27,7 +27,6 @@ class Leaderboard : AppCompatActivity() {
 
         // Get the selected difficulty
         val difficulty = intent.getStringExtra("difficulty").toString()
-        println(difficulty)
 
         // Fetch top players for the selected difficulty
         fetchTopPlayers(difficulty) { players ->
