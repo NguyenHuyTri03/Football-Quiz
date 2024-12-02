@@ -1,1 +1,0 @@
-**ERD: [Draw.io](https://drive.google.com/file/d/1PClhQ_PpxBNXY27uIZt_nCgmpkyDU5TQ/view?usp=sharing)**
