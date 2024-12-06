@@ -36,9 +36,6 @@
             android:name=".Activities.Leaderboard"
             android:exported="false" />
         <activity
-            android:name=".Activities.LeaderboardDifficulties"
-            android:exported="false" />
-        <activity
             android:name=".Activities.GameHistory"
             android:exported="false" />
         <activity

@@ -24,9 +24,11 @@ class Home : AppCompatActivity() {
         setContentView(binding.root)
 
         if(intent.getStringExtra("userName") != null) {
-            binding.userName.text = intent.getStringExtra("userName").toString()
+            val text = "Hi ${intent.getStringExtra("userName")}"
+            binding.greet.text = text
         } else {
-            binding.userName.text = auth.currentUser!!.displayName
+            val text = "Hi ${auth.currentUser!!.displayName}"
+            binding.greet.text = text
         }
 
         // button bindings
@@ -34,6 +36,7 @@ class Home : AppCompatActivity() {
             SoundManager.playSFX(this, "answer_click")
 
             val intent = Intent(this, GameDifficulty::class.java)
+            intent.putExtra("option", "play")
             startActivity(intent)
         }
 
@@ -41,6 +44,13 @@ class Home : AppCompatActivity() {
             SoundManager.playSFX(this, "answer_click")
 
             val intent = Intent(this, GameHistory::class.java)
+            startActivity(intent)
+        }
+
+        binding.tutorialBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+
+            val intent = Intent(this, Tutorial::class.java)
             startActivity(intent)
         }
 
@@ -54,7 +64,8 @@ class Home : AppCompatActivity() {
         binding.leaderboardBtn.setOnClickListener {
             SoundManager.playSFX(this, "answer_click")
 
-            val intent = Intent(this, LeaderboardDifficulties::class.java)
+            val intent = Intent(this, GameDifficulty::class.java)
+            intent.putExtra("option", "leaderboard")
             startActivity(intent)
         }
 

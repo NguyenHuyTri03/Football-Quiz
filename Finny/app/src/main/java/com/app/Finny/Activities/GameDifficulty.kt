@@ -1,6 +1,8 @@
 package com.app.Finny.Activities
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,32 +19,60 @@ class GameDifficulty : AppCompatActivity() {
         binding = ActivityGameDifficultyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.easyBtn.setOnClickListener {
-            SoundManager.playSFX(this, "start_game")
+        val option = intent.getStringExtra("option").toString()
 
-            val intent = Intent(this, PlayGame::class.java)
-            intent.putExtra("difficulty", "easy")
-            startActivity(intent)
+        if(option == "leaderboard") {
+            leaderboardBinding()
+        } else {
+            playBinding()
         }
 
-        binding.mediumBtn.setOnClickListener {
-            SoundManager.playSFX(this, "start_game")
-
-            val intent = Intent(this, PlayGame::class.java)
-            intent.putExtra("difficulty", "medium")
+        binding.homeBtn.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
+            finish()
         }
 
-        binding.expertBtn.setOnClickListener {
-            SoundManager.playSFX(this, "start_game")
-
-            val intent = Intent(this, PlayGame::class.java)
-            intent.putExtra("difficulty", "expert")
+        binding.settingsBtn.setOnClickListener {
+            val intent = Intent(this, Settings::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.closeBtn.setOnClickListener{
             finish()
+        }
+    }
+
+    private fun playBinding() {
+        binding.easyBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+            startGame("easy")
+        }
+        binding.mediumBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+            startGame("medium")
+        }
+        binding.expertBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+            startGame("expert")
+        }
+    }
+
+    private fun leaderboardBinding() {
+
+
+        binding.easyBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+            openLeaderboard("easy")
+        }
+        binding.mediumBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+            openLeaderboard("medium")
+        }
+        binding.expertBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+            openLeaderboard("expert")
         }
     }
 
@@ -54,5 +84,17 @@ class GameDifficulty : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         SoundManager.mediaPlayer?.start() // Resume music when app comes back to the foreground
+    }
+
+    private fun openLeaderboard(difficulty: String) {
+        val intent = Intent(this, Leaderboard::class.java)
+        intent.putExtra("difficulty", difficulty)
+        startActivity(intent)
+    }
+
+    private fun startGame(difficulty: String) {
+        val intent = Intent(this, PlayGame::class.java)
+        intent.putExtra("difficulty", difficulty)
+        startActivity(intent)
     }
 }

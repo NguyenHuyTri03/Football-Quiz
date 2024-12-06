@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -10,153 +10,232 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="@color/bg_main"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0">
-
-        <ImageButton
-            android:id="@+id/closeBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/ic_close"
-            android:contentDescription="Close Leaderboard"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/bg_main"/>
-
-        <!-- Title -->
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/soundLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@color/bg_main"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0">
+
+            <ImageButton
+                android:id="@+id/closeBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_back"
+                android:contentDescription="Close Leaderboard"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/bg_main"/>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Settings"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/text_main"/>
+
+            <LinearLayout
+                android:id="@+id/musicLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/title"
+                android:layout_marginTop="100dp"
+                android:layout_centerVertical="true"
+                >
+
+                <ImageButton
+                    android:id="@+id/musicBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/ic_music"
+                    android:contentDescription="Close Leaderboard"
+                    android:backgroundTint="@color/bg_main"
+                    />
+
+                <SeekBar
+                    android:id="@+id/musicBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:progress="@integer/material_motion_duration_long_2"
+                    android:progressDrawable="@drawable/volume_bar_progress"
+                    android:thumb="@drawable/volume_bar_thumb"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sfxLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/musicLayout"
+                android:layout_marginTop="30dp"
+                android:layout_centerVertical="true"
+                >
+
+                <ImageButton
+                    android:id="@+id/sfxBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/ic_sfx"
+                    android:contentDescription="Close Leaderboard"
+                    android:backgroundTint="@color/bg_main"
+                    />
+
+                <SeekBar
+                    android:id="@+id/sfxBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:progress="@integer/material_motion_duration_long_2"
+                    android:progressDrawable="@drawable/volume_bar_progress"
+                    android:thumb="@drawable/volume_bar_thumb"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/actionBtnLayout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+
+            android:layout_marginTop="200dp"
+            android:layout_below="@+id/soundLayout"
+            android:orientation="vertical"
             android:layout_centerHorizontal="true"
-            android:text="Settings"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/text_main"/>
+            android:gravity="center">
 
-        <LinearLayout
-            android:id="@+id/musicLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/title"
-            android:layout_marginTop="100dp"
-            android:layout_centerVertical="true"
-            >
-
-            <ImageButton
-                android:id="@+id/musicBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_music"
-                android:contentDescription="Close Leaderboard"
-                android:backgroundTint="@color/bg_main"
-                />
-
-            <SeekBar
-                android:id="@+id/musicBar"
+            <Button
+                android:id="@+id/logoutBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:progress="@integer/material_motion_duration_long_2"
-                android:progressDrawable="@drawable/volume_bar_progress"
-                android:thumb="@drawable/volume_bar_thumb"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="20dp"
+
+                android:text="Logout"
+                android:textSize="30dp"
+                android:textStyle="bold"
+
+                android:background="@drawable/btn_rounded"
+                app:backgroundTint="@color/btn_hard"
+                android:textColor="@color/text_main"
+                android:fontFamily="@font/fredoka_medium"
                 />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sfxLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/musicLayout"
-            android:layout_marginTop="30dp"
-            android:layout_centerVertical="true"
-            >
-
-            <ImageButton
-                android:id="@+id/sfxBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_sfx"
-                android:contentDescription="Close Leaderboard"
-                android:backgroundTint="@color/bg_main"
-                />
-
-            <SeekBar
-                android:id="@+id/sfxBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:progress="@integer/material_motion_duration_long_2"
-                android:progressDrawable="@drawable/volume_bar_progress"
-                android:thumb="@drawable/volume_bar_thumb"
-                />
-
         </LinearLayout>
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/logoutBtn"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        app:layout_anchor="@id/bottomNav"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/navbar"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="3dp"
-        android:text="LOG OUT"
-        android:textSize="30dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="1dp"
-        android:autoSizeMaxTextSize="200dp"
-        android:background="@drawable/btn_rounded"
-        app:backgroundTint="@color/btn_hard"
-        android:textColor="@color/text_main"
-        android:fontFamily="@font/fredoka_medium"
-        android:textStyle="bold"
+        android:paddingTop="15dp"
+        android:paddingBottom="20dp"
+        android:layout_marginBottom="48dp"
+        android:layout_gravity="bottom"
+        android:background="@color/bg_main"
 
-        app:layout_constraintDimensionRatio="6:1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85"
-        />
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
 
-    <Button
-        android:id="@+id/tutorialBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="3dp"
-        android:text="TUTORIAL"
-        android:textSize="30dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="1dp"
-        android:autoSizeMaxTextSize="200dp"
-        android:background="@drawable/btn_rounded"
-        app:backgroundTint="@color/btn_med"
-        android:textColor="@color/text_main"
-        android:fontFamily="@font/fredoka_medium"
-        android:textStyle="bold"
+        <LinearLayout
+            android:id="@+id/homeBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
 
-        app:layout_constraintDimensionRatio="6:1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75"
-        />
+            <ImageButton
+                android:id="@+id/homeBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:src="@drawable/ic_home"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/btn_main"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/leaderboardBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <ImageButton
+                android:id="@+id/leaderboardBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+
+                android:src="@drawable/ic_trophy"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/btn_main"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settingsBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <ImageButton
+                android:id="@+id/settingsBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+
+                android:src="@drawable/ic_settings"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/text_main"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.app.Finny.Activities
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -17,6 +18,8 @@ class Settings : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
     private var auth = Firebase.auth
 
+    private lateinit var exitDialog: AlertDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,47 +27,58 @@ class Settings : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Bindings
+        buttonBinding()
+        soundBinding()
+
+        // Create a an logout confirmation popup
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder
+            .setTitle("Logout?")
+            // Return the user to the home screen
+            .setPositiveButton("Yes") { _, _ ->
+                auth.signOut()
+                val intent = Intent(this, Login::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+            .setNegativeButton("No") { _, _ ->
+                exitDialog.cancel()
+            }
+        exitDialog = builder.create()
+    }
+
+    private fun buttonBinding() {
         binding.closeBtn.setOnClickListener {
             SoundManager.playSFX(this, "answer_click")
-
             finish()
-        }
-
-        binding.tutorialBtn.setOnClickListener {
-            SoundManager.playSFX(this, "answer_click")
-
-            val intent = Intent(this, Tutorial::class.java)
-            startActivity(intent)
         }
 
         binding.logoutBtn.setOnClickListener {
             SoundManager.playSFX(this, "answer_click")
 
-            auth.signOut()
-            val intent = Intent(this, Login::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            exitDialog.show()
+        }
+
+        binding.homeBtn.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
             finish()
         }
 
+        binding.leaderboardBtn.setOnClickListener {
+            val intent = Intent(this, GameDifficulty::class.java)
+            intent.putExtra("option", "leaderboard")
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun soundBinding() {
         val sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-        SoundManager.isMusicEnabled = sharedPreferences.getBoolean("isMusicEnabled", true)
-        SoundManager.isSfxEnabled = sharedPreferences.getBoolean("isSfxEnabled", true)
 
-        //Chỗ này thêm giúp tui mô cái ảnh nào đó ở mục else để hiển thị nó bị disable nha
-        if (SoundManager.isMusicEnabled) {
-            binding.musicBtn.setImageResource(R.drawable.ic_music)
-        } else {
-            binding.musicBtn.setImageResource(R.drawable.ic_music)
-        }
-
-        //Chỗ này thêm giúp tui mô cái ảnh nào đó ở mục else để hiển thị nó bị disable nha
-        if (SoundManager.isSfxEnabled) {
-            binding.sfxBtn.setImageResource(R.drawable.ic_sfx)
-        } else {
-            binding.sfxBtn.setImageResource(R.drawable.ic_sfx)
-        }
-
+        // Change volume from seekbar values
         val savedMusicVolume = sharedPreferences.getInt("musicVolume", 50)
         val savedSfxVolume = sharedPreferences.getInt("sfxVolume", 50)
 
@@ -101,12 +115,11 @@ class Settings : AppCompatActivity() {
             SoundManager.isMusicEnabled = !SoundManager.isMusicEnabled
             editor.putBoolean("isMusicEnabled", SoundManager.isMusicEnabled)
 
-            //Chỗ này thêm giúp tui mô cái ảnh nào đó ở mục else để hiển thị nó bị disable nha
             if (SoundManager.isMusicEnabled) {
                 binding.musicBtn.setImageResource(R.drawable.ic_music)
                 SoundManager.mediaPlayer?.start()
             } else {
-                binding.musicBtn.setImageResource(R.drawable.ic_music)
+                binding.musicBtn.setImageResource(R.drawable.ic_music_off)
                 SoundManager.mediaPlayer?.pause()
             }
             editor.apply()
@@ -119,13 +132,30 @@ class Settings : AppCompatActivity() {
             SoundManager.isSfxEnabled = !SoundManager.isSfxEnabled
             editor.putBoolean("isSfxEnabled", SoundManager.isSfxEnabled)
 
-            //Chỗ này thêm giúp tui mô cái ảnh nào đó ở mục else để hiển thị nó bị disable nha
             if (SoundManager.isSfxEnabled) {
                 binding.sfxBtn.setImageResource(R.drawable.ic_sfx)
             } else {
-                binding.sfxBtn.setImageResource(R.drawable.ic_sfx)
+                binding.sfxBtn.setImageResource(R.drawable.ic_sfx_off)
             }
             editor.apply()
+        }
+
+        // Sound Processing
+        SoundManager.isMusicEnabled = sharedPreferences.getBoolean("isMusicEnabled", true)
+        SoundManager.isSfxEnabled = sharedPreferences.getBoolean("isSfxEnabled", true)
+
+        // Music on/off
+        if (SoundManager.isMusicEnabled) {
+            binding.musicBtn.setImageResource(R.drawable.ic_music)
+        } else {
+            binding.musicBtn.setImageResource(R.drawable.ic_music_off)
+        }
+
+        // SFX on/off
+        if (SoundManager.isSfxEnabled) {
+            binding.sfxBtn.setImageResource(R.drawable.ic_sfx)
+        } else {
+            binding.sfxBtn.setImageResource(R.drawable.ic_sfx_off)
         }
     }
 

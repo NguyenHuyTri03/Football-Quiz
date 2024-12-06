@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,14 +15,14 @@
 
         <!-- Close button -->
         <ImageButton
-            android:id="@+id/closeButton"
+            android:id="@+id/closeBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
 
-            android:src="@drawable/ic_close"
+            android:src="@drawable/ic_back"
             android:contentDescription="Close Leaderboard"
             android:backgroundTint="@color/bg_main"/>
 
@@ -50,8 +52,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".3"
+                android:paddingLeft="20dp"
 
-                android:text="Username"
+                android:text="Name"
                 android:textColor="@color/text_main"
                 android:fontFamily="@font/fredoka_medium"
                 android:textStyle="bold"
@@ -80,12 +83,106 @@
         <ListView
             android:id="@+id/leaderboardList"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="510dp"
+            android:divider="@color/transparent"
+            android:dividerHeight="10dp"
             android:layout_below="@id/scoreLayout"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="20dp"/>
 
     </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        app:layout_anchor="@id/bottomNav"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/navbar"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="20dp"
+        android:layout_marginBottom="48dp"
+        android:layout_gravity="bottom"
+        android:background="@color/bg_main"
+
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <LinearLayout
+            android:id="@+id/homeBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <ImageButton
+                android:id="@+id/homeBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+
+                android:src="@drawable/ic_home"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/btn_main"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/leaderboardBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <ImageButton
+                android:id="@+id/leaderboardBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+
+                android:src="@drawable/ic_trophy"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/text_main"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settingsBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <ImageButton
+                android:id="@+id/settingsBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+
+                android:src="@drawable/ic_settings"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/btn_main"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 

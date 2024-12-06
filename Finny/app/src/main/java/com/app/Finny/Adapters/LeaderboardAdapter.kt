@@ -21,9 +21,11 @@ class LeaderboardAdapter(
 
         val dateText = rowView.findViewById<TextView>(R.id.name)
         val scoreText = rowView.findViewById<TextView>(R.id.score)
+        val pos = rowView.findViewById<TextView>(R.id.pos)
 
         dateText.text = name[position]
         scoreText.text = score[position].toString()
+        pos.text = "${position + 1}. "
 
         return rowView
     }

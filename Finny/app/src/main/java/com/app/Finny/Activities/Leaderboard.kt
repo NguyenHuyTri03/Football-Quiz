@@ -34,15 +34,29 @@ class Leaderboard : AppCompatActivity() {
             val score = mutableListOf<Int>()
 
             players.forEach { player ->
-                name.add(player.name)
-                score.add(player.score)
+                if(player.score != 0) {
+                    name.add(player.name)
+                    score.add(player.score)
+                }
             }
 
             val leaderboardAdapter = LeaderboardAdapter(this, name, score)
             binding.leaderboardList.adapter = leaderboardAdapter
         }
 
-        binding.closeButton.setOnClickListener {
+        binding.homeBtn.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.settingsBtn.setOnClickListener {
+            val intent = Intent(this, Settings::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.closeBtn.setOnClickListener {
             finish()
         }
     }

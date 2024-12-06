@@ -22,9 +22,9 @@ class AdminHome : AppCompatActivity() {
         binding = ActivityAdminHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.userBtn.setOnClickListener {
-            startActivity(Intent(this, AdminUsers::class.java))
-        }
+//        binding.userBtn.setOnClickListener {
+//            startActivity(Intent(this, AdminUsers::class.java))
+//        }
 
         binding.questionBtn.setOnClickListener {
             startActivity(Intent(this, AdminQuestions::class.java))

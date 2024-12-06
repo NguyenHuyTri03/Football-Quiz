@@ -22,7 +22,7 @@
             android:layout_height="48dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/ic_back"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/bg_main"/>
 

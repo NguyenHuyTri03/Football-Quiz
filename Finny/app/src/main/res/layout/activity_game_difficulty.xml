@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,140 +9,392 @@
     tools:context=".Activities.GameDifficulty"
     android:background="@color/bg_main">
 
-    <ImageButton
-        android:id="@+id/closeBtn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_close"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/bg_main"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        >
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintHorizontal_bias="0.05"/>
+        <RelativeLayout
+            android:id="@+id/titleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_main"
+            android:paddingHorizontal="20dp">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
+            <ImageButton
+                android:id="@+id/closeBtn"
+                android:layout_width="48dp"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="false"
+                android:layout_centerVertical="true"
+
+                android:backgroundTint="@color/bg_main"
+                android:contentDescription="Close Leaderboard"
+                android:src="@drawable/ic_back" />
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+
+                android:text="Difficulty"
+                android:textColor="@color/text_main"
+                android:fontFamily="@font/fredoka_medium"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/difficultyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:background="@color/bg_main"
+            android:paddingHorizontal="20dp"
+            android:layout_below="@id/titleLayout"
+
+            android:layout_marginBottom="48dp"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:id="@+id/easyBtn"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:padding="10dp"
+
+                android:orientation="vertical"
+                android:background="@drawable/btn_rounded"
+                android:backgroundTint="@color/btn_easy"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_star"
+                        android:layout_weight="1"
+                        />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/easyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:text="Easy"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mediumBtn"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:padding="10dp"
+
+                android:orientation="vertical"
+                android:background="@drawable/btn_rounded"
+                android:backgroundTint="@color/btn_med"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_star"
+
+                        android:layout_gravity="right"
+                        />
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_star"
+                        />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/mediumTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:text="Medium"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/expertBtn"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:padding="10dp"
+
+                android:orientation="vertical"
+                android:background="@drawable/btn_rounded"
+                android:backgroundTint="@color/btn_hard"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_star"
+
+                        android:layout_gravity="right"
+                        />
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_star"
+                        />
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_star"
+                        />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/expertTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:text="Expert"
+                    android:fontFamily="@font/fredoka_medium"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        app:layout_anchor="@id/bottomNav"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/navbar"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="20dp"
+        android:layout_marginBottom="48dp"
+        android:layout_gravity="bottom"
+        android:background="@color/bg_main"
 
-        android:text="Difficulty"
-        android:textColor="@color/text_main"
-        android:fontFamily="@font/fredoka_medium"
-        android:textStyle="bold"
-        android:textSize="60dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="1dp"
-        android:autoSizeMaxTextSize="200dp"
-        android:textAlignment="textStart"
-        android:paddingLeft="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15"
-        />
+        <LinearLayout
+            android:id="@+id/homeBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/homeBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
 
-        android:text="Choose a difficulty to play"
-        android:textColor="@color/fade"
-        android:fontFamily="@font/fredoka_medium"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="1dp"
-        android:autoSizeMaxTextSize="200dp"
-        android:textAlignment="textStart"
-        android:paddingLeft="20dp"
+                android:src="@drawable/ic_home"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/btn_main"
+                />
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23"
-        />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/easyBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="3dp"
-        android:text="EASY"
-        android:textSize="30dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="1dp"
-        android:autoSizeMaxTextSize="200dp"
-        android:background="@drawable/btn_rounded"
-        app:backgroundTint="@color/btn_easy"
-        android:textColor="@color/text_main"
-        android:fontFamily="@font/fredoka_medium"
-        android:textStyle="bold"
+        <LinearLayout
+            android:id="@+id/leaderboardBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
 
-        app:layout_constraintDimensionRatio="6:1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45"
-        />
+            <ImageButton
+                android:id="@+id/leaderboardBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
 
-    <Button
-        android:id="@+id/mediumBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="3dp"
-        android:text="MEDIUM"
-        android:textSize="30dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="1dp"
-        android:autoSizeMaxTextSize="200dp"
-        android:background="@drawable/btn_rounded"
-        app:backgroundTint="@color/btn_med"
-        android:textColor="@color/text_main"
-        android:fontFamily="@font/fredoka_medium"
-        android:textStyle="bold"
+                android:src="@drawable/ic_trophy"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/btn_main"
+                />
 
-        app:layout_constraintDimensionRatio="6:1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55"
-        />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/expertBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingVertical="3dp"
-        android:text="EXPERT"
-        android:textSize="30dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="1dp"
-        android:autoSizeMaxTextSize="200dp"
-        android:background="@drawable/btn_rounded"
-        app:backgroundTint="@color/btn_hard"
-        android:textColor="@color/text_main"
-        android:fontFamily="@font/fredoka_medium"
-        android:textStyle="bold"
+        <LinearLayout
+            android:id="@+id/settingsBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
 
-        app:layout_constraintDimensionRatio="6:1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65"
-        />
+            <ImageButton
+                android:id="@+id/settingsBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+
+                android:src="@drawable/ic_settings"
+                android:backgroundTint="@color/bg_main"
+                app:tint="@color/btn_main"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!--    <TextView-->
+<!--        android:id="@+id/description"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:text="Choose a difficulty to play"-->
+<!--        android:textColor="@color/fade"-->
+<!--        android:fontFamily="@font/fredoka_medium"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="20dp"-->
+<!--        android:autoSizeTextType="uniform"-->
+<!--        android:autoSizeMinTextSize="1dp"-->
+<!--        android:autoSizeMaxTextSize="200dp"-->
+<!--        android:textAlignment="textStart"-->
+<!--        android:paddingLeft="20dp"-->
+
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.23"-->
+<!--        />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/easyBtn"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingVertical="3dp"-->
+<!--        android:text="EASY"-->
+<!--        android:textSize="30dp"-->
+<!--        android:autoSizeTextType="uniform"-->
+<!--        android:autoSizeMinTextSize="1dp"-->
+<!--        android:autoSizeMaxTextSize="200dp"-->
+<!--        android:background="@drawable/btn_rounded"-->
+<!--        app:backgroundTint="@color/btn_easy"-->
+<!--        android:textColor="@color/text_main"-->
+<!--        android:fontFamily="@font/fredoka_medium"-->
+<!--        android:textStyle="bold"-->
+
+<!--        app:layout_constraintDimensionRatio="6:1"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.45"-->
+<!--        />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/mediumBtn"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingVertical="3dp"-->
+<!--        android:text="MEDIUM"-->
+<!--        android:textSize="30dp"-->
+<!--        android:autoSizeTextType="uniform"-->
+<!--        android:autoSizeMinTextSize="1dp"-->
+<!--        android:autoSizeMaxTextSize="200dp"-->
+<!--        android:background="@drawable/btn_rounded"-->
+<!--        app:backgroundTint="@color/btn_med"-->
+<!--        android:textColor="@color/text_main"-->
+<!--        android:fontFamily="@font/fredoka_medium"-->
+<!--        android:textStyle="bold"-->
+
+<!--        app:layout_constraintDimensionRatio="6:1"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.55"-->
+<!--        />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/expertBtn"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingVertical="3dp"-->
+<!--        android:text="EXPERT"-->
+<!--        android:textSize="30dp"-->
+<!--        android:autoSizeTextType="uniform"-->
+<!--        android:autoSizeMinTextSize="1dp"-->
+<!--        android:autoSizeMaxTextSize="200dp"-->
+<!--        android:background="@drawable/btn_rounded"-->
+<!--        app:backgroundTint="@color/btn_hard"-->
+<!--        android:textColor="@color/text_main"-->
+<!--        android:fontFamily="@font/fredoka_medium"-->
+<!--        android:textStyle="bold"-->
+
+<!--        app:layout_constraintDimensionRatio="6:1"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.65"-->
+<!--        />-->
+
