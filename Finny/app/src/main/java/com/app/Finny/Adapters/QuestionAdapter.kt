@@ -25,28 +25,28 @@ class QuestionAdapter(
 
         val idTxt = rowView.findViewById<TextView>(R.id.questionID)
         val questionTxt = rowView.findViewById<TextView>(R.id.questionText)
-        val editBtn = rowView.findViewById<Button>(R.id.editBtn)
-        val delBtn = rowView.findViewById<Button>(R.id.deleteBtn)
+//        val editBtn = rowView.findViewById<Button>(R.id.editBtn)
+//        val delBtn = rowView.findViewById<Button>(R.id.deleteBtn)
 
         idTxt.text = id[position]
         questionTxt.text = question[position]
 
-        // Create a an logout confirmation popup
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder
-            .setTitle("Logout?")
-            // Return the user to the home screen
-            .setPositiveButton("Yes") { _, _ ->
-                auth.signOut()
-                val intent = Intent(this, Login::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                finish()
-            }
-            .setNegativeButton("No") { _, _ ->
-                exitDialog.cancel()
-            }
-        exitDialog = builder.create()
+//        // Create a an logout confirmation popup
+//        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+//        builder
+//            .setTitle("Logout?")
+//            // Return the user to the home screen
+//            .setPositiveButton("Yes") { _, _ ->
+//                auth.signOut()
+//                val intent = Intent(this, Login::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                startActivity(intent)
+//                finish()
+//            }
+//            .setNegativeButton("No") { _, _ ->
+//                exitDialog.cancel()
+//            }
+//        exitDialog = builder.create()
 
 
         return rowView
