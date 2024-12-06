@@ -30,7 +30,7 @@ class QuestionAdapter(
 
         idTxt.text = id[position]
         questionTxt.text = question[position]
-
+    
 //        // Create a an logout confirmation popup
 //        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 //        builder
