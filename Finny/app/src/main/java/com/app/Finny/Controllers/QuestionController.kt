@@ -3,14 +3,18 @@ package com.app.Finny.Controllers
 import com.app.Finny.Models.QuestionModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObjects
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-
 
 
 class QuestionController {
     // Create a firestore instance
     private val db = FirebaseFirestore.getInstance()
+
+    suspend fun createOne(difficulty: String, question: QuestionModel) {
+        db.collection("${difficulty}_questions").document(question.id)
+            .set(question).await()
+
+    }
 
     suspend fun getAllByDifficulty(difficulty: String): List<QuestionModel> {
         val questions: List<QuestionModel>
@@ -38,20 +42,23 @@ class QuestionController {
             }
         }
 
-//        println(questions)
-
         return questions
     }
 
-//    fun getOne(id: String) {
-//
-//    }
-//
-//    fun update(question: QuestionModel) {
-//
-//    }
-//
-    suspend fun delete(difficulty: String, id: String) {
+    suspend fun getOne(difficulty: String, id: String): QuestionModel {
+        var question: QuestionModel
+
+        val document = db.collection("${difficulty}_questions").document(id).get().await()
+        question = document.toObject(QuestionModel::class.java)!!
+
+        return question
+    }
+
+    fun update(question: QuestionModel) {
+
+    }
+
+    fun delete(difficulty: String, id: String) {
         db.collection("${difficulty}_questions").document(id).delete()
     }
 

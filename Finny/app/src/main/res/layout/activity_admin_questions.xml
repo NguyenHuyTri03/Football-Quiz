@@ -26,6 +26,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerVertical="true"
+                android:focusable="false"
 
                 android:src="@drawable/ic_back"
                 android:contentDescription="Close Leaderboard"
@@ -44,56 +45,59 @@
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_main"/>
+
+
         </RelativeLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/diffDropdown"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_below="@id/titleLayout"
+            android:layout_centerHorizontal="true"
+
+            app:boxBackgroundColor="@color/bg_main"
+            app:hintTextColor="@color/btn_main"
+            app:boxStrokeColor="@color/btn_main"
+            android:hint="Select question difficulty"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocompleteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/btn_main"
+                android:inputType="none"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:id="@+id/questionsLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/titleLayout"
+            android:layout_below="@+id/diffDropdown"
             android:layout_marginBottom="50dp"
             android:gravity="center"
 
             android:orientation="vertical"
             >
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/diffDropdown"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-
-                app:boxBackgroundColor="@color/bg_main"
-                app:hintTextColor="@color/btn_main"
-                app:boxStrokeColor="@color/btn_main"
-                android:hint="Select question difficulty"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
-                
-                <AutoCompleteTextView
-                    android:id="@+id/autocompleteText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/btn_main"
-                    android:inputType="none"/>
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
             <ListView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:smoothScrollbar="true"
 
                 android:divider="@color/transparent"
                 android:dividerHeight="15dp" />
-
         </LinearLayout>
+
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/score"
+        android:id="@+id/addBtn"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:background="@drawable/circle"

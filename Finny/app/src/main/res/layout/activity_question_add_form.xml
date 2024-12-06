@@ -1,0 +1,274 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:padding="16dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".Activities.QuestionAddForm">
+
+        <ImageButton
+            android:id="@+id/closeBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+
+            android:src="@drawable/ic_back"
+            android:contentDescription="Close Leaderboard"
+            android:backgroundTint="@color/bg_main"/>
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+
+            android:text="New Question"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/text_main"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/formLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleLayout"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
+
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/diffDropdown"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+
+            app:boxBackgroundColor="@color/bg_main"
+            app:hintTextColor="@color/btn_main"
+            app:boxStrokeColor="@color/btn_main"
+            android:hint="Select question difficulty"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocompleteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/btn_main"
+                android:inputType="none"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/questionTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/questionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:text="Question"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/text_main"
+                />
+
+            <EditText
+                android:id="@+id/questionTextInput"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+
+                android:hint="question goes here"
+                android:textSize="20dp"
+                android:inputType="text"
+                android:textColorHint="@color/fade"
+                android:textColor="@color/text_main"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/optionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/optionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:text="Options"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/text_main"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/optionInput1"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:hint="option1"
+                    android:textSize="20dp"
+                    android:inputType="text"
+                    android:textColorHint="@color/fade"
+                    android:textColor="@color/text_main"
+                    />
+
+                <EditText
+                    android:id="@+id/optionInput2"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+
+                    android:hint="option2"
+                    android:inputType="text"
+                    android:textColor="@color/text_main"
+                    android:textColorHint="@color/fade"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/optionInput3"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+
+                android:hint="option3"
+                android:textColorHint="@color/fade"
+                android:inputType="text"
+                android:textColor="@color/text_main"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/correctText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:text="Correct option"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/text_main"
+                    />
+
+                <EditText
+                    android:id="@+id/correctInput"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+
+                    android:hint="correct option"
+                    android:inputType="text"
+                    android:textColor="@color/text_main"
+                    android:textColorHint="@color/fade"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/imageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/imgUrlText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:text="Image URL"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/text_main"
+                    />
+
+                <EditText
+                    android:id="@+id/imgUrlInput"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:scrollHorizontally="true"
+
+                    android:textColorHint="@color/fade"
+                    android:hint="img link"
+                    android:textSize="20dp"
+                    android:inputType="text"
+                    android:textColor="@color/text_main"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:orientation="vertical"
+            >
+
+            <Button
+                android:id="@+id/addBtn"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="20dp"
+
+                android:text="Add"
+                android:textSize="30dp"
+                android:textStyle="bold"
+
+                android:background="@drawable/btn_rounded"
+                app:backgroundTint="@color/btn_med"
+                android:textColor="@color/text_main"
+                android:fontFamily="@font/fredoka_medium"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

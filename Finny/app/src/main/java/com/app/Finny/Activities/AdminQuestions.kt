@@ -1,5 +1,6 @@
 package com.app.Finny.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -27,10 +28,15 @@ class AdminQuestions : AppCompatActivity() {
         binding = ActivityAdminQuestionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.closeBtn.setOnClickListener {
             finish()
         }
+
+        binding.addBtn.setOnClickListener {
+            val intent = Intent(this, QuestionAddForm::class.java)
+            startActivity(intent)
+        }
+
         dropdownInit()
     }
 
@@ -44,38 +50,37 @@ class AdminQuestions : AppCompatActivity() {
         var optionAdapter = ArrayAdapter(this, R.layout.admin_question_diff_select, options)
 
         autoCompleteTextView.setAdapter(optionAdapter)
-        autoCompleteTextView.setOnItemClickListener() { adapterView, view, position, id ->
-            val itemAtPos = adapterView.getItemAtPosition(position)
-            getQuestionsAndBind(itemAtPos.toString())
+        autoCompleteTextView.setOnItemClickListener { diffView, _, pos, _ ->
+            val diffAtPos = diffView.getItemAtPosition(pos).toString()
+
+            val channel = Channel<List<QuestionModel>>()
+            GlobalScope.launch {
+                val data = questionController.getAllByDifficulty(diffAtPos)
+
+                channel.send(data)
+            }
+            runBlocking {
+                questionList = channel.receive()
+            }
+
+            var questionIDList = mutableListOf<String>()
+            var questionTextList = mutableListOf<String>()
+
+            questionList.forEach { question ->
+                questionIDList.add(question.id)
+                questionTextList.add(question.question)
+            }
+
+            val questionAdapter = QuestionAdapter(this, questionIDList, questionTextList)
+            binding.list.adapter = questionAdapter
+            binding.list.setOnItemClickListener { adapterView, _, position, _ ->
+                val questionId = adapterView.getItemAtPosition(position).toString()
+                val intent = Intent(this, QuestionForm::class.java)
+                intent.putExtra("difficulty", diffAtPos)
+                intent.putExtra("id", questionId)
+                startActivity(intent)
+            }
+
         }
-    }
-
-    private fun getQuestionsAndBind(difficulty: String) {
-        val channel = Channel<List<QuestionModel>>()
-        GlobalScope.launch {
-            val data = questionController.getAllByDifficulty(difficulty)
-
-            channel.send(data)
-        }
-        runBlocking {
-            questionList = channel.receive()
-        }
-
-        var questionIDList = mutableListOf<String>()
-        var questionTextList = mutableListOf<String>()
-
-        questionList.forEach { question ->
-            questionIDList.add(question.id)
-            questionTextList.add(question.question)
-        }
-
-        val questionAdapter = QuestionAdapter(this, questionIDList, questionTextList)
-        binding.list.adapter = questionAdapter
-
-//        binding.list.setOnItemClickListener() { adapterView, view, position, id ->
-////        var questionBinding = CustomQuestionListBinding.inflate(layoutInflater)
-//
-//            val
-//        }
     }
 }

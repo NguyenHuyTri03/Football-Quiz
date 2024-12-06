@@ -15,10 +15,13 @@
         android:theme="@style/Theme.Quizapp"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.Tutorial"
+            android:name=".Activities.QuestionAddForm"
             android:exported="false" />
         <activity
-            android:name=".Activities.UpdateTemplate"
+            android:name=".Activities.QuestionForm"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Tutorial"
             android:exported="false" />
         <activity
             android:name=".Activities.AdminHome"

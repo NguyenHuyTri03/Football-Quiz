@@ -7,6 +7,7 @@
     android:paddingVertical="10dp"
     android:background="@drawable/btn_rounded"
     android:backgroundTint="#F2352E46"
+    android:descendantFocusability="blocksDescendants"
     >
 
     <LinearLayout
@@ -18,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="0.4">
+            android:layout_weight="0.2">
 
             <TextView
                 android:id="@+id/questionID"
@@ -35,7 +36,7 @@
 
             <TextView
                 android:id="@+id/questionText"
-                android:layout_width="180dp"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_medium"
 
@@ -53,26 +54,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_weight="0.8"
+            android:layout_weight="0.9"
             android:gravity="right"
             >
 
             <ImageButton
-                android:id="@+id/editBtn"
+                android:id="@+id/viewBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
 
-                android:src="@drawable/ic_edit"
-                android:backgroundTint="@color/transparent"
-                />
-
-            <ImageButton
-                android:id="@+id/deleteBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginLeft="10dp"
-
-                android:src="@drawable/ic_delete"
+                android:src="@drawable/ic_visible"
                 android:backgroundTint="@color/transparent"
                 />
 
