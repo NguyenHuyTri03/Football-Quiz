@@ -30,19 +30,16 @@
 
 ## Game
   **- Level: Easy**
-  + Thời gian tổng: 3,75 phút
-  + 15 câu hỏi
-  + 15s/câu hỏi
+  + Thời gian tổng: 60s
+  + 5 câu hỏi
 
   **- Level: Normal**
-  + Thời gian tổng: 3,75 phút
-  + 15 câu hỏi
-  + 15s/câu hỏi
+  + Thời gian tổng: 60s
+  + 5 câu hỏi
 
   **- Level: Hard**
-  + Thời gian tổng: 3,75 phút
-  + 15 câu hỏi
-  + 15s/câu hỏi
+  + Thời gian tổng: 60s
+  + 5 câu hỏi
 
 ## MISC
 
