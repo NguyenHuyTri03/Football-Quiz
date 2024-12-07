@@ -54,8 +54,8 @@ class QuestionController {
         return question
     }
 
-    fun update(question: QuestionModel) {
-
+    fun update(difficulty: String, question: QuestionModel) {
+        db.collection("${difficulty}_question").document(question.id).set(question)
     }
 
     fun delete(difficulty: String, id: String) {
