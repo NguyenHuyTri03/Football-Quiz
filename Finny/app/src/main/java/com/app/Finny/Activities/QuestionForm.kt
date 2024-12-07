@@ -56,7 +56,7 @@ class QuestionForm : AppCompatActivity() {
         // Create a an delete confirmation popup
         val delBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         delBuilder
-            .setTitle("Exit game?")
+            .setTitle("Delete game?")
             // Return the admin to the question list
             .setPositiveButton("Yes") { _, _ ->
                 questionController.delete(difficulty, id)
@@ -78,10 +78,10 @@ class QuestionForm : AppCompatActivity() {
         // Create a an update confirmation popup
         val updateBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         updateBuilder
-            .setTitle("Exit game?")
+            .setTitle("Update question?")
             // Return the user to the question list
             .setPositiveButton("Yes") { _, _ ->
-                questionController.update(difficulty, getDataFromInput(id))
+                questionController.update(difficulty, getDataFromInput(id, question))
                 startActivity(Intent(this, AdminQuestions::class.java))
 
                 Toast.makeText(
@@ -90,7 +90,7 @@ class QuestionForm : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                finish()
+//                finish()
             }
             .setNegativeButton("No") { _, _ ->
                 updateDialog.cancel()
@@ -110,30 +110,39 @@ class QuestionForm : AppCompatActivity() {
         }
     }
 
-    private fun getDataFromInput(id: String): QuestionModel {
-        val questionText = binding.questionTextInput.text.toString()
-        val imageUrl = binding.imgUrlInput.text.toString()
-        val correct = binding.correctInput.text.toString()
-        val options = mutableListOf<String>()
-        options.add(binding.optionInput1.text.toString())
-        options.add(binding.optionInput2.text.toString())
-        options.add(binding.optionInput3.text.toString())
-        options.add(binding.correctInput.text.toString())
+    private fun getDataFromInput(id: String, currentQuestion: QuestionModel): QuestionModel {
+        // Get new data to update
+        var newQuestionText = binding.questionTextInput.text.toString()
+        var newImageUrl = binding.imgUrlInput.text.toString()
+        var newCorrect = binding.correctInput.text.toString()
+        var newOptions = mutableListOf<String>()
+        newOptions.add(binding.optionInput1.text.toString())
+        newOptions.add(binding.optionInput2.text.toString())
+        newOptions.add(binding.optionInput3.text.toString())
+        newOptions.add(binding.correctInput.text.toString())
 
-        var question = QuestionModel()
-
-        if(questionText != "" && imageUrl != ""
-            && correct != "" && options[0] != ""
-            && options[1] != "" && options[2] != "") {
-            question = QuestionModel(
-                id,
-                imageUrl,
-                questionText,
-                options,
-                correct
-            )
-
+        if(newQuestionText == "") {
+            newQuestionText = currentQuestion.question
         }
+        if(newImageUrl == "") {
+            newImageUrl = currentQuestion.image_url
+        }
+        if(newCorrect == "") {
+            newCorrect = currentQuestion.correct
+        }
+        newOptions.forEach { option ->
+            if(option == "") {
+                newOptions[newOptions.indexOf(option)] = currentQuestion.options[newOptions.indexOf(option)]
+            }
+        }
+
+        val question = QuestionModel(
+            id,
+            newImageUrl,
+            newQuestionText,
+            newOptions,
+            newCorrect
+        )
 
         return question
     }

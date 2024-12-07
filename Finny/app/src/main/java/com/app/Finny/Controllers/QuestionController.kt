@@ -55,7 +55,12 @@ class QuestionController {
     }
 
     fun update(difficulty: String, question: QuestionModel) {
-        db.collection("${difficulty}_question").document(question.id).set(question)
+        val colRef = db.collection("${difficulty}_questions")
+
+        colRef.document(question.id).update("question", question.question)
+        colRef.document(question.id).update("correct", question.correct)
+        colRef.document(question.id).update("image_url", question.image_url)
+        colRef.document(question.id).update("options", question.options)
     }
 
     fun delete(difficulty: String, id: String) {

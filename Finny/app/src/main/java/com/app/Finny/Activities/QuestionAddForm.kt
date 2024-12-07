@@ -33,7 +33,7 @@ class QuestionAddForm : AppCompatActivity() {
         binding = ActivityQuestionAddFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var docSize = 0
+        var lastId = 0
         var id = ""
         val diff = mutableListOf<String>()
         diff.add("easy")
@@ -52,48 +52,59 @@ class QuestionAddForm : AppCompatActivity() {
             val channel = Channel<Int>()
             GlobalScope.launch {
                 val data = questionController.getAllByDifficulty(diffAtPos)
-                val size = data.size
+                val id = data[data.lastIndex].id
 
-                channel.send(size)
+                channel.send(id.split("_")[1].toInt())
             }
             runBlocking {
-                docSize = channel.receive()
+                lastId = channel.receive()
             }
 
             id = if(difficulty == "medium") {
-                "norm_${docSize + 1}"
+                "norm_${lastId + 1}"
             } else {
-                "${difficulty}_${docSize + 1}"
+                "${difficulty}_${lastId + 1}"
             }
         }
 
-        val options = mutableListOf<String>()
-        val questionText = binding.questionTextInput.text
-        val correct = binding.correctInput.text
-        val imgUrl = binding.imgUrlInput.text
-        var processedUrl = ""
+        var options = mutableListOf<String>()
+        var questionText: String
+        var correct: String
+        var imgUrl: String
+        var processedUrl: String
+        var option1: String
+        var option2: String
+        var option3 : String
 
-        val option1 = binding.optionInput1.text.toString()
-        val option2 = binding.optionInput2.text.toString()
-        val option3 = binding.optionInput3.text.toString()
-        options.add(option1)
-        options.add(option2)
-        options.add(option3)
+
 
         binding.addBtn.setOnClickListener {
-            if(imgUrl.toString() != "") {
+            options = mutableListOf<String>()
+            questionText = binding.questionTextInput.text.toString()
+            correct = binding.correctInput.text.toString()
+            imgUrl = binding.imgUrlInput.text.toString()
+            processedUrl = ""
+            option1 = binding.optionInput1.text.toString()
+            option2 = binding.optionInput2.text.toString()
+            option3 = binding.optionInput3.text.toString()
+            options.add(option1)
+            options.add(option2)
+            options.add(option3)
+            options.add(correct)
+
+            if(imgUrl != "") {
                 processedUrl = processImgUrl(imgUrl.toString())
             }
 
-            if(questionText != null && option1 != null
-                && option2 != null && option3 != null
-                && correct != null) {
+            if(questionText != "" && option1 != ""
+                && option2 != "" && option3 != ""
+                && correct != "") {
                 val question = QuestionModel(
                     id,
                     processedUrl,
-                    questionText.toString(),
+                    questionText,
                     options,
-                    correct.toString()
+                    correct
                 )
 
                 val msg = Toast.makeText(
@@ -115,7 +126,7 @@ class QuestionAddForm : AppCompatActivity() {
         }
     }
 
-    fun processImgUrl(url: String): String {
+    private fun processImgUrl(url: String): String {
         var image:Bitmap?
         val executor = Executors.newSingleThreadExecutor()
         var bitmap = ""
