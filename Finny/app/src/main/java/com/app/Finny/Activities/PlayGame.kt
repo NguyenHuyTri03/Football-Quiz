@@ -2,6 +2,7 @@
 
 package com.app.Finny.Activities
 
+import android.animation.ValueAnimator
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -46,6 +47,7 @@ class PlayGame : AppCompatActivity() {
     private val totalTime = questionTime * 1000L
     private var timer = object : CountDownTimer(totalTime,1000L){
         override fun onTick(millisUntilFinished: Long) {
+
             val seconds = (millisUntilFinished / 1000).toDouble()
             timeTaken++
             binding.progressBar.progress = (100 - ((seconds/totalTime) * 100000)).toInt()
@@ -135,8 +137,6 @@ class PlayGame : AppCompatActivity() {
         }
         runBlocking {
             qList = channel.receive()
-
-
         }
 
         val randomNumbers = mutableSetOf<Int>()
@@ -154,10 +154,16 @@ class PlayGame : AppCompatActivity() {
             imageBitmapList.add(decodedImage)
         }
 
-
+//        val animator = ValueAnimator.ofInt(0, 100)
+//        animator.duration = 60000
+//        animator.addUpdateListener { animation ->
+//            val progress = animation.animatedValue as Int
+//            binding.progressBar.progress = progress
+//        }
 
         putQuestion()
         timer.start()
+//        animator.start()
     }
 
     private fun putQuestion() {
@@ -194,7 +200,6 @@ class PlayGame : AppCompatActivity() {
         answers.add(answer)
 
         val remainTime = (questionTime - timeTaken).toLong()
-//        timerManager("pause", remainTime)
         // Delay 2000ms for the player to let the user review the question
         Handler(Looper.getMainLooper()).postDelayed({
             questionIndex++
@@ -271,7 +276,6 @@ class PlayGame : AppCompatActivity() {
     }
 
     private fun endQuiz() {
-//        timerManager("stop", 0)
         timer.cancel()
 
         // number of correct answers
