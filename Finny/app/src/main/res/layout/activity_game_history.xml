@@ -54,7 +54,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_weight=".6">
+                    android:layout_weight=".45">
 
                     <TextView
                         android:id="@+id/date"
@@ -189,7 +189,7 @@
 
                 android:src="@drawable/ic_trophy"
                 android:backgroundTint="@color/bg_main"
-                app:tint="@color/text_main"
+                app:tint="@color/btn_main"
                 />
 
         </LinearLayout>

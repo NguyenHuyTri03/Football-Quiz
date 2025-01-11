@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight=".6">
+        android:layout_weight=".45">
 
         <TextView
             android:id="@+id/date"
@@ -29,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight=".5">
+        android:layout_weight=".6">
 
         <TextView
             android:id="@+id/difficulty"
@@ -55,13 +55,15 @@
             android:id="@+id/score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingLeft="20dp"
 
             android:text="score"
             android:textColor="@color/fade"
             android:fontFamily="@font/fredoka_medium"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:textAlignment="textEnd"
+            android:autoSizeTextType="uniform"
+            android:textAlignment="center"
             />
     </LinearLayout>
 </LinearLayout>

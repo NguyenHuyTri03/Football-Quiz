@@ -45,6 +45,8 @@ class GameDifficulty : AppCompatActivity() {
     }
 
     private fun playBinding() {
+        binding.title.text = "Difficulty"
+
         binding.easyBtn.setOnClickListener {
             SoundManager.playSFX(this, "answer_click")
             startGame("easy")
@@ -60,7 +62,7 @@ class GameDifficulty : AppCompatActivity() {
     }
 
     private fun leaderboardBinding() {
-
+        binding.title.text = "Leaderboard"
 
         binding.easyBtn.setOnClickListener {
             SoundManager.playSFX(this, "answer_click")

@@ -38,7 +38,24 @@ class GameHistory : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.closeBtn.setOnClickListener {
+            finish()
+        }
+
+        binding.settingsBtn.setOnClickListener {
+            val intent = Intent(this, Settings::class.java)
+            startActivity(intent)
+        }
+
+        binding.homeBtn.setOnClickListener {
             val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+
+        binding.leaderboardBtn.setOnClickListener {
+            SoundManager.playSFX(this, "answer_click")
+
+            val intent = Intent(this, GameDifficulty::class.java)
+            intent.putExtra("option", "leaderboard")
             startActivity(intent)
         }
 
@@ -60,7 +77,7 @@ class GameHistory : AppCompatActivity() {
 
         historyList.forEach { history ->
             dateList.add(history.date.split(" ")[0])
-            difficultyList.add(history.difficulty)
+            difficultyList.add(history.difficulty.replaceFirstChar { it.uppercase() })
             scoreList.add(history.score)
         }
 

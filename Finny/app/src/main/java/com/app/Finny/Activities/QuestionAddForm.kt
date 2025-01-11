@@ -76,8 +76,6 @@ class QuestionAddForm : AppCompatActivity() {
         var option2: String
         var option3 : String
 
-
-
         binding.addBtn.setOnClickListener {
             options = mutableListOf<String>()
             questionText = binding.questionTextInput.text.toString()

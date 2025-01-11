@@ -82,7 +82,7 @@
         android:layout_margin="10dp"
         tools:ignore="TouchTargetSizeCheck"
 
-        app:layout_constraintDimensionRatio="5.6:1"
+        app:layout_constraintDimensionRatio="6.5:1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
