@@ -28,6 +28,8 @@ class AdminQuestions : AppCompatActivity() {
         binding = ActivityAdminQuestionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.diffDropdown
+
         binding.closeBtn.setOnClickListener {
             finish()
         }

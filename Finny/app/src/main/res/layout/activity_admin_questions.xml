@@ -56,7 +56,6 @@
             android:layout_margin="16dp"
             android:layout_below="@id/titleLayout"
             android:layout_centerHorizontal="true"
-
             app:boxBackgroundColor="@color/bg_main"
             app:hintTextColor="@color/btn_main"
             app:boxStrokeColor="@color/btn_main"
