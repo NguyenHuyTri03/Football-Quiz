@@ -67,28 +67,38 @@
         app:layout_constraintVertical_bias="0.08"
         app:srcCompat="@drawable/corgi_scarf" />
 
-    <EditText
-        android:id="@+id/email"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:autofillHints="emailAddress"
-        android:hint="Email"
-        android:fontFamily="@font/fredoka_medium"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/text_main"
-        android:textColorHint="@color/fade"
-        android:textSize="18dp"
-        android:padding="15dp"
-        android:layout_margin="10dp"
-        tools:ignore="TouchTargetSizeCheck"
+        android:orientation="horizontal"
 
-        app:layout_constraintDimensionRatio="6.5:1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.48"
-    />
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:autofillHints="emailAddress"
+            android:hint="Email"
+            android:fontFamily="@font/fredoka_medium"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/text_main"
+            android:textColorHint="@color/fade"
+            android:textSize="18dp"
+            android:padding="15dp"
+            tools:ignore="TouchTargetSizeCheck"
+
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -101,8 +111,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.58"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         >
 
         <EditText
@@ -119,7 +129,6 @@
             android:padding="15dp"
             tools:ignore="TouchTargetSizeCheck"
 
-            app:layout_constraintDimensionRatio="5.6:1"
             android:layout_weight="0.8"
             />
 

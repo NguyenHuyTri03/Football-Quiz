@@ -1,5 +1,7 @@
 package com.app.Finny.Activities
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -19,6 +21,7 @@ import java.util.concurrent.Executors
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base64
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.widget.Toast
 
 class QuestionAddForm : AppCompatActivity() {
@@ -91,7 +94,7 @@ class QuestionAddForm : AppCompatActivity() {
             options.add(correct)
 
             if(imgUrl != "") {
-                processedUrl = processImgUrl(imgUrl.toString())
+                processedUrl = processImgUrl(imgUrl)
             }
 
             if(questionText != "" && option1 != ""
@@ -111,11 +114,20 @@ class QuestionAddForm : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 )
 
+
+
                 runBlocking {
                     questionController.createOne(difficulty, question)
                     msg.show()
                 }
+                startActivity(Intent(this, AdminQuestions::class.java))
                 finish()
+            } else {
+                Toast.makeText(
+                    baseContext,
+                    "Please fill out all of the fields",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
